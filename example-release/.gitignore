@@ -6,3 +6,5 @@ releases/example-release/*.tgz
 config/dev.yml
 config/private.yml
 deployment.yml
+.final_builds/jobs/**/*.tgz
+.final_builds/packages/**/*.tgz
