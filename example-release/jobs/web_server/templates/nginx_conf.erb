@@ -1,0 +1,27 @@
+pid   /var/vcap/sys/run/web_server/pid;
+user  vcap vcap;
+
+events {
+  worker_connections  1024;
+}
+
+http {
+  include   mime.types;
+
+  access_log  /var/vcap/sys/log/web_server/access.log;
+  error_log   /var/vcap/sys/log/web_server/error.log;
+
+  sendfile    on;
+  tcp_nopush  on;
+  tcp_nodelay on;
+
+  keepalive_timeout  65;
+
+  server {
+    listen 80;
+
+    location / {
+      root /var/vcap/jobs/web_server/pages;
+    }
+  }
+}

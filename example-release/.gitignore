@@ -1,0 +1,7 @@
+.blobs/*
+.dev_builds/*
+blobs/*
+dev_releases/*
+releases/example-release/*.tgz
+config/*
+deployment.yml

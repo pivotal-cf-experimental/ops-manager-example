@@ -1,0 +1,29 @@
+#!/bin/bash
+
+RUN_DIR=/var/vcap/sys/run/web_server
+LOG_DIR=/var/vcap/sys/log/web_server
+JOB_DIR=/var/vcap/jobs/web_server
+PIDFILE=$RUN_DIR/web_server.pid
+
+case $1 in
+  start)
+    mkdir -p $RUN_DIR
+    mkdir -p $LOG_DIR
+
+    echo $$ > $PIDFILE
+
+    exec /var/vcap/packages/nginx/sbin/nginx \
+      -c $JOB_DIR/config/nginx.conf
+    ;;
+
+  stop)
+    kill -9 `cat $PIDFILE`
+
+    rm -f $PIDFILE
+    ;;
+
+  *)
+    echo "Usage: nginx_ctl {start|stop}"
+  ;;
+
+esac
