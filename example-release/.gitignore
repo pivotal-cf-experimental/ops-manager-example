@@ -3,5 +3,6 @@
 blobs/*
 dev_releases/*
 releases/example-release/*.tgz
-config/*
+config/dev.yml
+config/private.yml
 deployment.yml
