@@ -1,9 +1,9 @@
 ---
 nginx/nginx-1.6.2.tar.gz:
-  object_id: 7a23f625-4679-4706-8b16-9aa6c7fdeacc
+  object_id: 32aadc8b-a09f-4dae-8623-496915751b99
   sha: 1a5458bc15acf90eea16353a1dd17285cf97ec35
   size: 804164
 nginx/pcre-8.36.tar.gz:
-  object_id: 919cd210-def8-471c-987b-801f28c0c1bb
+  object_id: 8b68269e-a06e-404d-80b5-95a4665166ed
   sha: fb537757756818133d8157ec878bc11f5a93ef4d
   size: 2009464
