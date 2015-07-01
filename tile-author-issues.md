@@ -4,6 +4,7 @@
 
 ## How should a product be packaged?
 
+1. A simple ASCII tree documenting the expected directory structure would be helpful.
 1. The following is very hard to understand:
   > Note that the `reference: .snapshots key-value pair` in the `property_inputs` section of the `redis_snapshotting_collection` references [9a], a global `property_blueprints` section. This `property_blueprints` section describes the global `.snapshots` collection property, and not the `property_blueprints` on a `job_type`.
 1. Regarding `static_ip` / `dynamic_ip` => we should stop having two booleans for one (they are not on sale)
@@ -24,8 +25,14 @@
   > requires_cpi is never explained
 1. Job types section is unclear about what the entries mean, `resource_label`, `job_templates`,
  `release`
+1. No mention is made of the fact that `resource_definitions` are all required.
+1. No mention is made of the fact that `rank` is required.
+1. No mention is made of the fact that `product_version` and `release: > version:`  must be strings.
 1. Metadata v1.5 replaces `job_types: > job_templates:` with `job_types: > templates:`
-  * `templates` are now a hash containing `name:` and `release:`
+  	a. `templates` are now a hash containing `name:` and `release:`
+  	a. `job_types: > releases:` key is gone, moved into ^
+1. In sections 11 - 17 it is not clear that `property_blueprints` are being discussed (and not some top-level property of e.g. `job_types`.
 1. `instance_definitions` is unnecessarily complex, being an array suggest that we can have many.
-1. `property_blueprints` contain a `vm_credentials`. There is no indication that this is required - it is. Nor is there an indication that the `default` for `identity` must be `vcap` - this is because bosh does not allow the VM user to be set.
-
+1. `property_blueprints` contain a `vm_credentials`. There is no indication that this is required - it is but there is no warning until hitting "Apply Changes for the first time. There is no indication that the `default` for `identity` must be `vcap` - this is because bosh does not allow the VM user to be set.
+1. How does `optional` interact with `configurable`
+1. Does a product manifest have to have a `compilation` `job_type`?
