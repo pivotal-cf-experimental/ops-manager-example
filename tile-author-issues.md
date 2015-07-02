@@ -14,6 +14,7 @@
   > Properties that you need to put in your BOSH manifest, underneath the appropriate job, are created here. 
 1. This numbering seems out of date. `post_deploy_errand` is #6 in the list.
   > This must correspond to the `post_deploy_errand` listed in #7 above.
+1. We're writing the 1.4 version with stemcell 2865.1, where are consumers of this exercise going to find this older stemcell?
 
 ## More on Product Templates - Property Blueprints
 1. Should 'type' be `property_blueprint`?
@@ -36,3 +37,15 @@
 1. `property_blueprints` contain a `vm_credentials`. There is no indication that this is required - it is but there is no warning until hitting "Apply Changes for the first time. There is no indication that the `default` for `identity` must be `vcap` - this is because bosh does not allow the VM user to be set.
 1. How does `optional` interact with `configurable`
 1. Does a product manifest have to have a `compilation` `job_type`?
+1. The credentials section doesn't explain very well that `Generates: something` means the property blueprint cannot be modified.
+1. Accessors are not explained in a way that makes it obvious how they function in relation to the release job specs.
+1. We did not know what syntax to put for a default property of type `string_list`.
+    a. `'a,list,of,stings'`
+    a. `['an','array','of'...]`
+1. `dropdown_select` and `multi_select_options` options entries do not state that `name` and `label` are both required.
+
+
+## More on Product Templates - Manifest
+
+1. Docs assume people are familiar with spiff syntax, tile authors who are not as familiar with cloud foundry may be confused.
+1. The note about .erb syntax is no longer valid, remove it.

@@ -11,8 +11,8 @@ stemcell_criteria:
   version: "2865.1" #Bosh stemcell for 1.4.0
 releases:
   - name: example-release
-    file: example-release-1.tgz
-    version: "1"
+    file: example-release-2.tgz
+    version: "2"
 
 job_types:
   - name: web_server
@@ -50,6 +50,156 @@ job_types:
         type: salted_credentials
         default:
           identity: vcap
+      - name: generated_rsa_cert_credentials
+        type: rsa_cert_credentials
+      - name: generated_rsa_pkey_credentials
+        type: rsa_pkey_credentials
+      - name: generated_salted_credentials
+        type: salted_credentials
+      - name: generated_simple_credentials
+        type: simple_credentials
+      - name: generated_secret
+        type: secret
+      - name: generated_uuid
+        type: uuid
+      - name: example_string
+        type: string
+        configurable: false
+        default: 'Hello world'
+      - name: example_integer
+        type: integer
+        configurable: false
+        default: 1
+      - name: example_boolean
+        type: boolean
+        configurable: false
+        default: true
+      - name: example_dropdown
+        type: dropdown_select
+        configurable: false
+        default: kiwi
+        options:
+          - name: kiwi
+            label: 'label for kiwi'
+          - name: lime
+            label: 'label for lime'
+          - name: avocado
+            label: 'label for avocado'
+      - name: example_domain
+        type: domain
+        configurable: false
+        default: www.example.com
+      - name: example_wildcard_domain
+        type: wildcard_domain
+        configurable: false
+        default: '*.example.com'
+      - name: example_string_list
+        type: string_list
+        configurable: false
+        default: 'a,list,of,strings'
+      - name: example_text
+        type: text
+        configurable: false
+        default: 'some_text'
+      - name: example_ldap_url
+        type: ldap_url
+        configurable: false
+        default: 'ldap://example.com'
+      - name: example_email
+        type: email
+        configurable: false
+        default: foo@example.com
+      - name: example_http_url
+        type: http_url
+        configurable: false
+        default: 'http://www.example.com'
+      - name: example_ip_address
+        type: ip_address
+        configurable: false
+        default: '192.168.0.1'
+      - name: example_ip_ranges
+        type: ip_ranges
+        configurable: false
+        default: '1.1.1.1-1.1.1.4,2.2.2.1-2.2.2.4'
+      - name: example_multi_select_options
+        type: multi_select_options
+        configurable: false
+        default: ['earth', 'jupiter']
+        options:
+          - name: mercury
+            label: 'label f or mercury'
+          - name: venus
+            label: 'label for venus'
+          - name: earth
+            label: 'label for earth'
+          - name: mars
+            label: 'label for mars'
+          - name: jupiter
+            label: 'label for jupiter'
+          - name: saturn
+            label: 'label for saturn'
+          - name: uranus
+            label: 'label for uranus'
+          - name: neptune
+            label: 'label for neptune'
+      - name: example_network_address_list
+        type: network_address_list
+        configurable: false
+        default: '1.1.1.1,example.com,foo.bar.example.com'
+      - name: example_network_address
+        type: network_address
+        configurable: false
+        default: '1.1.1.1'
+      - name: example_port
+        type: port
+        configurable: false
+        default: 1111
+      - name: example_smtp_authentication
+        type: smtp_authentication
+        configurable: false
+        default: plain
+    manifest: |
+      generated:
+        rsa_cert_credentials:
+          public_key_pem: (( generated_rsa_cert_credentials.public_key_pem ))
+          cert_and_private_key_pems: (( generated_rsa_cert_credentials.cert_and_private_key_pems ))
+        rsa_pkey_credentials:
+          public_key_pem: (( generated_rsa_pkey_credentials.public_key_pem ))
+          private_key_pem: (( generated_rsa_pkey_credentials.private_key_pem ))
+          public_key_openssh: (( generated_rsa_pkey_credentials.public_key_openssh ))
+        salted_credentials:
+          sha512_hashed_password: (( generated_salted_credentials.sha512_hashed_password ))
+          identity: (( generated_salted_credentials.identity ))
+          salt: (( generated_salted_credentials.salt ))
+          password: ((  generated_salted_credentials.password ))
+        simple_credentials:
+          identity: (( generated_simple_credentials.identity ))
+          password: (( generated_simple_credentials.password ))
+        secret: (( generated_secret.value ))
+        uuid: (( generated_uuid.value ))
+      configured:
+        string: (( example_string.value ))
+        integer: (( example_integer.value ))
+        boolean: (( example_boolean.value ))
+        dropdown: (( example_dropdown.value ))
+        domain: (( example_domain.value ))
+        wildcard_domain: (( example_wildcard_domain.value ))
+        string_list: (( example_string_list.value ))
+        text: (( example_text.value ))
+        ldap_url: (( example_ldap_url.value ))
+        email: (( example_email.value ))
+        http_url: (( example_http_url.value ))
+        ip_address: (( example_ip_address.value ))
+        ip_ranges:
+          value: (( example_ip_ranges.value ))
+          parsed_ip_ranges: (( example_ip_ranges.parsed_ip_ranges ))
+        multi_select_options: (( example_multi_select_options.value ))
+        network_address_list:
+          value: (( example_network_address_list.value ))
+          parsed_network_addresses: (( example_network_address_list.parsed_network_addresses ))
+        network_address: (( example_network_address.value ))
+        port: (( example_port.value ))
+        smtp_authentication: (( example_smtp_authentication.value ))
   - name: compilation
     resource_label: compilation
     static_ip: 0
