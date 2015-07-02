@@ -1,4 +1,7 @@
 # Concerns/Observations
+
+- **There is no section on creating forms**
+
 ## Assumptions/What is Ops Manager
 1. Assumptions say: we expect you to know ops-manager; following section: what is ops-manager. do we need the 'what is ops man?' should we redirect to another page to reinforce those assumptions?
 
@@ -49,3 +52,7 @@
 
 1. Docs assume people are familiar with spiff syntax, tile authors who are not as familiar with cloud foundry may be confused.
 1. The note about .erb syntax is no longer valid, remove it.
+
+## Product Package - Product Templates
+
+1. The code snippet next to #[8] which is currently: `- reference: redis.password` should be: `- reference: .redis.password`

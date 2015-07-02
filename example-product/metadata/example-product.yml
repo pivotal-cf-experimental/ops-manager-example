@@ -13,7 +13,65 @@ releases:
   - name: example-release
     file: example-release-2.tgz
     version: "2"
-
+form_types:
+  - name: example-form
+    label: Configurable Properties
+    description: All the properties that you can configure!
+    property_inputs:
+      - reference: .web_server.example_string
+        label: Example string
+        description: 'Configure a property of type string'
+      - reference: .web_server.example_integer
+        label: Example integer
+        description: 'Configure a property of type integer'
+      - reference: .web_server.example_boolean
+        label: Example boolean
+        description: 'Configure a property of type boolean'
+      - reference: .web_server.example_dropdown
+        label: Example dropdown
+        description: 'Configure a property of type dropdown'
+      - reference: .web_server.example_domain
+        label: Example domain
+        description: 'Configure a property of type domain'
+      - reference: .web_server.example_wildcard_domain
+        label: Example wildcard_domain
+        description: 'Configure a property of type wildcard_domain'
+      - reference: .web_server.example_string_list
+        label: Example string_list
+        description: 'Configure a property of type string_list'
+      - reference: .web_server.example_text
+        label: Example text
+        description: 'Configure a property of type text'
+      - reference: .web_server.example_ldap_url
+        label: Example ldap_url
+        description: 'Configure a property of type ldap_url'
+      - reference: .web_server.example_email
+        label: Example email
+        description: 'Configure a property of type email'
+      - reference: .web_server.example_http_url
+        label: Example http_url
+        description: 'Configure a property of type http_url'
+      - reference: .web_server.example_ip_address
+        label: Example ip_address
+        description: 'Configure a property of type ip_address'
+      - reference: .web_server.example_ip_ranges
+        label: Example ip_ranges
+        description: 'Configure a property of type ip_ranges'
+      - reference: .web_server.example_multi_select_options
+        label: Example multi_select_options
+        description: 'Configure a property of type multi_select_options'
+      - reference: .web_server.example_network_address_list
+        label: Example network_address_list
+        description: 'Configure a property of type network_address_list'
+      - reference: .web_server.example_network_address
+        label: Example network_address
+        description: 'Configure a property of type network_address'
+      - reference: .web_server.example_port
+        label: Example port
+        description: 'Configure a property of type port'
+      - reference: .web_server.example_smtp_authentication
+        label: Example smtp_authentication
+        description: 'Configure a property of type smtp_authentication'
 job_types:
   - name: web_server
     resource_label: Web Server
@@ -64,19 +122,19 @@ job_types:
         type: uuid
       - name: example_string
         type: string
-        configurable: false
+        configurable: true
         default: 'Hello world'
       - name: example_integer
         type: integer
-        configurable: false
+        configurable: true
         default: 1
       - name: example_boolean
         type: boolean
-        configurable: false
+        configurable: true
         default: true
       - name: example_dropdown
         type: dropdown_select
-        configurable: false
+        configurable: true
         default: kiwi
         options:
           - name: kiwi
@@ -87,43 +145,43 @@ job_types:
             label: 'label for avocado'
       - name: example_domain
         type: domain
-        configurable: false
+        configurable: true
         default: www.example.com
       - name: example_wildcard_domain
         type: wildcard_domain
-        configurable: false
-        default: '*.example.com'
+        configurable: true
+        default: 'example.com'
       - name: example_string_list
         type: string_list
-        configurable: false
+        configurable: true
         default: 'a,list,of,strings'
       - name: example_text
         type: text
-        configurable: false
+        configurable: true
         default: 'some_text'
       - name: example_ldap_url
         type: ldap_url
-        configurable: false
+        configurable: true
         default: 'ldap://example.com'
       - name: example_email
         type: email
-        configurable: false
+        configurable: true
         default: foo@example.com
       - name: example_http_url
         type: http_url
-        configurable: false
+        configurable: true
         default: 'http://www.example.com'
       - name: example_ip_address
         type: ip_address
-        configurable: false
+        configurable: true
         default: '192.168.0.1'
       - name: example_ip_ranges
         type: ip_ranges
-        configurable: false
+        configurable: true
         default: '1.1.1.1-1.1.1.4,2.2.2.1-2.2.2.4'
       - name: example_multi_select_options
         type: multi_select_options
-        configurable: false
+        configurable: true
         default: ['earth', 'jupiter']
         options:
           - name: mercury
@@ -144,19 +202,19 @@ job_types:
             label: 'label for neptune'
       - name: example_network_address_list
         type: network_address_list
-        configurable: false
+        configurable: true
         default: '1.1.1.1,example.com,foo.bar.example.com'
       - name: example_network_address
         type: network_address
-        configurable: false
+        configurable: true
         default: '1.1.1.1'
       - name: example_port
         type: port
-        configurable: false
+        configurable: true
         default: 1111
       - name: example_smtp_authentication
         type: smtp_authentication
-        configurable: false
+        configurable: true
         default: plain
     manifest: |
       generated:
