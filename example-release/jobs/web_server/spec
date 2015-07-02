@@ -7,3 +7,72 @@ templates:
   index.html.erb: pages/index.html
 
 packages: [nginx]
+
+properties:
+  generated.rsa_cert_credentials.public_key_pem:
+    description: 'RSA cert public_key_pem'
+  generated.rsa_cert_credentials.cert_and_private_key_pems:
+    description: 'RSA cert cert_and_private_key_pems'
+  generated.rsa_pkey_credentials.public_key_pem:
+    description: 'Rsa public key pem'
+  generated.rsa_pkey_credentials.private_key_pem:
+    description: 'Rsa private key pem'
+  generated.rsa_pkey_credentials.public_key_openssh:
+    description: 'Rsa public key openssh'
+  generated.salted_credentials.sha512_hashed_password:
+    description: 'Hashed Password'
+  generated.salted_credentials.identity:
+    description: 'Identity'
+  generated.salted_credentials.salt:
+    description: 'Password salt'
+  generated.salted_credentials.password:
+    description: 'Password'
+  generated.simple_credentials.identity:
+    description: 'Identity'
+  generated.simple_credentials.password:
+    description: 'Password'
+  generated.secret:
+    description: 'A randomly generated value'
+  generated.uuid:
+    description: 'a generated uuid'
+
+  configured.string:
+    description: 'a basic configured string'
+  configured.integer:
+    description: 'a basic configured integer'
+  configured.boolean:
+    description: 'a basic configured boolean'
+  configured.dropdown:
+    description: 'a basic configured dropdown'
+  configured.domain:
+    description: 'a basic configured domain'
+  configured.wildcard_domain:
+    description: 'a basic configured wildcard_domain'
+  configured.string_list:
+    description: 'a basic configured string_list'
+  configured.text:
+    description: 'a basic configured text'
+  configured.ldap_url:
+    description: 'a basic configured ldap_url'
+  configured.email:
+    description: 'a basic configured email'
+  configured.http_url:
+    description: 'a basic configured http_url'
+  configured.ip_address:
+    description: 'a basic configured ip_address'
+  configured.ip_ranges.value:
+    description: 'a basic configured csv list of ip ranges'
+  configured.ip_ranges.parsed_ip_ranges:
+    description: 'an array of parsed ip range'
+  configured.multi_select_options:
+    description: 'a basic configured multi_select_options'
+  configured.network_address_list.value:
+    description: 'a basic configured csv list network_address_list'
+  configured.network_address_list.parsed_network_addresses:
+    description: 'an array of parsed network addresses'
+  configured.network_address:
+    description: 'a basic configured network_address'
+  configured.port:
+    description: 'a basic configured port'
+  configured.smtp_authentication:
+    description: 'a basic configured smtp_authentication'
