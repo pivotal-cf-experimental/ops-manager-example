@@ -1,0 +1,20 @@
+---
+packages:
+- name: nginx
+  version: 795a8f8acc5e1c4688e3823355e7681532ba85f9
+  fingerprint: 795a8f8acc5e1c4688e3823355e7681532ba85f9
+  sha1: 4ed574ab8049dd2ba18fd26b1d05ac511b82c797
+  dependencies: []
+jobs:
+- name: web_server
+  version: 956d83fec2aa2c9f7df46ce5c5abd3fa31a83960
+  fingerprint: 956d83fec2aa2c9f7df46ce5c5abd3fa31a83960
+  sha1: 319b62b1d296c94e484dda21b9b103f9ecb70b1e
+license:
+  version: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
+  fingerprint: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
+  sha1: e9f73d92771324e6da16044b1d28d045e5eb71c3
+commit_hash: 1cf6f3fa
+uncommitted_changes: true
+name: example-release
+version: '3'
