@@ -76,3 +76,5 @@ properties:
     description: 'a basic configured port'
   configured.smtp_authentication:
     description: 'a basic configured smtp_authentication'
+  configured.record_collection:
+    description: 'a configured record collection'
