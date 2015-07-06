@@ -1,6 +1,6 @@
 ---
 name: example-product
-product_version: "1.4.0-alpha.3"
+product_version: "1.4.0-alpha.4"
 metadata_version: "1.4"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
@@ -11,8 +11,8 @@ stemcell_criteria:
   version: "2865.1" #Bosh stemcell for 1.4.0
 releases:
   - name: example-release
-    file: example-release-2.tgz
-    version: "2"
+    file: example-release-3.tgz
+    version: "3"
 form_types:
   - name: example-form
     label: Configurable Properties
@@ -286,6 +286,7 @@ job_types:
         network_address: (( example_network_address.value ))
         port: (( example_port.value ))
         smtp_authentication: (( example_smtp_authentication.value ))
+        record_collection: (( example_collection.value || [] ))
   - name: compilation
     resource_label: compilation
     static_ip: 0
