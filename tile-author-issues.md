@@ -56,3 +56,6 @@
 ## Product Package - Product Templates
 
 1. The code snippet next to #[8] which is currently: `- reference: redis.password` should be: `- reference: .redis.password`
+1. The code snippet in #[9] seems to be tabbed incorrectly.
+1. The reference for `snapshots` is incorrect as it should be `.properties.snapshots` and should also have some information about the 
+ `.properties` section.
