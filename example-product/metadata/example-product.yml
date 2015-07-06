@@ -72,6 +72,23 @@ form_types:
       - reference: .web_server.example_smtp_authentication
         label: Example smtp_authentication
         description: 'Configure a property of type smtp_authentication'
+  - name: example_collections_form
+    label: 'Collection example'
+    description: 'A collection example form'
+    property_inputs:
+      - reference: .web_server.example_collection
+        label: 'Albums collection'
+        description: 'The albums'
+        property_inputs:
+          - reference: album
+            label: 'Name of the Album'
+            description: 'ex Graceland'
+          - reference: artist
+            label: 'Name of the Artist'
+            description: 'ex Paul Simon'
+          - reference: explicit
+            label: 'Explicit?'
+            description: '$#!%&'
 job_types:
   - name: web_server
     resource_label: Web Server
@@ -216,6 +233,17 @@ job_types:
         type: smtp_authentication
         configurable: true
         default: plain
+      - name: example_collection
+        type: collection
+        configurable: true
+        optional: true
+        property_blueprints:
+          - name: album
+            type: string
+          - name: artist
+            type: string
+          - name: explicit
+            type: boolean
     manifest: |
       generated:
         rsa_cert_credentials:
