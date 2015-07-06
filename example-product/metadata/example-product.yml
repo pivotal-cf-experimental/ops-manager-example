@@ -252,7 +252,7 @@ job_types:
         rsa_pkey_credentials:
           public_key_pem: (( generated_rsa_pkey_credentials.public_key_pem ))
           private_key_pem: (( generated_rsa_pkey_credentials.private_key_pem ))
-          public_key_openssh: (( generated_rsa_pkey_credentials.public_key_openssh ))
+          public_key_openssh: placeholder_until_1.5
         salted_credentials:
           sha512_hashed_password: (( generated_salted_credentials.sha512_hashed_password ))
           identity: (( generated_salted_credentials.identity ))
