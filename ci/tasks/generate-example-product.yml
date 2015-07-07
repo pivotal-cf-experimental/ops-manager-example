@@ -9,4 +9,4 @@ run:
   path: ops-manager-example/ci/scripts/generate-example-product
 
 params:
-  REPO_DIR: ops-manager-example
+  REPO_DIR:
