@@ -89,6 +89,71 @@ form_types:
           - reference: explicit
             label: 'Explicit?'
             description: '$#!%&'
+  - name: example_selector_form
+    label: 'Selector Example'
+    description: 'A selector example form'
+    property_inputs:
+      - reference: .properties.example_selector
+        label: 'Food Choices'
+        selector_property_inputs:
+          - reference: .properties.example_selector.pizza_option
+            label: 'Pizza'
+            property_inputs:
+              - reference: .properties.example_selector.pizza_option.pepperoni
+                label: 'Add Pepperoni'
+              - reference: .properties.example_selector.pizza_option.pineapple
+                label: 'Add Pineapple'
+              - reference: .properties.example_selector.pizza_option.other_toppings
+                label: 'Other toppings'
+          - reference: .properties.example_selector.filet_mignon_option
+            label: 'Filet Mignon'
+            property_inputs:
+              - reference: .properties.example_selector.filet_mignon_option.rarity_dropdown
+                label: 'How rare?'
+property_blueprints:
+  - name: example_selector
+    type: selector
+    configurable: true
+    default: Pizza
+    option_templates:
+      - name: pizza_option
+        select_value: Pizza
+        named_manifests:
+          - name: my_snippet
+            manifest: |
+              pizza_toppings:
+                pepperoni: (( .properties.example_selector.pizza_option.pepperoni.value ))
+                pineapple: (( .properties.example_selector.pizza_option.pineapple.value ))
+                other: (( .properties.example_selector.pizza_option.other_toppings.value ))
+        property_blueprints:
+          - name: pepperoni
+            type: boolean
+            configurable: true
+          - name: pineapple
+            type: boolean
+            configurable: true
+          - name: other_toppings
+            type: string
+            configurable: true
+            optional: true
+      - name: filet_mignon_option
+        select_value: Filet Mignon
+        named_manifests:
+          - name: my_snippet
+            manifest: |
+              rarity: (( .properties.example_selector.filet_mignon_option.rarity_dropdown.value ))
+        property_blueprints:
+          - name: rarity_dropdown
+            type: dropdown_select
+            configurable: true
+            default: rare
+            options:
+              - name: rare
+                label: 'Rare'
+              - name: medium
+                label: 'Medium'
+              - name: well-done
+                label: 'Well done'
 job_types:
   - name: web_server
     resource_label: Web Server
