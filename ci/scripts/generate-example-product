@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -eu
 
+# install dependencies
+apt-get update
+apt-get install -y zip
 gem install bosh_cli
 
 cd $REPO_DIR/example-release
