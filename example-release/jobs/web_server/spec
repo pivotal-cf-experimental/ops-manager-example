@@ -78,3 +78,5 @@ properties:
     description: 'a basic configured smtp_authentication'
   configured.record_collection:
     description: 'a configured record collection'
+  configured.selector:
+    description 'a configured selector'
