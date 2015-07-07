@@ -47,6 +47,10 @@
     a. `['an','array','of'...]`
 1. `dropdown_select` and `multi_select_options` options entries do not state that `name` and `label` are both required.
 
+### selector
+1. `named_manifests`, do the names have to be the same? When can they differ? If using `selected_option` to access the manifest
+they would have to have the same names, for example.
+1. Selectors can only be declared in the top level `property_blueprints` section
 
 ## More on Product Templates - Manifest
 
