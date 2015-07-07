@@ -11,8 +11,8 @@ stemcell_criteria:
   version: "2865.1" #Bosh stemcell for 1.4.0
 releases:
   - name: example-release
-    file: example-release-3.tgz
-    version: "3"
+    file: example-release-4.tgz
+    version: "4"
 form_types:
   - name: example-form
     label: Configurable Properties
@@ -352,6 +352,7 @@ job_types:
         port: (( example_port.value ))
         smtp_authentication: (( example_smtp_authentication.value ))
         record_collection: (( example_collection.value || [] ))
+        selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
   - name: compilation
     resource_label: compilation
     static_ip: 0
