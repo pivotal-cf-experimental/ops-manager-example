@@ -1,0 +1,29 @@
+jobs:
+- name: create-product
+  serial: true
+  plan:
+  - get: ops-manager-example
+    trigger: true
+  - task: generate-example-product
+    privileged: true
+    file: ops-manager-example/ci/tasks/generate-example-product.yml
+    params:
+      REPO_DIR: ops-manager-example
+  - put: generated-example-product
+    params:
+      from: ops-manager-example/example-product/generated-example-product.pivotal
+
+resources:
+- name: ops-manager-example
+  type: git
+  source:
+    private_key: {{installation-git-key}}
+    branch: master
+    uri: git@github.com:pivotal-cf-experimental/ops-manager-example.git
+- name: generated-example-product
+  type: s3
+  source:
+    versioned_file: example-product.pivotal
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{ pivotal-files-bucket }}

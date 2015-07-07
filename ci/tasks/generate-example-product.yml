@@ -1,0 +1,12 @@
+---
+platform: linux
+image: docker:///ruby#2.2
+
+inputs:
+- name: ops-manager-example
+
+run:
+  path: ops-manager-example/ci/scripts/generate-example-product
+
+params:
+  REPO_DIR: ops-manager-example
