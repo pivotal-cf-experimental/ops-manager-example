@@ -1,0 +1,50 @@
+#!/bin/bash
+
+echo "Generated Values"
+<% [
+     'generated.rsa_cert_credentials.public_key_pem',
+     'generated.rsa_cert_credentials.cert_and_private_key_pems',
+     'generated.rsa_pkey_credentials.public_key_pem',
+     'generated.rsa_pkey_credentials.private_key_pem',
+     'generated.rsa_pkey_credentials.public_key_openssh',
+     'generated.salted_credentials.sha512_hashed_password',
+     'generated.salted_credentials.identity',
+     'generated.salted_credentials.salt',
+     'generated.salted_credentials.password',
+     'generated.simple_credentials.identity',
+     'generated.simple_credentials.password',
+     'generated.secret',
+     'generated.uuid',
+   ].each do |property| %>
+  echo "<%= "#{property}=#{p(property)}" %>"
+<% end %>
+
+echo "Configured Values"
+
+<% [
+     'configured.string',
+     'configured.integer',
+     'configured.boolean',
+     'configured.dropdown',
+     'configured.domain',
+     'configured.wildcard_domain',
+     'configured.string_list',
+     'configured.text',
+     'configured.ldap_url',
+     'configured.email',
+     'configured.http_url',
+     'configured.ip_address',
+     'configured.ip_ranges.value',
+     'configured.ip_ranges.parsed_ip_ranges',
+     'configured.multi_select_options',
+     'configured.network_address_list.value',
+     'configured.network_address_list.parsed_network_addresses',
+     'configured.network_address',
+     'configured.port',
+     'configured.smtp_authentication',
+     'configured.record_collection',
+     'configured.selector',
+   ].each do |property| %>
+  echo "<%= "#{property}=#{p(property)}" %>"
+<% end %>
+
