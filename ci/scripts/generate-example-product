@@ -12,8 +12,11 @@ release_file=$(ruby "${REPO_DIR}/ci/scripts/latest_release.rb" "${REPO_DIR}/exam
 
 cd $REPO_DIR/example-release
 
+echo "removing any previous release tarballs"
+rm -f releases/example-release/*.tgz
+
 echo "creating release ${release_file}"
-bosh create release "releases/example-release/${release_file}"
+bosh create release "releases/example-release/${release_file}" --with-tarball
 
 echo "moving releases"
 mv releases/example-release/*.tgz ../example-product/releases/
