@@ -1,6 +1,7 @@
 # Concerns/Observations
 
 - **There is no section on creating forms**
+- How do we test our tile without having to bring up a [local] Ops Manager?
 
 ## Assumptions/What is Ops Manager
 1. Assumptions say: we expect you to know ops-manager; following section: what is ops-manager. do we need the 'what is ops man?' should we redirect to another page to reinforce those assumptions?
@@ -63,3 +64,8 @@ they would have to have the same names, for example.
 1. The code snippet in #[9] seems to be tabbed incorrectly.
 1. The reference for `snapshots` is incorrect as it should be `.properties.snapshots` and should also have some information about the 
  `.properties` section.
+1. Still don't understand what to put for `max_in_flight`. What does it even mean??
+1. `serial`: what order do the jobs run in? e.g. if jobs are declared in order `serial: true, false, true, false`,
+will it run the serial ones first and then the parallel ones after?
+1. When creating an errand, there are no docs around *NOT* stating to omit `serial: <boolean>` (cause it's an errand!)
+1. How do you specify an errand as a `pre_delete_errand`?

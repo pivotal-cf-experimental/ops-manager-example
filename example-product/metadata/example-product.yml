@@ -11,8 +11,15 @@ stemcell_criteria:
   version: "2865.1" #Bosh stemcell for 1.4.0
 releases:
   - name: example-release
-    file: example-release-4.tgz
-    version: "4"
+    file: example-release-5.tgz
+    version: "5"
+
+post_deploy_errands:
+  - name: example-errand
+
+pre_delete_errands:
+  - name: example-errand
+
 form_types:
   - name: example-form
     label: Configurable Properties
@@ -155,6 +162,94 @@ property_blueprints:
               - name: well-done
                 label: 'Well done'
 job_types:
+  - name: example-errand
+    resource_label: an errand to log properties
+    job_templates:
+      - example-errand
+    release: example-release
+    errand: true
+
+    resource_definitions:
+      - name: ram
+        type: integer
+        configurable: true
+        default: 1024
+
+      - name: ephemeral_disk
+        type: integer
+        configurable: true
+        default: 1024
+
+      - name: persistent_disk
+        type: integer
+        configurable: false
+        default: 0
+
+      - name: cpu
+        type: integer
+        configurable: true
+        default: 1
+
+    static_ip: 0
+    dynamic_ip: 1
+    max_in_flight: 1
+
+    instance_definitions:
+      - name: instances
+        type: integer
+        configurable: false
+        default: 1
+
+    property_blueprints:
+      - name: vm_credentials
+        type: salted_credentials
+        default:
+          identity: vcap
+    manifest: |
+      generated:
+        rsa_cert_credentials:
+          public_key_pem: (( .web_server.generated_rsa_cert_credentials.public_key_pem ))
+          cert_and_private_key_pems: (( .web_server.generated_rsa_cert_credentials.cert_and_private_key_pems ))
+        rsa_pkey_credentials:
+          public_key_pem: (( .web_server.generated_rsa_pkey_credentials.public_key_pem ))
+          private_key_pem: (( .web_server.generated_rsa_pkey_credentials.private_key_pem ))
+          public_key_openssh: placeholder_until_1.5
+        salted_credentials:
+          sha512_hashed_password: (( .web_server.generated_salted_credentials.sha512_hashed_password ))
+          identity: (( .web_server.generated_salted_credentials.identity ))
+          salt: (( .web_server.generated_salted_credentials.salt ))
+          password: (( .web_server.generated_salted_credentials.password ))
+        simple_credentials:
+          identity: (( .web_server.generated_simple_credentials.identity ))
+          password: (( .web_server.generated_simple_credentials.password ))
+        secret: (( .web_server.generated_secret.value ))
+        uuid: (( .web_server.generated_uuid.value ))
+      configured:
+        string: (( .web_server.example_string.value ))
+        integer: (( .web_server.example_integer.value ))
+        boolean: (( .web_server.example_boolean.value ))
+        dropdown: (( .web_server.example_dropdown.value ))
+        domain: (( .web_server.example_domain.value ))
+        wildcard_domain: (( .web_server.example_wildcard_domain.value ))
+        string_list: (( .web_server.example_string_list.value ))
+        text: (( .web_server.example_text.value ))
+        ldap_url: (( .web_server.example_ldap_url.value ))
+        email: (( .web_server.example_email.value ))
+        http_url: (( .web_server.example_http_url.value ))
+        ip_address: (( .web_server.example_ip_address.value ))
+        ip_ranges:
+          value: (( .web_server.example_ip_ranges.value ))
+          parsed_ip_ranges: (( .web_server.example_ip_ranges.parsed_ip_ranges ))
+        multi_select_options: (( .web_server.example_multi_select_options.value ))
+        network_address_list:
+          value: (( .web_server.example_network_address_list.value ))
+          parsed_network_addresses: (( .web_server.example_network_address_list.parsed_network_addresses ))
+        network_address: (( .web_server.example_network_address.value ))
+        port: (( .web_server.example_port.value ))
+        smtp_authentication: (( .web_server.example_smtp_authentication.value ))
+        record_collection: (( .web_server.example_collection.value || [] ))
+        selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
+
   - name: web_server
     resource_label: Web Server
     job_templates:
