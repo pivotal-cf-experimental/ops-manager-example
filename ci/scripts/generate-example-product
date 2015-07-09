@@ -6,10 +6,11 @@ apt-get update
 apt-get install -y zip
 gem install bosh_cli
 
-cd $REPO_DIR/example-release
 
 #find the release with the largest number
-release_file=$(find releases | grep example-release- | sed -n -e '/s.*([0-9]*).*/n' -e '$p')
+release_file=$(ruby "${REPO_DIR}/ci/scripts/latest_release.rb" "${REPO_DIR}/example-release/releases/example-release")
+
+cd $REPO_DIR/example-release
 
 echo "creating release ${release_file}"
 bosh create release $release_file
