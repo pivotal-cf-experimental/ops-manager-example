@@ -270,7 +270,9 @@ job_types:
       - name: persistent_disk
         type: integer
         configurable: true
-        default: 0
+        default: 1024
+        constraints:
+          min: 1024
       - name: cpu
         type: integer
         configurable: true
@@ -280,6 +282,8 @@ job_types:
         type: integer
         configurable: true
         default: 1
+        constraints:
+          max: 1
     property_blueprints:
       - name: vm_credentials
         type: salted_credentials

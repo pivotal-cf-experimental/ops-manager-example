@@ -69,3 +69,7 @@ they would have to have the same names, for example.
 will it run the serial ones first and then the parallel ones after?
 1. When creating an errand, there are no docs around *NOT* stating to omit `serial: <boolean>` (cause it's an errand!)
 1. How do you specify an errand as a `pre_delete_errand`?
+1. The resource definitions section #[11] is very cryptic and does not explain much, it makes no mention of constraints.
+
+
+
