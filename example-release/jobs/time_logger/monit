@@ -1,0 +1,5 @@
+check process time_logger
+  with pidfile /var/vcap/sys/run/time_logger/pidfile
+  start program "/var/vcap/jobs/time_logger/bin/ctl start"
+  stop program "/var/vcap/jobs/time_logger/bin/ctl stop"
+  group vcap

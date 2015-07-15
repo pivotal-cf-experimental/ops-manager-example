@@ -254,6 +254,7 @@ job_types:
     resource_label: Web Server
     job_templates:
       - web_server
+      - time_logger
     release: example-release
     static_ip: 0
     dynamic_ip: 1

@@ -1,21 +1,23 @@
 #!/bin/bash
 set -e
 
-RUN_DIR=/var/vcap/sys/run/web_server
-LOG_DIR=/var/vcap/sys/log/web_server
-JOB_DIR=/var/vcap/jobs/web_server
+RUN_DIR=/var/vcap/sys/run/time_logger
+LOG_DIR=/var/vcap/sys/log/time_logger
+JOB_DIR=/var/vcap/jobs/time_logger
 PIDFILE=${RUN_DIR}/pidfile
+PERSISTENT_LOG_DIR=/var/vcap/store/logs
 
 case $1 in
   start)
     mkdir -p $RUN_DIR
     mkdir -p $LOG_DIR
-    chown vcap:vcap $LOG_DIR
+    mkdir -p $PERSISTENT_LOG_DIR
+    chown vcap:vcap $LOG_DIR $PERSISTENT_LOG_DIR
 
     echo $$ > $PIDFILE
 
-    exec /var/vcap/packages/nginx/sbin/nginx \
-      -c ${JOB_DIR}/config/nginx.conf \
+    exec ${JOB_DIR}/bin/time_logger.sh \
+      ${PERSISTENT_LOG_DIR}/time.log \
       >> ${LOG_DIR}/stdout.log \
       2>> ${LOG_DIR}/stderr.log
     ;;

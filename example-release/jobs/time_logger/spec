@@ -1,0 +1,9 @@
+---
+name: time_logger
+templates:
+  ctl.erb: bin/ctl
+  time_logger.sh: bin/time_logger.sh
+
+packages: []
+
+properties: {}

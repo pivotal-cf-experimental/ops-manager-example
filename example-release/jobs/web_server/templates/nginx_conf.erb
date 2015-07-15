@@ -1,4 +1,4 @@
-pid   /var/vcap/sys/run/web_server/pid;
+pid   /var/vcap/sys/run/web_server/pidfile;
 user  vcap vcap;
 
 events {
@@ -22,6 +22,10 @@ http {
 
     location / {
       root /var/vcap/jobs/web_server/pages;
+    }
+
+    location /logs {
+      root /var/vcap/store;
     }
   }
 }
