@@ -11,8 +11,8 @@ stemcell_criteria:
   version: "2865.1" #Bosh stemcell for 1.4.0
 releases:
   - name: example-release
-    file: example-release-5.tgz
-    version: "5"
+    file: example-release-6.tgz
+    version: "6"
 
 post_deploy_errands:
   - name: example-errand
