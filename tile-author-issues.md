@@ -74,5 +74,25 @@ will it run the serial ones first and then the parallel ones after?
 1. How do you specify an errand as a `pre_delete_errand`?
 1. The resource definitions section #[11] is very cryptic and does not explain much, it makes no mention of constraints.
 
+# Creating a 1.5 tile
 
+This is the first tile we created which needed a `content_migration/`
 
+* Unclear how to create a content-migration
+  1. " Unable to find available product 'Ops Manager: Example Product' with version '1.5.0.pre.alpha.1' for upgrade."
+    * seems like version numbers must exactly match string in yaml
+      * ex. `1.4.0-alpha.6` is parsed to a formatted string of `1.4.0.pre.alpha.6`
+      * (we think) this means we should only ever have version strings in YAML which match:
+        `Gem::Version.new('version-goes-here').to_s`
+
+1. Changes from 1.4 => 1.5
+  ```
+  job_templates:
+    - template-name
+  ```
+  becomes
+  ```
+  templates:
+    - name: template-name
+      release: release-containing-template
+  ```

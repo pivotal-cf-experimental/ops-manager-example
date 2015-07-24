@@ -1,14 +1,14 @@
 ---
 name: example-product
-product_version: "1.4.1.0"
-metadata_version: "1.4"
+product_version: "1.5.0.0"
+metadata_version: "1.5"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
 stemcell_criteria:
   os: ubuntu-trusty
   requires_cpi: false
-  version: "2865.1" #Bosh stemcell for 1.4.0
+  version: "3012" # Bosh stemcell for Ops Manager v1.5
 releases:
   - name: example-release
     file: example-release-7.tgz
@@ -164,9 +164,9 @@ property_blueprints:
 job_types:
   - name: example-errand
     resource_label: an errand to log properties
-    job_templates:
-      - example-errand
-    release: example-release
+    templates:
+      - name: example-errand
+        release: example-release
     errand: true
 
     resource_definitions:
@@ -252,9 +252,11 @@ job_types:
 
   - name: web_server
     resource_label: Web Server
-    job_templates:
-      - web_server
-      - time_logger
+    templates:
+      - name: web_server
+        release: example-release
+      - name: time_logger
+        release: example-release
     release: example-release
     static_ip: 1
     dynamic_ip: 0
