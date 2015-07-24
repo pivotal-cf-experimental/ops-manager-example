@@ -47,7 +47,9 @@
     a. `'a,list,of,stings'`
     a. `['an','array','of'...]`
 1. `dropdown_select` and `multi_select_options` options entries do not state that `name` and `label` are both required.
-1. When you reference an object using double parens - our SDK lets you and spits out the object itself. See here. https://gist.github.com/mreider/36a403394520eb37fa17 
+1. When you reference an object using double parens - our SDK lets you and spits out the object itself. See here. https://gist.github.com/mreider/36a403394520eb37fa17
+1. Product Authors have no way to control how big or small a text box / textarea etc. displays.
+1. Product Authors have no way of embedding links in titles or descriptions.
 
 ### selector
 1. `named_manifests`, do the names have to be the same? When can they differ? If using `selected_option` to access the manifest
