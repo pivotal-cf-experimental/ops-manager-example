@@ -1,6 +1,6 @@
 ---
 name: example-product
-product_version: "1.4.0.0"
+product_version: "1.4.1.0"
 metadata_version: "1.4"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
@@ -11,8 +11,8 @@ stemcell_criteria:
   version: "2865.1" #Bosh stemcell for 1.4.0
 releases:
   - name: example-release
-    file: example-release-6.tgz
-    version: "6"
+    file: example-release-7.tgz
+    version: "7"
 
 post_deploy_errands:
   - name: example-errand
@@ -256,8 +256,8 @@ job_types:
       - web_server
       - time_logger
     release: example-release
-    static_ip: 0
-    dynamic_ip: 1
+    static_ip: 1
+    dynamic_ip: 0
     max_in_flight: 1
     resource_definitions:
       - name: ram
@@ -453,6 +453,16 @@ job_types:
         smtp_authentication: (( example_smtp_authentication.value ))
         record_collection: (( example_collection.value || [] ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
+      ops_manager_provided_accessors:
+        name: (( name ))
+        ephemeral_disk: (( ephemeral_disk ))
+        persistent_disk: (( persistent_disk ))
+        ram: (( ram ))
+        instances: (( instances ))
+        first_ip: (( first_ip ))
+        ips: (( ips ))
+        availability_zone: (( availability_zone ))
+        ips_by_availability_zone: (( ips_by_availability_zone ))
   - name: compilation
     resource_label: compilation
     static_ip: 0
