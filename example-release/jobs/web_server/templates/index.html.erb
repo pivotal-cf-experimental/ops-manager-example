@@ -59,5 +59,23 @@
         <dd><%= p(property) %></dd>
     <% end %>
     </dl>
+
+    <h2>Ops Manager Provided Accessors:</h2>
+    <dl>
+    <% [
+        'ops_manager_provided_accessors.name',
+        'ops_manager_provided_accessors.ephemeral_disk',
+        'ops_manager_provided_accessors.persistent_disk',
+        'ops_manager_provided_accessors.ram',
+        'ops_manager_provided_accessors.instances',
+        'ops_manager_provided_accessors.first_ip',
+        'ops_manager_provided_accessors.ips',
+        'ops_manager_provided_accessors.availability_zone',
+        'ops_manager_provided_accessors.ips_by_availability_zone',
+       ].each do |property| %>
+        <dt><%= property %></dt>
+        <dd><%= p(property) %></dd>
+    <% end %>
+    </dl>
   </body>
 </html>

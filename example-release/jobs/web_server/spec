@@ -79,4 +79,23 @@ properties:
   configured.record_collection:
     description: 'a configured record collection'
   configured.selector:
-    description 'a configured selector'
+    description: 'a configured selector'
+
+  ops_manager_provided_accessors.name:
+    description: 'job name'
+  ops_manager_provided_accessors.ephemeral_disk:
+    description: 'value of ephemeral disk'
+  ops_manager_provided_accessors.persistent_disk:
+    description: 'value of persistent disk'
+  ops_manager_provided_accessors.ram:
+    description: 'value of ram'
+  ops_manager_provided_accessors.instances:
+    description: 'number of instances'
+  ops_manager_provided_accessors.first_ip:
+    description: 'first static ip of the job'
+  ops_manager_provided_accessors.ips:
+    description: 'all ips for the job'
+  ops_manager_provided_accessors.availability_zone:
+    description: 'job availability zone'
+  ops_manager_provided_accessors.ips_by_availability_zone:
+    description: 'ips by availability zone'
