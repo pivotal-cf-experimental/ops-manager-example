@@ -78,7 +78,7 @@ will it run the serial ones first and then the parallel ones after?
 
 This is the first tile we created which needed a `content_migration/`
 
-* Unclear how to create a content-migration
+* Unclear how to create a content-migration. No docs, had to go to old 1.4 docs to find out.
   1. " Unable to find available product 'Ops Manager: Example Product' with version '1.5.0.pre.alpha.1' for upgrade."
     * seems like version numbers must exactly match string in yaml
       * ex. `1.4.0-alpha.6` is parsed to a formatted string of `1.4.0.pre.alpha.6`
@@ -96,3 +96,13 @@ This is the first tile we created which needed a `content_migration/`
     - name: template-name
       release: release-containing-template
   ```
+
+1. The structure of the migration is unclear. What does the `selector` key do? 
+1. What is the relation of the installation file structure to the values we put in a content migration?
+1. We are directed to look at the installation file. Actual or desired?
+1. How do I write the various types of transmogrifier rules (i.e. `move` or `update`)
+1. How do I test this? Here's how we tested one migration rule (a `move`)
+  1. Install our older version (in our case 1.4.{0,1})
+  1. Cut a pivotal locally
+  1. Upload & Upgrade
+  1. Go to /debug/files and inspect the installation files to see if changes were applied.
