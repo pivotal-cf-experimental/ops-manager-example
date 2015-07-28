@@ -333,7 +333,7 @@ job_types:
         rsa_pkey_credentials:
           public_key_pem: (( .properties.generated_rsa_pkey_credentials.public_key_pem ))
           private_key_pem: (( .properties.generated_rsa_pkey_credentials.private_key_pem ))
-          public_key_openssh: placeholder_until_1.5
+          public_key_openssh: (( .properties.generated_rsa_pkey_credentials.public_key_openssh ))
         salted_credentials:
           sha512_hashed_password: (( .properties.generated_salted_credentials.sha512_hashed_password ))
           identity: (( .properties.generated_salted_credentials.identity ))
@@ -426,7 +426,7 @@ job_types:
         rsa_pkey_credentials:
           public_key_pem: (( .properties.generated_rsa_pkey_credentials.public_key_pem ))
           private_key_pem: (( .properties.generated_rsa_pkey_credentials.private_key_pem ))
-          public_key_openssh: placeholder_until_1.5
+          public_key_openssh: (( .properties.generated_rsa_pkey_credentials.public_key_openssh ))
         salted_credentials:
           sha512_hashed_password: (( .properties.generated_salted_credentials.sha512_hashed_password ))
           identity: (( .properties.generated_salted_credentials.identity ))
