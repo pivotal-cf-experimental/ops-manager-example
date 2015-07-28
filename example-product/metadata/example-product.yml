@@ -28,7 +28,7 @@ form_types:
       - reference: .properties.example_string
         label: Example string
         description: 'Configure a property of type string'
-      - reference: .properties.example_integer
+      - reference: .properties.example_migrated_integer
         label: Example integer
         description: 'Configure a property of type integer'
       - reference: .properties.example_boolean
@@ -177,7 +177,7 @@ property_blueprints:
     type: string
     configurable: true
     default: 'Hello world'
-  - name: example_integer
+  - name: example_migrated_integer
     type: integer
     configurable: true
     default: 1
@@ -346,7 +346,7 @@ job_types:
         uuid: (( .properties.generated_uuid.value ))
       configured:
         string: (( .properties.example_string.value ))
-        integer: (( .properties.example_integer.value ))
+        integer: (( .properties.example_migrated_integer.value ))
         boolean: (( .properties.example_boolean.value ))
         dropdown: (( .properties.example_dropdown.value ))
         domain: (( .properties.example_domain.value ))
@@ -439,7 +439,7 @@ job_types:
         uuid: (( .properties.generated_uuid.value ))
       configured:
         string: (( .properties.example_string.value ))
-        integer: (( .properties.example_integer.value ))
+        integer: (( .properties.example_migrated_integer.value ))
         boolean: (( .properties.example_boolean.value ))
         dropdown: (( .properties.example_dropdown.value ))
         domain: (( .properties.example_domain.value ))

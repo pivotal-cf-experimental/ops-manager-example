@@ -109,6 +109,15 @@ migrations:
         selector: ""
         from: "jobs.[identifier=web_server].properties.[identifier=generated_uuid]"
         to: "properties"
+      - type: "update"
+        selector: "properties.[identifier=example_integer].identifier"
+        to: "example_migrated_integer"
+      - type: update
+        selector: "jobs.[identifier=web_server].resources.[identifier=ram].value"
+        to: 2048
+      - type: update
+        selector: "properties.[identifier=example_http_url].value"
+        to: "http://migrated-value.com"
   - from_version: "1.4.1.0"
     rules:
       - type: update
@@ -214,3 +223,12 @@ migrations:
         selector: ""
         from: "jobs.[identifier=web_server].properties.[identifier=generated_uuid]"
         to: "properties"
+      - type: "update"
+        selector: "properties.[identifier=example_integer].identifier"
+        to: "example_migrated_integer"
+      - type: update
+        selector: "jobs.[identifier=web_server].resources.[identifier=ram].value"
+        to: 2048
+      - type: update
+        selector: "properties.[identifier=example_http_url].value"
+        to: "http://migrated-value.com"
