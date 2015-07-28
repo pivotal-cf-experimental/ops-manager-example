@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 set -eux
 
+root_dir=`pwd`
+
 # install dependencies
 if [[ -x "$(command -v apt-get)" ]]; then
   apt-get update
   apt-get install -y zip
 fi
 
-product_dir=${REPO_DIR}/example-product
-release_dir=${REPO_DIR}/example-release
+product_dir="${root_dir}/${REPO_DIR}/example-product"
+release_dir="${root_dir}/${REPO_DIR}/example-release"
 
 cd ${release_dir}
 
@@ -28,7 +30,7 @@ if [[ ! -f ${release_tgz} ]]; then
 fi
 
 echo "moving release ${release_tgz} to "
-mv ${release_dir}/${release_tgz} ${product_dir}/releases/
+mv ${release_tgz} ${product_dir}/releases/
 
 cd ${product_dir}
 echo "creating .pivotal file"
