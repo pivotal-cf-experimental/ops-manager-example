@@ -18,7 +18,7 @@ resources:
 - name: ops-manager-example
   type: git
   source:
-    private_key: {{installation-git-key}}
+    private_key: {{ops-manager-example-git-key}}
     branch: master
     uri: git@github.com:pivotal-cf-experimental/ops-manager-example.git
 - name: generated-example-product
