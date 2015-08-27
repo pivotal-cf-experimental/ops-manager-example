@@ -11,8 +11,8 @@ stemcell_criteria:
   version: "3012" # Bosh stemcell for Ops Manager v1.5
 releases:
   - name: example-release
-    file: example-release-7.tgz
-    version: "7"
+    file: example-release-8.tgz
+    version: "8"
 
 post_deploy_errands:
   - name: example-errand
@@ -472,6 +472,41 @@ job_types:
         first_ip: (( first_ip ))
         ips: (( ips ))
         ips_by_availability_zone: (( ips_by_availability_zone ))
+  - name: no_op
+    resource_label: No Operation
+    templates:
+      - name: no_op
+        release: example-release
+    static_ip: 0
+    dynamic_ip: 1
+    max_in_flight: 2
+    resource_definitions:
+      - name: ram
+        type: integer
+        configurable: true
+        default: 1024
+      - name: ephemeral_disk
+        type: integer
+        configurable: true
+        default: 2048
+      - name: persistent_disk
+        type: integer
+        configurable: true
+        default: 8_192
+      - name: cpu
+        type: integer
+        configurable: true
+        default: 1
+    property_blueprints:
+      - name: vm_credentials
+        type: salted_credentials
+        default:
+          identity: vcap
+    instance_definitions:
+      - name: instances
+        type: integer
+        configurable: true
+        default: 0
   - name: compilation
     resource_label: compilation
     static_ip: 0
