@@ -1,0 +1,5 @@
+check process no_op
+  with pidfile /var/vcap/sys/run/no_op/pidfile
+  start program "/var/vcap/jobs/no_op/bin/ctl start"
+  stop program "/var/vcap/jobs/no_op/bin/ctl stop"
+  group vcap

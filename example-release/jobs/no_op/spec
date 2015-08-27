@@ -1,0 +1,8 @@
+---
+name: no_op
+templates:
+  ctl.erb: bin/ctl
+
+packages: []
+
+properties: {}
