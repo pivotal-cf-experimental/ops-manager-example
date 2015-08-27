@@ -8,7 +8,7 @@ rank: 1
 stemcell_criteria:
   os: ubuntu-trusty
   requires_cpi: false
-  version: "3012" # Bosh stemcell for Ops Manager v1.5
+  version: "2989" # Bosh stemcell for Ops Manager v1.5
 releases:
   - name: example-release
     file: example-release-8.tgz
