@@ -1,6 +1,6 @@
 ---
 name: example-product
-product_version: "1.6.0.0-alpha.3.3062"
+product_version: "1.6.0.0-alpha.4.3062"
 metadata_version: "1.5"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
@@ -327,6 +327,7 @@ job_types:
           identity: vcap
     manifest: |
       generated:
+        root_rsa_certificate: (( $ops_manager.ca_certificate ))
         rsa_cert_credentials:
           public_key_pem: (( .properties.generated_rsa_cert_credentials.public_key_pem ))
           cert_and_private_key_pems: (( .properties.generated_rsa_cert_credentials.cert_and_private_key_pems ))
@@ -420,6 +421,7 @@ job_types:
           identity: vcap
     manifest: |
       generated:
+        root_rsa_certificate: (( $ops_manager.ca_certificate ))
         rsa_cert_credentials:
           public_key_pem: (( .properties.generated_rsa_cert_credentials.public_key_pem ))
           cert_and_private_key_pems: (( .properties.generated_rsa_cert_credentials.cert_and_private_key_pems ))
