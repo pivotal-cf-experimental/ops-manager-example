@@ -14,6 +14,22 @@ jobs:
     params:
       from: ops-manager-example/example-product/generated-example-product.pivotal
 
+- name: create-product-1.5
+  serial: true
+  plan:
+  - get: ops-manager-example
+    resource: ops-manager-example-1.5
+    trigger: true
+  - task: generate-example-product
+    privileged: true
+    file: ops-manager-example/ci/tasks/generate-example-product.yml
+    config:
+      params:
+        REPO_DIR: ops-manager-example
+  - put: generated-example-product-1.5.latest
+    params:
+      from: ops-manager-example/example-product/generated-example-product.pivotal
+
 resources:
 - name: ops-manager-example
   type: git
@@ -21,10 +37,23 @@ resources:
     private_key: {{ops-manager-example-git-key}}
     branch: master
     uri: git@github.com:pivotal-cf-experimental/ops-manager-example.git
+- name: ops-manager-example-1.5
+  type: git
+  source:
+    private_key: {{ops-manager-example-git-key}}
+    branch: releases/1.5
+    uri: git@github.com:pivotal-cf-experimental/ops-manager-example.git
 - name: generated-example-product
   type: s3
   source:
     versioned_file: example-product.pivotal
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+- name: generated-example-product-1.5.latest
+  type: s3
+  source:
+    versioned_file: example-product-1.5.5.pivotal
     access_key_id: {{concourse-artifacts-access-key}}
     secret_access_key: {{concourse-artifacts-secret-access-key}}
     bucket: {{pivotal-files-bucket}}
