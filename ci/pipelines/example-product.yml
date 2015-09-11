@@ -2,6 +2,13 @@ jobs:
 - name: create-product
   serial: true
   plan:
+  - get: version_master
+    params:
+      bump: patch
+      pre: build
+  - put: version_master
+    params:
+      file: version_master/number
   - get: ops-manager-example
     trigger: true
   - task: generate-example-product
@@ -17,6 +24,13 @@ jobs:
 - name: create-product-1.5
   serial: true
   plan:
+  - get: version_1_5
+    params:
+      bump: patch
+      pre: build
+  - put: version_1_5
+    params:
+      file: version_1_5/number
   - get: ops-manager-example
     resource: ops-manager-example-1.5
     trigger: true
@@ -26,9 +40,10 @@ jobs:
     config:
       params:
         REPO_DIR: ops-manager-example
+        version: version_1_5
   - put: generated-example-product-1.5.latest
     params:
-      from: ops-manager-example/example-product/generated-example-product.pivotal
+      from: ops-manager-example/example-product/example-product-*.pivotal
 
 resources:
 - name: ops-manager-example
@@ -53,7 +68,23 @@ resources:
 - name: generated-example-product-1.5.latest
   type: s3
   source:
-    versioned_file: example-product-1.5.5.pivotal
+    regexp: example-product-(.*).pivotal
     access_key_id: {{concourse-artifacts-access-key}}
     secret_access_key: {{concourse-artifacts-secret-access-key}}
     bucket: {{pivotal-files-bucket}}
+- name: version_1_5
+  type: semver
+  source:
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+    key: releases/1.5/version
+    initial_version: 1.5.5-build.0
+- name: version_master
+  type: semver
+  source:
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+    key: releases/master/version
+    initial_version: 1.6.0-build.0
