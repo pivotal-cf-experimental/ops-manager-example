@@ -40,7 +40,6 @@ jobs:
     config:
       params:
         REPO_DIR: ops-manager-example
-        version: version_1_5
   - put: generated-example-product-1.5.latest
     params:
       from: ops-manager-example/example-product/example-product-*.pivotal
