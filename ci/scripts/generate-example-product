@@ -2,15 +2,15 @@
 set -eux
 
 root_dir=$(pwd)
+version_num="$(cat version_1_5/number)"
+product_dir="${root_dir}/ops-manager-example/example-product"
+release_dir="${root_dir}/ops-manager-example/example-release"
 
 # install dependencies
 if [[ -x "$(command -v apt-get)" ]]; then
   apt-get update
   apt-get install -y zip
 fi
-
-product_dir="${root_dir}/${REPO_DIR}/example-product"
-release_dir="${root_dir}/${REPO_DIR}/example-release"
 
 cd "${release_dir}"
 
@@ -35,5 +35,4 @@ mv "${release_tgz}" "${product_dir}/releases/"
 cd "${product_dir}"
 echo "creating .pivotal file"
 
-version_num="$(cat version_1_5/number)"
 zip -r example-product-$version_num.pivotal content_migrations metadata releases
