@@ -88,4 +88,4 @@ resources:
     secret_access_key: {{concourse-artifacts-secret-access-key}}
     bucket: {{pivotal-files-bucket}}
     key: releases/1.6/version
-    initial_version: 1.6.0-build.0
+    initial_version: 1.6.0-alpha.0
