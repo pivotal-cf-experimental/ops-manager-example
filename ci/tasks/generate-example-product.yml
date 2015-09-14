@@ -4,7 +4,7 @@ image: docker:///ruby#2.2
 
 inputs:
 - name: ops-manager-example
-- name: version_1_5
+- name: version
 
 run:
   path: ops-manager-example/ci/scripts/generate-example-product

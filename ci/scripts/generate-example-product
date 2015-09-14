@@ -2,7 +2,7 @@
 set -eux
 
 root_dir=$(pwd)
-version_num="$(cat version_1_5/number)"
+version_num="$(cat version/number)"
 product_dir="${root_dir}/ops-manager-example/example-product"
 release_dir="${root_dir}/ops-manager-example/example-release"
 
