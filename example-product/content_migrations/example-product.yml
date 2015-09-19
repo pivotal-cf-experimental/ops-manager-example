@@ -1,11 +1,14 @@
 ---
 product: example-product
 installation_schema_version: "1.6"
-to_version: "1.6.0.0-alpha"
+to_version: &to_version "1.6.0.0-alpha"
 
 migrations:
   - from_version: "1.4.0.0"
     rules:
+      - type: update
+        selector: "product_version"
+        to: *to_version
       - type: move
         selector: ""
         from: "jobs.[identifier=web_server].properties.[identifier=example_string]"
@@ -117,6 +120,9 @@ migrations:
         to: "http://migrated-value.com"
   - from_version: "1.4.1.0"
     rules:
+      - type: update
+        selector: "product_version"
+        to: *to_version
       - type: move
         selector: ""
         from: "jobs.[identifier=web_server].properties.[identifier=example_string]"
@@ -228,6 +234,9 @@ migrations:
         to: "http://migrated-value.com"
   - from_version: "1.4.2.0"
     rules:
+      - type: update
+        selector: "product_version"
+        to: *to_version
       - type: move
         selector: ""
         from: "jobs.[identifier=web_server].properties.[identifier=example_string]"
@@ -338,8 +347,22 @@ migrations:
         selector: "properties.[identifier=example_http_url].value"
         to: "http://migrated-value.com"
   - from_version: "1.5.0.0"
-    rules: []
+    rules:
+      - type: update
+        selector: "product_version"
+        to: *to_version
   - from_version: "1.5.3.0"
-    rules: []
+    rules:
+      - type: update
+        selector: "product_version"
+        to: *to_version
   - from_version: "1.5.5.0"
-    rules: []
+    rules:
+      - type: update
+        selector: "product_version"
+        to: *to_version
+  - from_version: "1.5.6.0"
+    rules:
+      - type: update
+        selector: "product_version"
+        to: *to_version
