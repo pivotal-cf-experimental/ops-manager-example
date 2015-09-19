@@ -21,9 +21,10 @@ case $1 in
     ;;
 
   stop)
-    kill -9 `cat $PIDFILE`
-
-    rm -f $PIDFILE
+    PID=$(head -1 ${PIDFILE})
+    kill ${PID}
+    while [ -e /proc/${PID} ]; do sleep 0.1; done
+    rm -f ${PIDFILE}
     ;;
 
   *)
