@@ -1,14 +1,14 @@
 ---
 product: example-product
 installation_schema_version: "1.5"
-to_version: "1.5.5.0"
+to_version: &to_version "1.5.6.0"
 
 migrations:
   - from_version: "1.4.0.0"
     rules:
       - type: update
         selector: "product_version"
-        to: "1.5.5.0"
+        to: *to_version
       - type: move
         selector: ""
         from: "jobs.[identifier=web_server].properties.[identifier=example_string]"
@@ -122,7 +122,7 @@ migrations:
     rules:
       - type: update
         selector: "product_version"
-        to: "1.5.5.0"
+        to: *to_version
       - type: move
         selector: ""
         from: "jobs.[identifier=web_server].properties.[identifier=example_string]"
@@ -236,7 +236,7 @@ migrations:
     rules:
       - type: update
         selector: "product_version"
-        to: "1.5.5.0"
+        to: *to_version
       - type: move
         selector: ""
         from: "jobs.[identifier=web_server].properties.[identifier=example_string]"
@@ -350,9 +350,14 @@ migrations:
     rules:
       - type: update
         selector: "product_version"
-        to: "1.5.5.0"
+        to: *to_version
   - from_version: "1.5.3.0"
     rules:
       - type: update
         selector: "product_version"
-        to: "1.5.5.0"
+        to: *to_version
+  - from_version: "1.5.5.0"
+    rules:
+      - type: update
+        selector: "product_version"
+        to: *to_version
