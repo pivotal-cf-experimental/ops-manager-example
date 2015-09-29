@@ -370,13 +370,6 @@ job_types:
         smtp_authentication: (( .properties.example_smtp_authentication.value ))
         record_collection: (( .properties.example_collection.value || [] ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
-      ops_manager_provided_accessors:
-        name: (( name ))
-        ram: (( ram ))
-        ephemeral_disk: (( ephemeral_disk ))
-        persistent_disk: (( persistent_disk ))
-        instances: (( instances ))
-        availability_zone: (( availability_zone ))
   - name: web_server
     resource_label: Web Server
     templates:
