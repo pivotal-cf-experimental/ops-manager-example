@@ -46,6 +46,17 @@ jobs:
     params:
       from: ops-manager-example/example-product/example-product-(.*).pivotal
 
+- name: after-release-1.5
+  serial: true
+  plan:
+  - get: version
+    resource: version_1_5
+    params:
+      bump: final
+  - put: version_1_5
+    params:
+      file: version/number
+
 resources:
 - name: ops-manager-example
   type: git
