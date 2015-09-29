@@ -19,11 +19,11 @@ bundle # installs bosh_cli
 echo "removing any previous release tarballs"
 rm -f releases/example-release/*.tgz
 
-release_yml=$(ls releases/example-release/example-release-*.yml| sort| tail -1)
+release_yml=$(ls releases/example-release/example-release-*.yml| sort -t '-' -k 3 -g | tail -1)
 echo "creating release from ${release_yml}"
 bundle exec bosh create release "${release_yml}" --with-tarball
 
-release_tgz=$(ls releases/example-release/example-release-*.tgz| sort| tail -1)
+release_tgz=$(ls releases/example-release/example-release-*.tgz| sort -t '-' -k 3 -g | tail -1)
 if [[ ! -f ${release_tgz} ]]; then
   echo "No release created from ${release_yml}"
   exit 1
