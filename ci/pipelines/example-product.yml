@@ -129,7 +129,7 @@ resources:
     secret_access_key: {{concourse-artifacts-secret-access-key}}
     bucket: {{pivotal-files-bucket}}
     key: releases/1.7/version
-    initial_version: 1.5.5-build.0
+    initial_version: 1.7.0-build.0
 - name: version_1_5
   type: semver
   source:
