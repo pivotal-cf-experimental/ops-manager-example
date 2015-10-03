@@ -1,5 +1,5 @@
 jobs:
-- name: create-product
+- name: create-product-1.6
   serial: true
   plan:
   - get: version
@@ -11,6 +11,7 @@ jobs:
     params:
       file: version/number
   - get: ops-manager-example
+    resource: ops-manager-example-1.6
     trigger: true
   - task: generate-example-product
     privileged: true
@@ -58,11 +59,11 @@ jobs:
       file: version/number
 
 resources:
-- name: ops-manager-example
+- name: ops-manager-example-1.6
   type: git
   source:
     private_key: {{ops-manager-example-git-key}}
-    branch: master
+    branch: releases/1.6
     uri: git@github.com:pivotal-cf-experimental/ops-manager-example.git
 - name: ops-manager-example-1.5
   type: git
