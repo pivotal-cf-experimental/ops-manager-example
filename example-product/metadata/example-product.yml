@@ -1,7 +1,7 @@
 ---
 name: example-product
-product_version: "1.6.0.0-alpha"
-metadata_version: "1.5"
+product_version: "1.7.0.0-alpha"
+metadata_version: "1.7"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
@@ -320,11 +320,7 @@ job_types:
         configurable: false
         default: 1
 
-    property_blueprints:
-      - name: vm_credentials
-        type: salted_credentials
-        default:
-          identity: vcap
+    property_blueprints: []
     manifest: |
       generated:
         root_rsa_certificate: (( $ops_manager.ca_certificate ))
@@ -407,11 +403,7 @@ job_types:
         default: 1
         constraints:
           max: 1
-    property_blueprints:
-      - name: vm_credentials
-        type: salted_credentials
-        default:
-          identity: vcap
+    property_blueprints: []
     manifest: |
       generated:
         root_rsa_certificate: (( $ops_manager.ca_certificate ))
@@ -493,11 +485,7 @@ job_types:
         type: integer
         configurable: true
         default: 1
-    property_blueprints:
-      - name: vm_credentials
-        type: salted_credentials
-        default:
-          identity: vcap
+    property_blueprints: []
     instance_definitions:
       - name: instances
         type: integer
@@ -525,6 +513,7 @@ job_types:
         type: integer
         configurable: true
         default: 1
+    property_blueprints: []
     instance_definitions:
       - name: instances
         type: integer
