@@ -371,3 +371,8 @@ migrations:
       - type: update
         selector: "product_version"
         to: *to_version
+  - from_version: "1.6.0.0"
+    rules:
+      - type: update
+        selector: "product_version"
+        to: *to_version
