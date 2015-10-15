@@ -11,8 +11,8 @@ stemcell_criteria:
   version: "3100" # Bosh stemcell should match Ops Manager with same version
 releases:
   - name: example-release
-    file: example-release-10.tgz
-    version: "10"
+    file: example-release-11.tgz
+    version: "11"
 
 post_deploy_errands:
   - name: example-errand
@@ -331,6 +331,7 @@ job_types:
           public_key_pem: (( .properties.generated_rsa_pkey_credentials.public_key_pem ))
           private_key_pem: (( .properties.generated_rsa_pkey_credentials.private_key_pem ))
           public_key_openssh: (( .properties.generated_rsa_pkey_credentials.public_key_openssh ))
+          public_key_fingerprint: (( .properties.generated_rsa_pkey_credentials.public_key_fingerprint ))
         salted_credentials:
           sha512_hashed_password: (( .properties.generated_salted_credentials.sha512_hashed_password ))
           identity: (( .properties.generated_salted_credentials.identity ))
@@ -414,6 +415,7 @@ job_types:
           public_key_pem: (( .properties.generated_rsa_pkey_credentials.public_key_pem ))
           private_key_pem: (( .properties.generated_rsa_pkey_credentials.private_key_pem ))
           public_key_openssh: (( .properties.generated_rsa_pkey_credentials.public_key_openssh ))
+          public_key_fingerprint: (( .properties.generated_rsa_pkey_credentials.public_key_fingerprint ))
         salted_credentials:
           sha512_hashed_password: (( .properties.generated_salted_credentials.sha512_hashed_password ))
           identity: (( .properties.generated_salted_credentials.identity ))
