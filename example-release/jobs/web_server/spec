@@ -19,6 +19,8 @@ properties:
     description: 'Rsa private key pem'
   generated.rsa_pkey_credentials.public_key_openssh:
     description: 'Rsa public key openssh'
+  generated.rsa_pkey_credentials.public_key_fingerprint:
+    description: 'Rsa public key fingerprint openssh'
   generated.salted_credentials.sha512_hashed_password:
     description: 'Hashed Password'
   generated.salted_credentials.identity:
