@@ -27,29 +27,6 @@ jobs:
   serial: true
   plan:
   - get: version
-    resource: version_1_7
-    params:
-      bump: patch
-      pre: build
-  - put: version_1_7
-    params:
-      file: version/number
-  - get: ops-manager-example
-    trigger: true
-  - task: generate-example-product
-    privileged: true
-    file: ops-manager-example/ci/tasks/generate-example-product.yml
-    config:
-      params:
-        REPO_DIR: ops-manager-example
-  - put: generated-example-product-1.7
-    params:
-      from: ops-manager-example/example-product/example-product-(.*).pivotal
-
-- name: create-product-1.6
-  serial: true
-  plan:
-  - get: version
     resource: version_1_6
     params:
       bump: patch
@@ -180,11 +157,3 @@ resources:
     bucket: {{pivotal-files-bucket}}
     key: releases/1.6/version
     initial_version: 1.6.0-alpha.0
-- name: version_1_7
-  type: semver
-  source:
-    access_key_id: {{concourse-artifacts-access-key}}
-    secret_access_key: {{concourse-artifacts-secret-access-key}}
-    bucket: {{pivotal-files-bucket}}
-    key: releases/1.7/version
-    initial_version: 1.7.0-alpha.0
