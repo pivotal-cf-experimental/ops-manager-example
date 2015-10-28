@@ -5,7 +5,6 @@ jobs:
   - get: version
     resource: version_1_7
     params:
-      bump: patch
       pre: build
   - put: version_1_7
     params:
@@ -29,7 +28,6 @@ jobs:
   - get: version
     resource: version_1_6
     params:
-      bump: patch
       pre: build
   - put: version_1_6
     params:
@@ -53,7 +51,6 @@ jobs:
   - get: version
     resource: version_1_5
     params:
-      bump: patch
       pre: build
   - put: version_1_5
     params:
