@@ -75,6 +75,17 @@ jobs:
     resource: version_1_5
     params:
       bump: final
+
+  - put: version_1_5
+    params:
+      file: version/number
+
+  - get: version
+    resource: version_1_5
+    params:
+      bump: patch
+      pre: build
+
   - put: version_1_5
     params:
       file: version/number
@@ -86,6 +97,21 @@ jobs:
     resource: version_1_6
     params:
       bump: final
+
+  - put: version_1_6
+    params:
+      file: version/number
+
+  - get: version
+    resource: version_1_6
+    params:
+      bump: patch
+      pre: build
+
+  - put: version_1_6
+    params:
+      file: version/number
+
   - put: version_1_6
     params:
       file: version/number
