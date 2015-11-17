@@ -25,58 +25,58 @@ form_types:
     label: Configurable Properties
     description: All the properties that you can configure!
     property_inputs:
-      - reference: .properties.example_string
+      - reference: .web_server.example_string
         label: Example string
         description: 'Configure a property of type string'
-      - reference: .properties.example_migrated_integer
+      - reference: .web_server.example_migrated_integer
         label: Example integer
         description: 'Configure a property of type integer'
-      - reference: .properties.example_boolean
+      - reference: .web_server.example_boolean
         label: Example boolean
         description: 'Configure a property of type boolean'
-      - reference: .properties.example_dropdown
+      - reference: .web_server.example_dropdown
         label: Example dropdown
         description: 'Configure a property of type dropdown'
-      - reference: .properties.example_domain
+      - reference: .web_server.example_domain
         label: Example domain
         description: 'Configure a property of type domain'
-      - reference: .properties.example_wildcard_domain
+      - reference: .web_server.example_wildcard_domain
         label: Example wildcard_domain
         description: 'Configure a property of type wildcard_domain'
-      - reference: .properties.example_string_list
+      - reference: .web_server.example_string_list
         label: Example string_list
         description: 'Configure a property of type string_list'
-      - reference: .properties.example_text
+      - reference: .web_server.example_text
         label: Example text
         description: 'Configure a property of type text'
-      - reference: .properties.example_ldap_url
+      - reference: .web_server.example_ldap_url
         label: Example ldap_url
         description: 'Configure a property of type ldap_url'
-      - reference: .properties.example_email
+      - reference: .web_server.example_email
         label: Example email
         description: 'Configure a property of type email'
-      - reference: .properties.example_http_url
+      - reference: .web_server.example_http_url
         label: Example http_url
         description: 'Configure a property of type http_url'
-      - reference: .properties.example_ip_address
+      - reference: .web_server.example_ip_address
         label: Example ip_address
         description: 'Configure a property of type ip_address'
-      - reference: .properties.example_ip_ranges
+      - reference: .web_server.example_ip_ranges
         label: Example ip_ranges
         description: 'Configure a property of type ip_ranges'
-      - reference: .properties.example_multi_select_options
+      - reference: .web_server.example_multi_select_options
         label: Example multi_select_options
         description: 'Configure a property of type multi_select_options'
-      - reference: .properties.example_network_address_list
+      - reference: .web_server.example_network_address_list
         label: Example network_address_list
         description: 'Configure a property of type network_address_list'
-      - reference: .properties.example_network_address
+      - reference: .web_server.example_network_address
         label: Example network_address
         description: 'Configure a property of type network_address'
-      - reference: .properties.example_port
+      - reference: .web_server.example_port
         label: Example port
         description: 'Configure a property of type port'
-      - reference: .properties.example_smtp_authentication
+      - reference: .web_server.example_smtp_authentication
         label: Example smtp_authentication
         description: 'Configure a property of type smtp_authentication'
   - name: example_collections_form
@@ -161,114 +161,6 @@ property_blueprints:
                 label: 'Medium'
               - name: well-done
                 label: 'Well done'
-  - name: generated_rsa_cert_credentials
-    type: rsa_cert_credentials
-  - name: generated_rsa_pkey_credentials
-    type: rsa_pkey_credentials
-  - name: generated_salted_credentials
-    type: salted_credentials
-  - name: generated_simple_credentials
-    type: simple_credentials
-  - name: generated_secret
-    type: secret
-  - name: generated_uuid
-    type: uuid
-  - name: example_string
-    type: string
-    configurable: true
-    default: 'Hello world'
-  - name: example_migrated_integer
-    type: integer
-    configurable: true
-    default: 1
-  - name: example_boolean
-    type: boolean
-    configurable: true
-    default: true
-  - name: example_dropdown
-    type: dropdown_select
-    configurable: true
-    default: kiwi
-    options:
-      - name: kiwi
-        label: 'label for kiwi'
-      - name: lime
-        label: 'label for lime'
-      - name: avocado
-        label: 'label for avocado'
-  - name: example_domain
-    type: domain
-    configurable: true
-    default: www.example.com
-  - name: example_wildcard_domain
-    type: wildcard_domain
-    configurable: true
-    default: 'example.com'
-  - name: example_string_list
-    type: string_list
-    configurable: true
-    default: 'a,list,of,strings'
-  - name: example_text
-    type: text
-    configurable: true
-    default: 'some_text'
-  - name: example_ldap_url
-    type: ldap_url
-    configurable: true
-    default: 'ldap://example.com'
-  - name: example_email
-    type: email
-    configurable: true
-    default: foo@example.com
-  - name: example_http_url
-    type: http_url
-    configurable: true
-    default: 'http://www.example.com'
-  - name: example_ip_address
-    type: ip_address
-    configurable: true
-    default: '192.168.0.1'
-  - name: example_ip_ranges
-    type: ip_ranges
-    configurable: true
-    default: '1.1.1.1-1.1.1.4,2.2.2.1-2.2.2.4'
-  - name: example_multi_select_options
-    type: multi_select_options
-    configurable: true
-    default: ['earth', 'jupiter']
-    options:
-      - name: mercury
-        label: 'label f or mercury'
-      - name: venus
-        label: 'label for venus'
-      - name: earth
-        label: 'label for earth'
-      - name: mars
-        label: 'label for mars'
-      - name: jupiter
-        label: 'label for jupiter'
-      - name: saturn
-        label: 'label for saturn'
-      - name: uranus
-        label: 'label for uranus'
-      - name: neptune
-        label: 'label for neptune'
-  - name: example_network_address_list
-    type: network_address_list
-    configurable: true
-    default: '1.1.1.1,example.com,foo.bar.example.com'
-  - name: example_network_address
-    type: network_address
-    configurable: true
-    default: '1.1.1.1'
-  - name: example_port
-    type: port
-    configurable: true
-    default: 1111
-  - name: example_smtp_authentication
-    type: smtp_authentication
-    configurable: true
-    default: plain
   - name: example_collection
     type: collection
     configurable: true
@@ -325,46 +217,46 @@ job_types:
       generated:
         root_rsa_certificate: (( $ops_manager.ca_certificate ))
         rsa_cert_credentials:
-          public_key_pem: (( .properties.generated_rsa_cert_credentials.public_key_pem ))
-          cert_and_private_key_pems: (( .properties.generated_rsa_cert_credentials.cert_and_private_key_pems ))
+          public_key_pem: (( .web_server.generated_rsa_cert_credentials.public_key_pem ))
+          cert_and_private_key_pems: (( .web_server.generated_rsa_cert_credentials.cert_and_private_key_pems ))
         rsa_pkey_credentials:
-          public_key_pem: (( .properties.generated_rsa_pkey_credentials.public_key_pem ))
-          private_key_pem: (( .properties.generated_rsa_pkey_credentials.private_key_pem ))
-          public_key_openssh: (( .properties.generated_rsa_pkey_credentials.public_key_openssh ))
-          public_key_fingerprint: (( .properties.generated_rsa_pkey_credentials.public_key_fingerprint ))
+          public_key_pem: (( .web_server.generated_rsa_pkey_credentials.public_key_pem ))
+          private_key_pem: (( .web_server.generated_rsa_pkey_credentials.private_key_pem ))
+          public_key_openssh: (( .web_server.generated_rsa_pkey_credentials.public_key_openssh ))
+          public_key_fingerprint: (( .web_server.generated_rsa_pkey_credentials.public_key_fingerprint ))
         salted_credentials:
-          sha512_hashed_password: (( .properties.generated_salted_credentials.sha512_hashed_password ))
-          identity: (( .properties.generated_salted_credentials.identity ))
-          salt: (( .properties.generated_salted_credentials.salt ))
-          password: (( .properties.generated_salted_credentials.password ))
+          sha512_hashed_password: (( .web_server.generated_salted_credentials.sha512_hashed_password ))
+          identity: (( .web_server.generated_salted_credentials.identity ))
+          salt: (( .web_server.generated_salted_credentials.salt ))
+          password: (( .web_server.generated_salted_credentials.password ))
         simple_credentials:
-          identity: (( .properties.generated_simple_credentials.identity ))
-          password: (( .properties.generated_simple_credentials.password ))
-        secret: (( .properties.generated_secret.value ))
-        uuid: (( .properties.generated_uuid.value ))
+          identity: (( .web_server.generated_simple_credentials.identity ))
+          password: (( .web_server.generated_simple_credentials.password ))
+        secret: (( .web_server.generated_secret.value ))
+        uuid: (( .web_server.generated_uuid.value ))
       configured:
-        string: (( .properties.example_string.value ))
-        integer: (( .properties.example_migrated_integer.value ))
-        boolean: (( .properties.example_boolean.value ))
-        dropdown: (( .properties.example_dropdown.value ))
-        domain: (( .properties.example_domain.value ))
-        wildcard_domain: (( .properties.example_wildcard_domain.value ))
-        string_list: (( .properties.example_string_list.value ))
-        text: (( .properties.example_text.value ))
-        ldap_url: (( .properties.example_ldap_url.value ))
-        email: (( .properties.example_email.value ))
-        http_url: (( .properties.example_http_url.value ))
-        ip_address: (( .properties.example_ip_address.value ))
+        string: (( .web_server.example_string.value ))
+        integer: (( .web_server.example_migrated_integer.value ))
+        boolean: (( .web_server.example_boolean.value ))
+        dropdown: (( .web_server.example_dropdown.value ))
+        domain: (( .web_server.example_domain.value ))
+        wildcard_domain: (( .web_server.example_wildcard_domain.value ))
+        string_list: (( .web_server.example_string_list.value ))
+        text: (( .web_server.example_text.value ))
+        ldap_url: (( .web_server.example_ldap_url.value ))
+        email: (( .web_server.example_email.value ))
+        http_url: (( .web_server.example_http_url.value ))
+        ip_address: (( .web_server.example_ip_address.value ))
         ip_ranges:
-          value: (( .properties.example_ip_ranges.value ))
-          parsed_ip_ranges: (( .properties.example_ip_ranges.parsed_ip_ranges ))
-        multi_select_options: (( .properties.example_multi_select_options.value ))
+          value: (( .web_server.example_ip_ranges.value ))
+          parsed_ip_ranges: (( .web_server.example_ip_ranges.parsed_ip_ranges ))
+        multi_select_options: (( .web_server.example_multi_select_options.value ))
         network_address_list:
-          value: (( .properties.example_network_address_list.value ))
-          parsed_network_addresses: (( .properties.example_network_address_list.parsed_network_addresses ))
-        network_address: (( .properties.example_network_address.value ))
-        port: (( .properties.example_port.value ))
-        smtp_authentication: (( .properties.example_smtp_authentication.value ))
+          value: (( .web_server.example_network_address_list.value ))
+          parsed_network_addresses: (( .web_server.example_network_address_list.parsed_network_addresses ))
+        network_address: (( .web_server.example_network_address.value ))
+        port: (( .web_server.example_port.value ))
+        smtp_authentication: (( .web_server.example_smtp_authentication.value ))
         record_collection: (( .properties.example_collection.value || [] ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
   - name: web_server
@@ -404,51 +296,160 @@ job_types:
         default: 1
         constraints:
           max: 1
-    property_blueprints: []
+    property_blueprints:
+    - name: generated_rsa_cert_credentials
+      type: rsa_cert_credentials
+    - name: generated_rsa_pkey_credentials
+      type: rsa_pkey_credentials
+    - name: generated_salted_credentials
+      type: salted_credentials
+    - name: generated_simple_credentials
+      type: simple_credentials
+    - name: generated_secret
+      type: secret
+    - name: generated_uuid
+      type: uuid
+    - name: example_string
+      type: string
+      configurable: true
+      default: 'Hello world'
+    - name: example_migrated_integer
+      type: integer
+      configurable: true
+      default: 1
+    - name: example_boolean
+      type: boolean
+      configurable: true
+      default: true
+    - name: example_dropdown
+      type: dropdown_select
+      configurable: true
+      default: kiwi
+      options:
+        - name: kiwi
+          label: 'label for kiwi'
+        - name: lime
+          label: 'label for lime'
+        - name: avocado
+          label: 'label for avocado'
+    - name: example_domain
+      type: domain
+      configurable: true
+      default: www.example.com
+    - name: example_wildcard_domain
+      type: wildcard_domain
+      configurable: true
+      default: 'example.com'
+    - name: example_string_list
+      type: string_list
+      configurable: true
+      default: 'a,list,of,strings'
+    - name: example_text
+      type: text
+      configurable: true
+      default: 'some_text'
+    - name: example_ldap_url
+      type: ldap_url
+      configurable: true
+      default: 'ldap://example.com'
+    - name: example_email
+      type: email
+      configurable: true
+      default: foo@example.com
+    - name: example_http_url
+      type: http_url
+      configurable: true
+      default: 'http://www.example.com'
+    - name: example_ip_address
+      type: ip_address
+      configurable: true
+      default: '192.168.0.1'
+    - name: example_ip_ranges
+      type: ip_ranges
+      configurable: true
+      default: '1.1.1.1-1.1.1.4,2.2.2.1-2.2.2.4'
+    - name: example_multi_select_options
+      type: multi_select_options
+      configurable: true
+      default: ['earth', 'jupiter']
+      options:
+        - name: mercury
+          label: 'label f or mercury'
+        - name: venus
+          label: 'label for venus'
+        - name: earth
+          label: 'label for earth'
+        - name: mars
+          label: 'label for mars'
+        - name: jupiter
+          label: 'label for jupiter'
+        - name: saturn
+          label: 'label for saturn'
+        - name: uranus
+          label: 'label for uranus'
+        - name: neptune
+          label: 'label for neptune'
+    - name: example_network_address_list
+      type: network_address_list
+      configurable: true
+      default: '1.1.1.1,example.com,foo.bar.example.com'
+    - name: example_network_address
+      type: network_address
+      configurable: true
+      default: '1.1.1.1'
+    - name: example_port
+      type: port
+      configurable: true
+      default: 1111
+    - name: example_smtp_authentication
+      type: smtp_authentication
+      configurable: true
+      default: plain
+
     manifest: |
       generated:
         root_rsa_certificate: (( $ops_manager.ca_certificate ))
         rsa_cert_credentials:
-          public_key_pem: (( .properties.generated_rsa_cert_credentials.public_key_pem ))
-          cert_and_private_key_pems: (( .properties.generated_rsa_cert_credentials.cert_and_private_key_pems ))
+          public_key_pem: (( generated_rsa_cert_credentials.public_key_pem ))
+          cert_and_private_key_pems: (( generated_rsa_cert_credentials.cert_and_private_key_pems ))
         rsa_pkey_credentials:
-          public_key_pem: (( .properties.generated_rsa_pkey_credentials.public_key_pem ))
-          private_key_pem: (( .properties.generated_rsa_pkey_credentials.private_key_pem ))
-          public_key_openssh: (( .properties.generated_rsa_pkey_credentials.public_key_openssh ))
-          public_key_fingerprint: (( .properties.generated_rsa_pkey_credentials.public_key_fingerprint ))
+          public_key_pem: (( generated_rsa_pkey_credentials.public_key_pem ))
+          private_key_pem: (( generated_rsa_pkey_credentials.private_key_pem ))
+          public_key_openssh: (( generated_rsa_pkey_credentials.public_key_openssh ))
+          public_key_fingerprint: (( generated_rsa_pkey_credentials.public_key_fingerprint ))
         salted_credentials:
-          sha512_hashed_password: (( .properties.generated_salted_credentials.sha512_hashed_password ))
-          identity: (( .properties.generated_salted_credentials.identity ))
-          salt: (( .properties.generated_salted_credentials.salt ))
-          password: (( .properties.generated_salted_credentials.password ))
+          sha512_hashed_password: (( generated_salted_credentials.sha512_hashed_password ))
+          identity: (( generated_salted_credentials.identity ))
+          salt: (( generated_salted_credentials.salt ))
+          password: (( generated_salted_credentials.password ))
         simple_credentials:
-          identity: (( .properties.generated_simple_credentials.identity ))
-          password: (( .properties.generated_simple_credentials.password ))
-        secret: (( .properties.generated_secret.value ))
-        uuid: (( .properties.generated_uuid.value ))
+          identity: (( generated_simple_credentials.identity ))
+          password: (( generated_simple_credentials.password ))
+        secret: (( generated_secret.value ))
+        uuid: (( generated_uuid.value ))
       configured:
-        string: (( .properties.example_string.value ))
-        integer: (( .properties.example_migrated_integer.value ))
-        boolean: (( .properties.example_boolean.value ))
-        dropdown: (( .properties.example_dropdown.value ))
-        domain: (( .properties.example_domain.value ))
-        wildcard_domain: (( .properties.example_wildcard_domain.value ))
-        string_list: (( .properties.example_string_list.value ))
-        text: (( .properties.example_text.value ))
-        ldap_url: (( .properties.example_ldap_url.value ))
-        email: (( .properties.example_email.value ))
-        http_url: (( .properties.example_http_url.value ))
-        ip_address: (( .properties.example_ip_address.value ))
+        string: (( example_string.value ))
+        integer: (( example_migrated_integer.value ))
+        boolean: (( example_boolean.value ))
+        dropdown: (( example_dropdown.value ))
+        domain: (( example_domain.value ))
+        wildcard_domain: (( example_wildcard_domain.value ))
+        string_list: (( example_string_list.value ))
+        text: (( example_text.value ))
+        ldap_url: (( example_ldap_url.value ))
+        email: (( example_email.value ))
+        http_url: (( example_http_url.value ))
+        ip_address: (( example_ip_address.value ))
         ip_ranges:
-          value: (( .properties.example_ip_ranges.value ))
-          parsed_ip_ranges: (( .properties.example_ip_ranges.parsed_ip_ranges ))
-        multi_select_options: (( .properties.example_multi_select_options.value ))
+          value: (( example_ip_ranges.value ))
+          parsed_ip_ranges: (( example_ip_ranges.parsed_ip_ranges ))
+        multi_select_options: (( example_multi_select_options.value ))
         network_address_list:
-          value: (( .properties.example_network_address_list.value ))
-          parsed_network_addresses: (( .properties.example_network_address_list.parsed_network_addresses ))
-        network_address: (( .properties.example_network_address.value ))
-        port: (( .properties.example_port.value ))
-        smtp_authentication: (( .properties.example_smtp_authentication.value ))
+          value: (( example_network_address_list.value ))
+          parsed_network_addresses: (( example_network_address_list.parsed_network_addresses ))
+        network_address: (( example_network_address.value ))
+        port: (( example_port.value ))
+        smtp_authentication: (( example_smtp_authentication.value ))
         record_collection: (( .properties.example_collection.value || [] ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
       ops_manager_provided_accessors:
