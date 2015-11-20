@@ -28,6 +28,10 @@ form_types:
       - reference: .web_server.example_string
         label: Example string
         description: 'Configure a property of type string'
+      - reference: .web_server.example_string_with_placeholder
+        label: Example string containing Placeholder text
+        description: 'Optional field. Configuration not necessary'
+        placeholder: 'Ghost text. Spooky!'
       - reference: .web_server.example_migrated_integer
         label: Example integer
         description: 'Configure a property of type integer'
@@ -309,6 +313,11 @@ job_types:
       type: secret
     - name: generated_uuid
       type: uuid
+    - name: example_string_with_placeholder
+      type: string
+      configurable: true
+      optional: true
+      placeholder: 'Configure me!'
     - name: example_string
       type: string
       configurable: true
