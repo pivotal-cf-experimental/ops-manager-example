@@ -321,10 +321,10 @@ job_types:
     - name: example_string
       type: string
       configurable: true
-      default: 'Hello_world'
+      default: 'Hello world'
       constraints:
-      - must_match_regex: '^[^\s]*$'
-        error_message: 'This name cannot contain spaces.'
+      - must_match_regex: '^[^!@#$%^&*()]*$'
+        error_message: 'This name cannot contain capital digits.'
       - must_match_regex: '^[^0-9]*$'
         error_message: 'This name cannot contain digits.'
     - name: example_migrated_integer
