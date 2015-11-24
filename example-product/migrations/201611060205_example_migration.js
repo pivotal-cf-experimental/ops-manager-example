@@ -1,4 +1,4 @@
 exports.migrate = function(properties) {
-    console.log('Example console log');
+    console.log('the properties passed to migrate are: ', properties);
     return properties;
 };
