@@ -145,3 +145,7 @@ migrations:
     rules: *1_5_0_0_rules
   - from_version: "1.6.2.0"
     rules: *1_5_0_0_rules
+  - from_version: "1.6.3.0"
+    rules: *1_5_0_0_rules
+  - from_version: "1.6.4.0"
+    rules: *1_5_0_0_rules
