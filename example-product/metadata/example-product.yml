@@ -498,6 +498,8 @@ job_types:
         type: integer
         configurable: true
         default: 8_192
+        constraints:
+          min: 7000
       - name: cpu
         type: integer
         configurable: true
@@ -525,7 +527,7 @@ job_types:
       - name: persistent_disk
         type: integer
         configurable: true
-        default: 8_192
+        default: 0
       - name: cpu
         type: integer
         configurable: true
