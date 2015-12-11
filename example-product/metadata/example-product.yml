@@ -1,7 +1,7 @@
 ---
 name: example-product
-product_version: "1.6.4.0"
-metadata_version: "1.6"
+product_version: "1.7.0.0"
+metadata_version: "1.7"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
@@ -489,6 +489,8 @@ job_types:
         type: integer
         configurable: true
         default: 8_192
+        constraints:
+          min: 8_192
       - name: cpu
         type: integer
         configurable: true
@@ -521,6 +523,8 @@ job_types:
         type: integer
         configurable: true
         default: 8_192
+        constraints:
+          min: 8_192
       - name: cpu
         type: integer
         configurable: true
