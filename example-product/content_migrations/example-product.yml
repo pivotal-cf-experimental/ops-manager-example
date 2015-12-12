@@ -1,8 +1,0 @@
----
-product: example-product
-installation_schema_version: "1.7"
-to_version: &to_version "1.7.0.0"
-
-migrations:
-  - from_version: "1.6.4.0"
-    rules: []
