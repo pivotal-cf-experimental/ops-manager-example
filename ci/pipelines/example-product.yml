@@ -12,12 +12,11 @@ jobs:
   - get: ops-manager-example
     resource: ops-manager-example-1.7
     trigger: true
+  - task: ensure-versions-match
+    file: ops-manager-example/ci/tasks/ensure-versions-match.yml
   - task: generate-example-product
     privileged: true
     file: ops-manager-example/ci/tasks/generate-example-product.yml
-    config:
-      params:
-        REPO_DIR: ops-manager-example
   - put: generated-example-product-1.7
     params:
       from: ops-manager-example/example-product/example-product-(.*).pivotal
@@ -35,12 +34,11 @@ jobs:
   - get: ops-manager-example
     resource: ops-manager-example-1.6
     trigger: true
+  - task: ensure-versions-match
+    file: ops-manager-example/ci/tasks/ensure-versions-match.yml
   - task: generate-example-product
     privileged: true
     file: ops-manager-example/ci/tasks/generate-example-product.yml
-    config:
-      params:
-        REPO_DIR: ops-manager-example
   - put: generated-example-product-1.6
     params:
       from: ops-manager-example/example-product/example-product-(.*).pivotal
@@ -58,12 +56,11 @@ jobs:
   - get: ops-manager-example
     resource: ops-manager-example-1.5
     trigger: true
+  - task: ensure-versions-match
+    file: ops-manager-example/ci/tasks/ensure-versions-match.yml
   - task: generate-example-product
     privileged: true
     file: ops-manager-example/ci/tasks/generate-example-product.yml
-    config:
-      params:
-        REPO_DIR: ops-manager-example
   - put: generated-example-product-1.5
     params:
       from: ops-manager-example/example-product/example-product-(.*).pivotal

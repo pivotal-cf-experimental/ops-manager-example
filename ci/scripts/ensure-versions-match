@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -eux
+
+root_dir=$(pwd)
+sym_version="$(cat version/number)"
+product_dir="${root_dir}/ops-manager-example/example-product"
+product_version="$(grep product_version ${product_dir}/metadata/example-product.yml | egrep -o '\d[^"]+')"
+version_regex="\d+\.\d+\.\d+"
+
+cd ${product_dir}
+
+product_version_segment="$(echo ${product_version} | egrep -o ${version_regex})"
+sym_version_segment="$(echo ${sym_version} | egrep -o ${version_regex})"
+
+set +x
+if [ ${product_version_segment} = ${sym_version_segment} ]; then
+  echo "Versions match"
+  exit 0
+else
+  echo "Versions do NOT match"
+  exit 1
+fi

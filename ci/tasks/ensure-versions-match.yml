@@ -8,4 +8,3 @@ inputs:
 
 run:
   path: ops-manager-example/ci/scripts/generate-example-product
-

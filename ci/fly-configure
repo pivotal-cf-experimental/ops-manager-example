@@ -6,4 +6,4 @@ credentials_dir=$(cd ~/workspace/ops-manager-credentials/ && pwd)
 my_dir=$(dirname $0)
 
 echo "Configuring example-product"
-fly --target opsmanager-ci configure example-product -c "${my_dir}/pipelines/example-product.yml" --vf "${credentials_dir}/ci/credentials.yml" --vf "${credentials_dir}/ci/configurable-properties.yml"
+fly --target opsmanager-ci set-pipeline --pipeline example-product --config "${my_dir}/pipelines/example-product.yml" --load-vars-from "${credentials_dir}/ci/credentials.yml" --load-vars-from "${credentials_dir}/ci/configurable-properties.yml"
