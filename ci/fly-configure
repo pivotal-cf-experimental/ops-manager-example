@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -eu
-
-credentials_dir=$(cd ~/workspace/ops-manager-credentials/ && pwd)
-my_dir=$(dirname $0)
-
-echo "Configuring example-product"
-fly --target opsmanager-ci configure example-product -c "${my_dir}/pipelines/example-product.yml" --vf "${credentials_dir}/ci/credentials.yml" --vf "${credentials_dir}/ci/configurable-properties.yml"

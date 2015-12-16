@@ -1,0 +1,10 @@
+---
+platform: linux
+image: docker:///ruby#2.2
+
+inputs:
+- name: ops-manager-example
+- name: version
+
+run:
+  path: ops-manager-example/ci/scripts/ensure-versions-match
