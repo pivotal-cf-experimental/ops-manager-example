@@ -7,4 +7,4 @@ inputs:
 - name: version
 
 run:
-  path: ops-manager-example/ci/scripts/generate-example-product
+  path: ops-manager-example/ci/scripts/ensure-versions-match
