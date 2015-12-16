@@ -9,8 +9,8 @@ version_regex="[[:digit:]]\{1,\}\.[[:digit:]]\{1,\}\.[[:digit:]]\{1,\}"
 
 cd ${product_dir}
 
-product_version_segment="$(echo ${product_version} | egrep -o ${version_regex})"
-sym_version_segment="$(echo ${sym_version} | egrep -o ${version_regex})"
+product_version_segment="$(echo ${product_version} | grep -o -e ${version_regex})"
+sym_version_segment="$(echo ${sym_version} | grep -o -e ${version_regex})"
 
 set +x
 if [ ${product_version_segment} = ${sym_version_segment} ]; then
