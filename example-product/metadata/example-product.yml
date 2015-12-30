@@ -121,6 +121,13 @@ form_types:
             property_inputs:
               - reference: .properties.example_selector.filet_mignon_option.rarity_dropdown
                 label: 'How rare?'
+  - name: static_ips_form
+    label: 'Static IPs'
+    description: 'Where you go to set static IPs'
+    property_inputs:
+      - reference: .web_server.static_ips
+        label: Web Server IPs
+        description: Optional comma-seperated list of static IPs that will be assigned to the web server
 property_blueprints:
   - name: example_selector
     type: selector
@@ -301,6 +308,10 @@ job_types:
         constraints:
           max: 1
     property_blueprints:
+    - name: static_ips
+      type: ip_ranges
+      configurable: true
+      optional: true
     - name: generated_rsa_cert_credentials
       type: rsa_cert_credentials
     - name: generated_rsa_pkey_credentials
