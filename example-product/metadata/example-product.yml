@@ -8,7 +8,7 @@ rank: 1
 stemcell_criteria:
   os: ubuntu-trusty
   requires_cpi: false
-  version: "3169" # Bosh stemcell should match Ops Manager with same version
+  version: "3184.1" # Bosh stemcell should match Ops Manager with same version
 releases:
   - name: example-release
     file: example-release-11.tgz
