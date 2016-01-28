@@ -52,7 +52,7 @@ form_types:
         description: 'Configure a property of type string_list'
       - reference: .web_server.example_text
         label: Example text
-        description: 'Configure a property of type text'
+        description: 'Configure a property of type text (setting to "magic value" will cause the web server job instance count to go to 0)'
       - reference: .web_server.example_ldap_url
         label: Example ldap_url
         description: 'Configure a property of type ldap_url'
@@ -307,6 +307,9 @@ job_types:
       default: 1
       constraints:
         max: 1
+      zero_if:
+        property_reference: '.web_server.example_text'
+        property_value: 'magic value'
     property_blueprints:
     - name: static_ips
       type: ip_ranges
