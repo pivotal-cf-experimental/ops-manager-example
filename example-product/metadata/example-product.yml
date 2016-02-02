@@ -24,6 +24,16 @@ form_types:
   - name: example-form
     label: Configurable Properties
     description: All the properties that you can configure!
+    markdown: |
+      ## I am markdown, hear me _roar_.
+
+      ![Alt text](http://placekitten.com/g/400/200)
+
+      Things to do:
+
+      1. Learn [markdown](https://daringfireball.net/projects/markdown/).
+      1. ...
+      1. Profit!
     property_inputs:
       - reference: .web_server.example_string
         label: Example string
@@ -124,6 +134,8 @@ form_types:
   - name: static_ips_form
     label: 'Static IPs'
     description: 'Where you go to set static IPs'
+    markdown: |
+      ![Alt text](https://placebear.com/g/200/300)
     property_inputs:
       - reference: .web_server.static_ips
         label: Web Server IPs
