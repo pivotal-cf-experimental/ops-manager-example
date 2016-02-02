@@ -93,6 +93,9 @@ form_types:
       - reference: .web_server.example_smtp_authentication
         label: Example smtp_authentication
         description: 'Configure a property of type smtp_authentication'
+      - reference: .web_server.client_certificate
+        label: Example certificate
+        description: 'Configure a certificate'
   - name: example_collections_form
     label: 'Collection example'
     description: 'A collection example form'
@@ -445,6 +448,10 @@ job_types:
       type: smtp_authentication
       configurable: true
       default: plain
+    - name: client_certificate
+      type: ca_certificate
+      configurable: true
+      optional: true
 
     manifest: |
       generated:
