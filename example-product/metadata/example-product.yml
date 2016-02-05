@@ -7,7 +7,6 @@ description: An example product to demonstrate Ops Manager product-author featur
 rank: 1
 stemcell_criteria:
   os: ubuntu-trusty
-  requires_cpi: false
   version: "3184.1" # Bosh stemcell should match Ops Manager with same version
 releases:
   - name: example-release
