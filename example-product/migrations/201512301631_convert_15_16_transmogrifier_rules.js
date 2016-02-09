@@ -1,4 +1,4 @@
-exports.migrate = function(properties) {
+exports.migrate = function(input) {
   var current_version = getCurrentProductVersion();
 
   if (current_version.substring(0,3) == "1.5" || current_version.substring(0,3) == "1.6") {
@@ -31,9 +31,9 @@ exports.migrate = function(properties) {
 
     for (var i in properties_to_move) {
       var property_name = properties_to_move[i];
-      properties.job_properties.web_server[property_name] = properties.product_properties[property_name];
-      delete properties.product_properties[property_name];
+      input.properties['.web_server.' + property_name] = input.properties['.properties.' + property_name];
+      delete input.properties['.properties.' + property_name];
     }
   }
-  return properties;
+  return input;
 };
