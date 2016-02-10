@@ -189,7 +189,6 @@ property_blueprints:
   - name: example_collection
     type: collection
     configurable: true
-    optional: true
     property_blueprints:
       - name: album
         type: string
@@ -197,6 +196,10 @@ property_blueprints:
         type: string
       - name: explicit
         type: boolean
+    default:
+      - album: Christmas Carols
+        artist: Ops Manatee
+        explicit: true
 
 job_types:
   - name: example-errand
