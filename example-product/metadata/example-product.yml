@@ -7,7 +7,7 @@ description: An example product to demonstrate Ops Manager product-author featur
 rank: 1
 stemcell_criteria:
   os: ubuntu-trusty
-  version: "3197" # Bosh stemcell should match Ops Manager with same version
+  version: "3191" # Bosh stemcell should match Ops Manager with same version
 releases:
   - name: example-release
     file: example-release-11.tgz
