@@ -6,6 +6,9 @@ inputs:
 - name: ops-manager-example
 - name: version
 
+outputs:
+- name: example-product-output
+
 run:
   path: ops-manager-example/ci/scripts/generate-example-product
 
