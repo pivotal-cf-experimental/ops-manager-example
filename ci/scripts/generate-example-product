@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eux
+set -ux
 
 root_dir=$(pwd)
 version_num="$(cat version/number)"
@@ -38,5 +38,10 @@ echo "creating .pivotal file"
 TARGET_FILE=example-product-$version_num.pivotal
 zip -r $TARGET_FILE  migrations metadata releases
 
+echo "created pivotal file: [$TARGET_FILE]"
+
+echo "moving pivotal file to: [$root_dir/example-product-output/]"
+
 mv $TARGET_FILE $root_dir/example-product-output/
 
+echo "done"
