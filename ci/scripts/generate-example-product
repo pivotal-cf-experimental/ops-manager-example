@@ -35,4 +35,13 @@ mv "${release_tgz}" "${product_dir}/releases/"
 cd "${product_dir}"
 echo "creating .pivotal file"
 
-zip -r example-product-$version_num.pivotal content_migrations metadata releases
+TARGET_FILE=example-product-$version_num.pivotal
+zip -r $TARGET_FILE  migrations metadata releases
+
+echo "created pivotal file: [$TARGET_FILE]"
+
+echo "moving pivotal file to: [$root_dir/example-product-output/]"
+
+mv $TARGET_FILE $root_dir/example-product-output/
+
+echo "done"
