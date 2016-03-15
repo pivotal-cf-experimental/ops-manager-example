@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ux
+set -eux
 
 root_dir=$(pwd)
 version_num="$(cat version/number)"
