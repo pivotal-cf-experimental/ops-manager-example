@@ -61,9 +61,10 @@ jobs:
   - task: generate-example-product
     privileged: true
     file: ops-manager-example/ci/tasks/generate-example-product.yml
-  - put: generated-example-product-1.5
-    params:
-      from: example-product-output/example-product-(.*).pivotal
+  - aggregate:
+    - put: generated-example-product-1.5
+      params:
+        from: example-product-output/example-product-(.*).pivotal
 
 - name: after-release-1.5
   serial: true
