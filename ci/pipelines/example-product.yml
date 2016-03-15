@@ -19,7 +19,7 @@ jobs:
     file: ops-manager-example/ci/tasks/generate-example-product.yml
   - put: generated-example-product-1.7
     params:
-      from: example-product-version/example-product/example-product-(.*).pivotal
+      from: example-product-output/example-product-(.*).pivotal
 
 - name: create-product-1.6
   serial: true
@@ -41,7 +41,7 @@ jobs:
     file: ops-manager-example/ci/tasks/generate-example-product.yml
   - put: generated-example-product-1.6
     params:
-      from: example-product-version/example-product/example-product-(.*).pivotal
+      from: example-product-output/example-product-(.*).pivotal
 
 - name: create-product-1.5
   serial: true
@@ -63,7 +63,7 @@ jobs:
     file: ops-manager-example/ci/tasks/generate-example-product.yml
   - put: generated-example-product-1.5
     params:
-      from: example-product-version/example-product/example-product-(.*).pivotal
+      from: example-product-output/example-product-(.*).pivotal
 
 - name: after-release-1.5
   serial: true
