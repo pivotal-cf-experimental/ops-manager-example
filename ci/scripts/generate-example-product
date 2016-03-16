@@ -36,7 +36,7 @@ cd "${product_dir}"
 echo "creating .pivotal file"
 
 TARGET_FILE=example-product-$version_num.pivotal
-zip -r $TARGET_FILE  migrations metadata releases
+zip -r $TARGET_FILE  migrations metadata releases content_migrations
 
 echo "created pivotal file: [$TARGET_FILE]"
 
