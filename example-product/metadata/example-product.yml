@@ -326,7 +326,7 @@ job_types:
       zero_if:
         property_reference: '.properties.example_selector'
         property_values:
-          - Pizza
+          - Filet Mignon
           - Beverage
     resource_definitions:
       - name: ram
