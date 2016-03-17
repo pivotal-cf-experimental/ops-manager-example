@@ -78,10 +78,22 @@ properties:
     description: 'a basic configured port'
   configured.smtp_authentication:
     description: 'a basic configured smtp_authentication'
+  configured.ca_certificate:
+    description: 'a basic configurable ca_certificate'
   configured.record_collection:
     description: 'a configured record collection'
   configured.selector:
     description: 'a configured selector'
+  configured.simple_credentials.identity:
+    description: 'Identity'
+  configured.simple_credentials.password:
+    description: 'Password'
+  configured.secret:
+    description: 'A configured secret'
+  configured.rsa_cert_credentials.public_key_pem:
+    description: 'RSA cert public_key_pem'
+  configured.rsa_cert_credentials.cert_and_private_key_pems:
+    description: 'RSA cert cert_and_private_key_pems'
 
   ops_manager_provided_accessors.name:
     description: 'job name'

@@ -18,8 +18,8 @@ stemcell_criteria:
   enable_patch_security_updates: true
 releases:
   - name: example-release
-    file: example-release-11.tgz
-    version: "11"
+    file: example-release-12.tgz
+    version: "12"
 
 post_deploy_errands:
   - name: example-errand
@@ -120,6 +120,9 @@ form_types:
           - reference: explicit
             label: 'Explicit?'
             description: '$#!%&'
+          - reference: secret_meaning
+            label: 'Secret Meaning'
+            description: 'If you play it backwards...'
   - name: example_selector_form
     label: 'Selector Example'
     description: 'A selector example form'
@@ -134,6 +137,7 @@ form_types:
                 label: 'Add Pepperoni'
               - reference: .properties.example_selector.pizza_option.pineapple
                 label: 'Add Pineapple'
+                description: 'Nothing like an apple, would not buy again'
               - reference: .properties.example_selector.pizza_option.other_toppings
                 label: 'Other toppings'
           - reference: .properties.example_selector.filet_mignon_option
@@ -141,11 +145,28 @@ form_types:
             property_inputs:
               - reference: .properties.example_selector.filet_mignon_option.rarity_dropdown
                 label: 'How rare?'
+                description: 'Extinct.'
+              - reference: .properties.example_selector.filet_mignon_option.secret_sauce
+                label: 'Secret Sauce'
+                description: 'Probably mayonnaise'
           - reference: .properties.example_selector.beverage_option
             label: 'Beverage'
             property_inputs:
               - reference: .properties.example_selector.beverage_option.cola
                 label: 'What kind of soda?'
+  - name: example_secrets_form
+    label: 'Secrets and Credentials Example'
+    description: 'A secrets and credentials form'
+    property_inputs:
+      - reference: .web_server.configured_secret
+        label: 'So secret, you do not know the secret exists'
+        description: A configurable property of type secret
+      - reference: .web_server.configured_simple_credentials
+        label: 'Very very simple credentials'
+        description: A configurable property of type simple_credentials
+      - reference: .web_server.configured_rsa_cert_credentials
+        label: 'Credentials with a certificate of achievement. They achieved the highest level of dodgeball at summer camp.'
+        description: A configurable property of type rsa_cert_credentials
   - name: static_ips_form
     label: 'Static IPs'
     description: 'Where you go to set static IPs'
@@ -181,12 +202,16 @@ property_blueprints:
             type: string
             configurable: true
             optional: true
+            constraints:
+            - must_match_regex: '\A[^!@#$%^&*()]*\z'
+              error_message: 'This name cannot contain special characters.'
       - name: filet_mignon_option
         select_value: Filet Mignon
         named_manifests:
           - name: my_snippet
             manifest: |
               rarity: (( .properties.example_selector.filet_mignon_option.rarity_dropdown.value ))
+              secret_sauce: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
         property_blueprints:
           - name: rarity_dropdown
             type: dropdown_select
@@ -199,6 +224,10 @@ property_blueprints:
                 label: 'Medium'
               - name: well-done
                 label: 'Well done'
+          - name: secret_sauce
+            type: secret
+            configurable: true
+            optional: true
       - name: beverage_option
         select_value: Beverage
         property_blueprints:
@@ -207,6 +236,8 @@ property_blueprints:
             type: string
             configurable: true
             optional: true
+        named_manifests:
+          - name: my_snippet
             manifest: |
               beverage: (( .properties.example_selector.beverage_option.cola.value ))
   - name: example_collection
@@ -219,11 +250,14 @@ property_blueprints:
         type: string
       - name: explicit
         type: boolean
+      - name: secret_meaning
+        type: secret
+        configurable: true
+        optional: true
     default:
       - album: Christmas Carols
         artist: Ops Manatee
         explicit: true
-
 job_types:
   - name: example-errand
     resource_label: an errand to log properties
@@ -302,8 +336,16 @@ job_types:
         network_address: (( .web_server.example_network_address.value ))
         port: (( .web_server.example_port.value ))
         smtp_authentication: (( .web_server.example_smtp_authentication.value ))
+        ca_certificate: (( .web_server.client_certificate.value ))
         record_collection: (( .properties.example_collection.value || [] ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
+        secret: (( .web_server.configured_secret.value ))
+        rsa_cert_credentials:
+          public_key_pem: (( .web_server.configured_rsa_cert_credentials.public_key_pem ))
+          cert_and_private_key_pems: (( .web_server.configured_rsa_cert_credentials.cert_and_private_key_pems ))
+        simple_credentials:
+          identity: (( .web_server.configured_simple_credentials.identity ))
+          password: (( .web_server.configured_simple_credentials.password ))
   - name: web_server
     resource_label: Web Server
     templates:
@@ -364,6 +406,18 @@ job_types:
       type: secret
     - name: generated_uuid
       type: uuid
+    - name: configured_secret
+      type: secret
+      configurable: true
+      optional: true
+    - name: configured_simple_credentials
+      type: simple_credentials
+      configurable: true
+      optional: true
+    - name: configured_rsa_cert_credentials
+      type: rsa_cert_credentials
+      configurable: true
+      optional: true
     - name: example_string_with_placeholder
       type: string
       configurable: true
@@ -374,9 +428,9 @@ job_types:
       configurable: true
       default: 'Hello world'
       constraints:
-      - must_match_regex: '^[^!@#$%^&*()]*$'
-        error_message: 'This name cannot contain capital digits.'
-      - must_match_regex: '^[^0-9]*$'
+      - must_match_regex: '\A[^!@#$%^&*()]*\z'
+        error_message: 'This name cannot contain special characters.'
+      - must_match_regex: '\A[^0-9]*\z'
         error_message: 'This name cannot contain digits.'
     - name: example_migrated_integer
       type: integer
@@ -518,8 +572,16 @@ job_types:
         network_address: (( example_network_address.value ))
         port: (( example_port.value ))
         smtp_authentication: (( example_smtp_authentication.value ))
+        ca_certificate: (( client_certificate.value ))
         record_collection: (( .properties.example_collection.value || [] ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
+        secret: (( configured_secret.value ))
+        rsa_cert_credentials:
+          public_key_pem: (( configured_rsa_cert_credentials.public_key_pem ))
+          cert_and_private_key_pems: (( configured_rsa_cert_credentials.cert_and_private_key_pems ))
+        simple_credentials:
+          identity: (( configured_simple_credentials.identity ))
+          password: (( configured_simple_credentials.password ))
       ops_manager_provided_accessors:
         name: (( name ))
         ram: (( ram ))

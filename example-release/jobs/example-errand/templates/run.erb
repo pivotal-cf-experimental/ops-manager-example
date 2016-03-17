@@ -43,9 +43,15 @@ echo "Configured Values"
      'configured.network_address',
      'configured.port',
      'configured.smtp_authentication',
+     'configured.ca_certificate',
      'configured.record_collection',
      'configured.selector',
+     'configured.simple_credentials.identity',
+     'configured.simple_credentials.password',
+     'configured.secret',
+     'configured.rsa_cert_credentials.public_key_pem',
+     'configured.rsa_cert_credentials.cert_and_private_key_pems',
    ].each do |property| %>
-  echo "<%= "#{property}=#{p(property)}" %>"
+  echo "<%= property %>=<% if_p(property) do |prop| %><%= prop %><% end %>"
 <% end %>
 
