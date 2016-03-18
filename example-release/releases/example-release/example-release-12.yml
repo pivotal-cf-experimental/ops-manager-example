@@ -1,0 +1,32 @@
+---
+packages:
+- name: nginx
+  version: 795a8f8acc5e1c4688e3823355e7681532ba85f9
+  fingerprint: 795a8f8acc5e1c4688e3823355e7681532ba85f9
+  sha1: 4ed574ab8049dd2ba18fd26b1d05ac511b82c797
+  dependencies: []
+jobs:
+- name: example-errand
+  version: 5853036fc3ff5ee285892d330536e487a0b9b3ea
+  fingerprint: 5853036fc3ff5ee285892d330536e487a0b9b3ea
+  sha1: 84f26c2245ff8ea71b33f955bbdb26c5406a050e
+- name: no_op
+  version: 8c5d3b5ba16186d72c633c703d65797d4d2889b2
+  fingerprint: 8c5d3b5ba16186d72c633c703d65797d4d2889b2
+  sha1: 0e923b870f44ba0e868058832dc236128aa214df
+- name: time_logger
+  version: 20de578a988bddd11ee5e83f298a8f34a48089a8
+  fingerprint: 20de578a988bddd11ee5e83f298a8f34a48089a8
+  sha1: 4a420158b1316b95915b0a4bab437c4b65c867a7
+- name: web_server
+  version: cbacd7ba8238aebd9b841ce42b5f1648aed75143
+  fingerprint: cbacd7ba8238aebd9b841ce42b5f1648aed75143
+  sha1: 2a91edb5ff36c8395660d65838f058ca7404a968
+license:
+  version: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
+  fingerprint: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
+  sha1: e9f73d92771324e6da16044b1d28d045e5eb71c3
+commit_hash: 186e4607
+uncommitted_changes: true
+name: example-release
+version: '12'
