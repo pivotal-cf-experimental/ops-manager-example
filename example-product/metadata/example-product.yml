@@ -588,11 +588,9 @@ job_types:
         ephemeral_disk: (( ephemeral_disk ))
         persistent_disk: (( persistent_disk ))
         instances: (( instances ))
-        availability_zone: (( availability_zone ))
         first_ip: (( first_ip ))
         ips: (( ips ))
         ips_by_availability_zone: (( ips_by_availability_zone ))
-        bosh_job_partition_stats: (( bosh_job_partition_stats ))
   - name: no_op
     resource_label: No Operation
     templates:
