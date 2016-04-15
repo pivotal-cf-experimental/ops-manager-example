@@ -123,6 +123,9 @@ form_types:
           - reference: secret_meaning
             label: 'Secret Meaning'
             description: 'If you play it backwards...'
+          - reference: genre
+            label: 'Genre'
+            description: Are there others?
   - name: example_selector_form
     label: 'Selector Example'
     description: 'A selector example form'
@@ -254,10 +257,21 @@ property_blueprints:
         type: secret
         configurable: true
         optional: true
+      - name: genre
+        type: dropdown_select
+        configurable: true
+        options:
+          - name: rock
+            label: 'Rock'
+          - name: country
+            label: 'Country'
+          - name: edm
+            label: 'Beep Boop PSH'
     default:
       - album: Christmas Carols
         artist: Ops Manatee
         explicit: true
+        genre: edm
 job_types:
   - name: example-errand
     resource_label: an errand to log properties
