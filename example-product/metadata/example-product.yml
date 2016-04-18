@@ -263,10 +263,12 @@ property_blueprints:
         optional: true
       - name: vm_type
         type: vm_type_dropdown
+        optional: true
         configurable: true
       - name: disk_type
         type: disk_type_dropdown
         configurable: true
+        optional: true
       - name: genre
         type: dropdown_select
         configurable: true
