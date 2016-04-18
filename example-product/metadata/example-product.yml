@@ -126,6 +126,10 @@ form_types:
           - reference: genre
             label: 'Genre'
             description: Are there others?
+          - reference: vm_type
+            label: 'Music VM Type'
+          - reference: disk_type
+            label: 'Music Disk Type'
   - name: example_selector_form
     label: 'Selector Example'
     description: 'A selector example form'
@@ -257,6 +261,12 @@ property_blueprints:
         type: secret
         configurable: true
         optional: true
+      - name: vm_type
+        type: vm_type_dropdown
+        configurable: true
+      - name: disk_type
+        type: disk_type_dropdown
+        configurable: true
       - name: genre
         type: dropdown_select
         configurable: true
