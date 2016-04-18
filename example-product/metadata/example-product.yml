@@ -260,6 +260,7 @@ property_blueprints:
       - name: genre
         type: dropdown_select
         configurable: true
+        optional: true
         options:
           - name: rock
             label: 'Rock'
