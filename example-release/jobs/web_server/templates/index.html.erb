@@ -87,5 +87,16 @@
         <dd><%= p(property) %></dd>
     <% end %>
     </dl>
+
+    <h2>Director Provided Accessors:</h2>
+    <dl>
+    <% [
+         'director_provided_accessors.ntp_servers',
+         'director_provided_accessors.ca_public_key',
+       ].each do |property| %>
+        <dt><%= property %></dt>
+        <dd><%= p(property) %></dd>
+    <% end %>
+    </dl>
   </body>
 </html>

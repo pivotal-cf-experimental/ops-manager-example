@@ -18,8 +18,8 @@ stemcell_criteria:
   enable_patch_security_updates: true
 releases:
   - name: example-release
-    file: example-release-13.tgz
-    version: "13"
+    file: example-release-14.tgz
+    version: "14"
 
 post_deploy_errands:
   - name: example-errand
@@ -373,6 +373,9 @@ job_types:
         simple_credentials:
           identity: (( .web_server.configured_simple_credentials.identity ))
           password: (( .web_server.configured_simple_credentials.password ))
+      director_provided_accessors:
+        ntp_servers: (( $director.ntp_servers ))
+        ca_public_key: (( $director.ca_public_key ))
   - name: web_server
     resource_label: Web Server
     templates:
@@ -618,6 +621,9 @@ job_types:
         first_ip: (( first_ip ))
         ips: (( ips ))
         ips_by_availability_zone: (( ips_by_availability_zone ))
+      director_provided_accessors:
+        ntp_servers: (( $director.ntp_servers ))
+        ca_public_key: (( $director.ca_public_key ))
   - name: no_op
     resource_label: No Operation
     templates:
