@@ -1,4 +1,5 @@
 #!/bin/bash
+<% require 'shellwords' %>
 
 echo "Generated Values"
 <% [
@@ -17,7 +18,7 @@ echo "Generated Values"
      'generated.secret',
      'generated.uuid',
    ].each do |property| %>
-  echo "<%= "#{property}=#{p(property)}" %>"
+  echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>
 
 echo "Configured Values"
@@ -52,7 +53,7 @@ echo "Configured Values"
      'configured.rsa_cert_credentials.public_key_pem',
      'configured.rsa_cert_credentials.cert_and_private_key_pems',
    ].each do |property| %>
-  echo "<%= property %>=<% if_p(property) do |prop| %><%= prop %><% end %>"
+  echo <%= Shellwords.escape(property) %>=<% if_p(property) do |prop| %><%= Shellwords.escape(prop) %><% end %>
 <% end %>
 
 echo 'Director Provided Accessors'
@@ -61,5 +62,5 @@ echo 'Director Provided Accessors'
      'director_provided_accessors.ntp_servers',
      'director_provided_accessors.ca_public_key',
    ].each do |property| %>
-  echo "<%= "#{property}=#{p(property)}" %>"
+  echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>
