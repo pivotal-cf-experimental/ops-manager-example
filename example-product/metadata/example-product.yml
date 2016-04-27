@@ -322,6 +322,9 @@ job_types:
     manifest: |
       generated:
         root_rsa_certificate: (( $ops_manager.ca_certificate ))
+        http_proxy: (( $ops_manager.http_proxy ))
+        https_proxy: (( $ops_manager.https_proxy ))
+        no_proxy: (( $ops_manager.no_proxy ))
         rsa_cert_credentials:
           public_key_pem: (( .web_server.generated_rsa_cert_credentials.public_key_pem ))
           cert_and_private_key_pems: (( .web_server.generated_rsa_cert_credentials.cert_and_private_key_pems ))
