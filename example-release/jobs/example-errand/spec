@@ -82,7 +82,7 @@ properties:
   configured.record_collection:
     description: 'a configured record collection'
   configured.selector:
-    description 'a configured selector'
+    description: 'a configured selector'
   configured.simple_credentials.identity:
     description: 'Identity'
   configured.simple_credentials.password:
@@ -98,3 +98,6 @@ properties:
     description: 'Director ntp_servers'
   director_provided_accessors.ca_public_key:
     description: 'Director ca_public_key'
+
+  product.deployment_name:
+    description: 'deployment name for the product'

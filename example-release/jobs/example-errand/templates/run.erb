@@ -1,6 +1,14 @@
 #!/bin/bash
 <% require 'shellwords' %>
 
+echo 'Product Accessors'
+
+<% [
+       'product.deployment_name',
+   ].each do |property| %>
+  echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
+<% end %>
+
 echo "Generated Values"
 <% [
      'generated.rsa_cert_credentials.public_key_pem',

@@ -7,6 +7,16 @@
       <a href="/logs/time.log">/logs/time.log</a>
     </p>
 
+    <h2>Product Accessors:</h2>
+    <dl>
+      <% [
+             'product.deployment_name',
+         ].each do |property| %>
+        <dt><%= property %></dt>
+        <dd><%= p(property) %></dd>
+      <% end %>
+    </dl>
+
     <h2>Generated values:</h2>
     <dl>
     <% [
