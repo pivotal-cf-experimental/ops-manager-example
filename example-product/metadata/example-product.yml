@@ -18,8 +18,8 @@ stemcell_criteria:
   enable_patch_security_updates: true
 releases:
   - name: example-release
-    file: example-release-15.tgz
-    version: "15"
+    file: example-release-16.tgz
+    version: "16"
 
 post_deploy_errands:
   - name: example-errand
@@ -379,6 +379,8 @@ job_types:
       director_provided_accessors:
         ntp_servers: (( $director.ntp_servers ))
         ca_public_key: (( $director.ca_public_key ))
+      product:
+        deployment_name: (( ..example-product.deployment_name ))
   - name: web_server
     resource_label: Web Server
     templates:
@@ -627,6 +629,8 @@ job_types:
       director_provided_accessors:
         ntp_servers: (( $director.ntp_servers ))
         ca_public_key: (( $director.ca_public_key ))
+      product:
+        deployment_name: (( .deployment_name ))
   - name: no_op
     resource_label: No Operation
     templates:
