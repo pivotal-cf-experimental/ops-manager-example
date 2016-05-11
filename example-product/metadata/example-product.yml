@@ -297,6 +297,68 @@ job_types:
     templates:
       - name: example-errand
         release: example-release
+        manifest: |
+          generated:
+            root_rsa_certificate: (( $ops_manager.ca_certificate ))
+            http_proxy: (( $ops_manager.http_proxy ))
+            https_proxy: (( $ops_manager.https_proxy ))
+            no_proxy: (( $ops_manager.no_proxy ))
+            rsa_cert_credentials:
+              public_key_pem: (( .web_server.generated_rsa_cert_credentials.public_key_pem ))
+              cert_and_private_key_pems: (( .web_server.generated_rsa_cert_credentials.cert_and_private_key_pems ))
+            rsa_pkey_credentials:
+              public_key_pem: (( .web_server.generated_rsa_pkey_credentials.public_key_pem ))
+              private_key_pem: (( .web_server.generated_rsa_pkey_credentials.private_key_pem ))
+              public_key_openssh: (( .web_server.generated_rsa_pkey_credentials.public_key_openssh ))
+              public_key_fingerprint: (( .web_server.generated_rsa_pkey_credentials.public_key_fingerprint ))
+            salted_credentials:
+              sha512_hashed_password: (( .web_server.generated_salted_credentials.sha512_hashed_password ))
+              identity: (( .web_server.generated_salted_credentials.identity ))
+              salt: (( .web_server.generated_salted_credentials.salt ))
+              password: (( .web_server.generated_salted_credentials.password ))
+            simple_credentials:
+              identity: (( .web_server.generated_simple_credentials.identity ))
+              password: (( .web_server.generated_simple_credentials.password ))
+            secret: (( .web_server.generated_secret.value ))
+            uuid: (( .web_server.generated_uuid.value ))
+          configured:
+            string: (( .web_server.example_string.value ))
+            integer: (( .web_server.example_migrated_integer.value ))
+            boolean: (( .web_server.example_boolean.value ))
+            dropdown: (( .web_server.example_dropdown.value ))
+            domain: (( .web_server.example_domain.value ))
+            wildcard_domain: (( .web_server.example_wildcard_domain.value ))
+            string_list: (( .web_server.example_string_list.value ))
+            text: (( .web_server.example_text.value ))
+            ldap_url: (( .web_server.example_ldap_url.value ))
+            email: (( .web_server.example_email.value ))
+            http_url: (( .web_server.example_http_url.value ))
+            ip_address: (( .web_server.example_ip_address.value ))
+            ip_ranges:
+              value: (( .web_server.example_ip_ranges.value ))
+              parsed_ip_ranges: (( .web_server.example_ip_ranges.parsed_ip_ranges ))
+            multi_select_options: (( .web_server.example_multi_select_options.value ))
+            network_address_list:
+              value: (( .web_server.example_network_address_list.value ))
+              parsed_network_addresses: (( .web_server.example_network_address_list.parsed_network_addresses ))
+            network_address: (( .web_server.example_network_address.value ))
+            port: (( .web_server.example_port.value ))
+            smtp_authentication: (( .web_server.example_smtp_authentication.value ))
+            ca_certificate: (( .web_server.client_certificate.value ))
+            record_collection: (( .properties.example_collection.value || [] ))
+            selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
+            secret: (( .web_server.configured_secret.value ))
+            rsa_cert_credentials:
+              public_key_pem: (( .web_server.configured_rsa_cert_credentials.public_key_pem ))
+              cert_and_private_key_pems: (( .web_server.configured_rsa_cert_credentials.cert_and_private_key_pems ))
+            simple_credentials:
+              identity: (( .web_server.configured_simple_credentials.identity ))
+              password: (( .web_server.configured_simple_credentials.password ))
+          director_provided_accessors:
+            ntp_servers: (( $director.ntp_servers ))
+            ca_public_key: (( $director.ca_public_key ))
+          product:
+            deployment_name: (( ..example-product.deployment_name ))
     errand: true
     static_ip: 0
     dynamic_ip: 1
@@ -325,68 +387,6 @@ job_types:
         configurable: true
         default: 1
     property_blueprints: []
-    manifest: |
-      generated:
-        root_rsa_certificate: (( $ops_manager.ca_certificate ))
-        http_proxy: (( $ops_manager.http_proxy ))
-        https_proxy: (( $ops_manager.https_proxy ))
-        no_proxy: (( $ops_manager.no_proxy ))
-        rsa_cert_credentials:
-          public_key_pem: (( .web_server.generated_rsa_cert_credentials.public_key_pem ))
-          cert_and_private_key_pems: (( .web_server.generated_rsa_cert_credentials.cert_and_private_key_pems ))
-        rsa_pkey_credentials:
-          public_key_pem: (( .web_server.generated_rsa_pkey_credentials.public_key_pem ))
-          private_key_pem: (( .web_server.generated_rsa_pkey_credentials.private_key_pem ))
-          public_key_openssh: (( .web_server.generated_rsa_pkey_credentials.public_key_openssh ))
-          public_key_fingerprint: (( .web_server.generated_rsa_pkey_credentials.public_key_fingerprint ))
-        salted_credentials:
-          sha512_hashed_password: (( .web_server.generated_salted_credentials.sha512_hashed_password ))
-          identity: (( .web_server.generated_salted_credentials.identity ))
-          salt: (( .web_server.generated_salted_credentials.salt ))
-          password: (( .web_server.generated_salted_credentials.password ))
-        simple_credentials:
-          identity: (( .web_server.generated_simple_credentials.identity ))
-          password: (( .web_server.generated_simple_credentials.password ))
-        secret: (( .web_server.generated_secret.value ))
-        uuid: (( .web_server.generated_uuid.value ))
-      configured:
-        string: (( .web_server.example_string.value ))
-        integer: (( .web_server.example_migrated_integer.value ))
-        boolean: (( .web_server.example_boolean.value ))
-        dropdown: (( .web_server.example_dropdown.value ))
-        domain: (( .web_server.example_domain.value ))
-        wildcard_domain: (( .web_server.example_wildcard_domain.value ))
-        string_list: (( .web_server.example_string_list.value ))
-        text: (( .web_server.example_text.value ))
-        ldap_url: (( .web_server.example_ldap_url.value ))
-        email: (( .web_server.example_email.value ))
-        http_url: (( .web_server.example_http_url.value ))
-        ip_address: (( .web_server.example_ip_address.value ))
-        ip_ranges:
-          value: (( .web_server.example_ip_ranges.value ))
-          parsed_ip_ranges: (( .web_server.example_ip_ranges.parsed_ip_ranges ))
-        multi_select_options: (( .web_server.example_multi_select_options.value ))
-        network_address_list:
-          value: (( .web_server.example_network_address_list.value ))
-          parsed_network_addresses: (( .web_server.example_network_address_list.parsed_network_addresses ))
-        network_address: (( .web_server.example_network_address.value ))
-        port: (( .web_server.example_port.value ))
-        smtp_authentication: (( .web_server.example_smtp_authentication.value ))
-        ca_certificate: (( .web_server.client_certificate.value ))
-        record_collection: (( .properties.example_collection.value || [] ))
-        selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
-        secret: (( .web_server.configured_secret.value ))
-        rsa_cert_credentials:
-          public_key_pem: (( .web_server.configured_rsa_cert_credentials.public_key_pem ))
-          cert_and_private_key_pems: (( .web_server.configured_rsa_cert_credentials.cert_and_private_key_pems ))
-        simple_credentials:
-          identity: (( .web_server.configured_simple_credentials.identity ))
-          password: (( .web_server.configured_simple_credentials.password ))
-      director_provided_accessors:
-        ntp_servers: (( $director.ntp_servers ))
-        ca_public_key: (( $director.ca_public_key ))
-      product:
-        deployment_name: (( ..example-product.deployment_name ))
   - name: web_server
     resource_label: Web Server
     templates:
