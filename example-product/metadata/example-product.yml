@@ -130,6 +130,8 @@ form_types:
             label: 'Music VM Type'
           - reference: disk_type
             label: 'Music Disk Type'
+          - reference: example_service_network_az_multi_select
+            label: 'CF-Pop Service Network Multi AZ picker?'
   - name: example_selector_form
     label: 'Selector Example'
     description: 'A selector example form'
@@ -280,6 +282,10 @@ property_blueprints:
             label: 'Country'
           - name: edm
             label: 'Beep Boop PSH'
+      - name: example_service_network_az_multi_select
+        type: service_network_az_multi_select
+        configurable: true
+        optional: true
     default:
       - album: Christmas Carols
         artist: Ops Manatee
