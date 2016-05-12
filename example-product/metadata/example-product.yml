@@ -1,6 +1,6 @@
 ---
 name: example-product
-product_version: "1.7.4.0-alpha"
+product_version: "1.7.4.0"
 minimum_version_for_upgrade: "1.6.0.0"
 metadata_version: "1.7"
 label: 'Ops Manager: Example Product'
@@ -8,7 +8,7 @@ description: An example product to demonstrate Ops Manager product-author featur
 rank: 1
 stemcell_criteria:
   os: ubuntu-trusty
-  version: "3232.2" # Bosh stemcell should match Ops Manager with same version
+  version: "3232.3" # Bosh stemcell should match Ops Manager with same version
 
   # allows you to opt-out of the default behaviour of Ops Manager 1.7 to always
   # use the latest patch update of an available stemcell version. Set to 'false'
