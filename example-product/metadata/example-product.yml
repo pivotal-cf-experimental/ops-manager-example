@@ -6,6 +6,7 @@ metadata_version: "1.8"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
+service_broker: false # Default value
 stemcell_criteria:
   os: ubuntu-trusty
   version: "3232.3" # Bosh stemcell should match Ops Manager with same version
@@ -130,8 +131,10 @@ form_types:
             label: 'Music VM Type'
           - reference: disk_type
             label: 'Music Disk Type'
+          - reference: example_service_network_az_single_select
+            label: 'Country of Origin (Service Network Single AZ Select) Note: Only applicable when service_broker is turned on'
           - reference: example_service_network_az_multi_select
-            label: 'CF-Pop Service Network Multi AZ picker?'
+            label: 'CF-Pop Service Network Multi AZ picker? Note: Only applicable when service_broker is turned on'
   - name: example_selector_form
     label: 'Selector Example'
     description: 'A selector example form'
@@ -300,7 +303,11 @@ property_blueprints:
             label: 'Country'
           - name: edm
             label: 'Beep Boop PSH'
-      - name: example_service_network_az_multi_select
+      - name: example_service_network_az_single_select # Only used if service_broker is turned on
+        type: service_network_az_single_select
+        configurable: true
+        optional: true
+      - name: example_service_network_az_multi_select # Only used if service_broker is turned on
         type: service_network_az_multi_select
         configurable: true
         optional: true
