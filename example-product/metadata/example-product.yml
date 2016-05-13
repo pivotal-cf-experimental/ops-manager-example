@@ -420,7 +420,7 @@ job_types:
         provides: |
           web_server_info: (( .properties.example_selector.selected_option.parsed_manifest(provides_section) ))
         consumes: |
-          web_server_info: (( .properties.example_selector.selected_option.parsed_manifest(provides_section) ))
+          web_server_info: (( .properties.example_selector.selected_option.parsed_manifest(consumes_section) ))
       - name: time_logger
         release: example-release
     release: example-release
