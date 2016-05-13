@@ -7,6 +7,19 @@
       <a href="/logs/time.log">/logs/time.log</a>
     </p>
 
+    <h2>Link info</h2>
+    <%
+      link('web_server_info').instances.map do |instance|
+    %>
+    <dl>
+      <dt>name</dt><dd><%= instance.name %></dd>
+      <dt>id</dt><dd><%= instance.id %></dd>
+      <dt>index</dt><dd><%= instance.index %></dd>
+      <dt>az</dt><dd><%= instance.az %></dd>
+      <dt>address</dt><dd><%= instance.address %></dd>
+    </dl>
+    <% end %>
+
     <h2>Product Accessors:</h2>
     <dl>
       <% [

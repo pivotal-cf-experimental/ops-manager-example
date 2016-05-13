@@ -8,6 +8,14 @@ templates:
 
 packages: [nginx]
 
+consumes:
+  - name: web_server_info
+    type: type_a
+
+provides:
+  - name: web_server_info
+    type: type_a
+
 properties:
   generated.rsa_cert_credentials.public_key_pem:
     description: 'RSA cert public_key_pem'
