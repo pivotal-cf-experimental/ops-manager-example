@@ -18,8 +18,8 @@ stemcell_criteria:
   enable_patch_security_updates: true
 releases:
   - name: example-release
-    file: example-release-16.tgz
-    version: "16"
+    file: example-release-17.tgz
+    version: "17"
 
 post_deploy_errands:
   - name: example-errand
@@ -392,6 +392,12 @@ job_types:
     templates:
       - name: web_server
         release: example-release
+        provides:
+          web_server_info:
+            as: 'link_web_server_job'
+        consumes:
+          web_server_info:
+            from: 'link_web_server_job'
       - name: time_logger
         release: example-release
     release: example-release
