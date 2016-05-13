@@ -200,6 +200,12 @@ property_blueprints:
                 pepperoni: (( .properties.example_selector.pizza_option.pepperoni.value ))
                 pineapple: (( .properties.example_selector.pizza_option.pineapple.value ))
                 other: (( .properties.example_selector.pizza_option.other_toppings.value ))
+          - name: provides_section
+            manifest: |
+              as: 'link_web_server_job'
+          - name: consumes_section
+            manifest: |
+              from: 'link_web_server_job'
         property_blueprints:
           - name: pepperoni
             type: boolean
@@ -221,6 +227,12 @@ property_blueprints:
             manifest: |
               rarity: (( .properties.example_selector.filet_mignon_option.rarity_dropdown.value ))
               secret_sauce: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
+          - name: provides_section
+            manifest: |
+              as: 'link_web_server_job'
+          - name: consumes_section
+            manifest: |
+              from: 'link_web_server_job'
         property_blueprints:
           - name: rarity_dropdown
             type: dropdown_select
@@ -249,6 +261,12 @@ property_blueprints:
           - name: my_snippet
             manifest: |
               beverage: (( .properties.example_selector.beverage_option.cola.value ))
+          - name: provides_section
+            manifest: |
+              as: 'link_web_server_job'
+          - name: consumes_section
+            manifest: |
+              from: 'link_web_server_job'
   - name: example_collection
     type: collection
     configurable: true
@@ -392,12 +410,10 @@ job_types:
     templates:
       - name: web_server
         release: example-release
-        provides:
-          web_server_info:
-            as: 'link_web_server_job'
-        consumes:
-          web_server_info:
-            from: 'link_web_server_job'
+        provides: |
+          web_server_info: (( .properties.example_selector.selected_option.parsed_manifest(provides_section) ))
+        consumes: |
+          web_server_info: (( .properties.example_selector.selected_option.parsed_manifest(provides_section) ))
       - name: time_logger
         release: example-release
     release: example-release
