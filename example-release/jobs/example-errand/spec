@@ -101,3 +101,6 @@ properties:
 
   product.deployment_name:
     description: 'deployment name for the product'
+
+  self.stemcell_version:
+    description: 'stemcell assigned to product'

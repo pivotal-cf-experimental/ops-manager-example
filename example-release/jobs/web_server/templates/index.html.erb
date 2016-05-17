@@ -30,6 +30,16 @@
       <% end %>
     </dl>
 
+    <h2>Self Accessors:</h2>
+    <dl>
+      <% [
+             'self.stemcell_version',
+         ].each do |property| %>
+        <dt><%= property %></dt>
+        <dd><%= p(property) %></dd>
+      <% end %>
+    </dl>
+
     <h2>Generated values:</h2>
     <dl>
     <% [
