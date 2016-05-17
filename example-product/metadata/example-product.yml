@@ -19,8 +19,8 @@ stemcell_criteria:
   enable_patch_security_updates: true
 releases:
   - name: example-release
-    file: example-release-17.tgz
-    version: "17"
+    file: example-release-18.tgz
+    version: "18"
 
 post_deploy_errands:
   - name: example-errand
@@ -384,6 +384,8 @@ job_types:
             ca_public_key: (( $director.ca_public_key ))
           product:
             deployment_name: (( ..example-product.deployment_name ))
+          self:
+            stemcell_version: (( $self.stemcell_version ))
     errand: true
     static_ip: 0
     dynamic_ip: 1
@@ -666,6 +668,8 @@ job_types:
         ca_public_key: (( $director.ca_public_key ))
       product:
         deployment_name: (( .deployment_name ))
+      self:
+        stemcell_version: (( $self.stemcell_version ))
   - name: no_op
     resource_label: No Operation
     templates:
