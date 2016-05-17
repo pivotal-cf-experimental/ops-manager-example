@@ -205,10 +205,10 @@ property_blueprints:
                 other: (( .properties.example_selector.pizza_option.other_toppings.value ))
           - name: provides_section
             manifest: |
-              as: 'link_web_server_job'
+              as: 'pizza_link_web_server_job'
           - name: consumes_section
             manifest: |
-              from: 'link_web_server_job'
+              from: 'pizza_link_web_server_job'
         property_blueprints:
           - name: pepperoni
             type: boolean
@@ -232,10 +232,10 @@ property_blueprints:
               secret_sauce: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
           - name: provides_section
             manifest: |
-              as: 'link_web_server_job'
+              as: 'filet_mignon_link_web_server_job'
           - name: consumes_section
             manifest: |
-              from: 'link_web_server_job'
+              from: 'filet_mignon_link_web_server_job'
         property_blueprints:
           - name: rarity_dropdown
             type: dropdown_select
@@ -266,10 +266,10 @@ property_blueprints:
               beverage: (( .properties.example_selector.beverage_option.cola.value ))
           - name: provides_section
             manifest: |
-              as: 'link_web_server_job'
+              as: 'beverage_link_web_server_job'
           - name: consumes_section
             manifest: |
-              from: 'link_web_server_job'
+              from: 'beverage_link_web_server_job'
   - name: example_collection
     type: collection
     configurable: true
