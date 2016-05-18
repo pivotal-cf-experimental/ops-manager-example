@@ -91,7 +91,7 @@ form_types:
         description: 'Configure a property of type multi_select_options'
       - reference: .web_server.example_network_address_list
         label: Example network_address_list
-        description: 'Configure a property of type network_address_list'
+        description: 'Configure a property of type network_address_list (this property was marked with freeze_on_deploy, and so will not be editable after changes are first applied)'
       - reference: .web_server.example_network_address
         label: Example network_address
         description: 'Configure a property of type network_address'
@@ -158,6 +158,9 @@ form_types:
               - reference: .properties.example_selector.filet_mignon_option.rarity_dropdown
                 label: 'How rare?'
                 description: 'Extinct.'
+              - reference: .properties.example_selector.filet_mignon_option.review
+                label: 'Write your review'
+                description: '"Contained live jaguar, would not buy again."'
               - reference: .properties.example_selector.filet_mignon_option.secret_sauce
                 label: 'Secret Sauce'
                 description: 'Probably mayonnaise'
@@ -229,6 +232,7 @@ property_blueprints:
           - name: my_snippet
             manifest: |
               rarity: (( .properties.example_selector.filet_mignon_option.rarity_dropdown.value ))
+              review: (( .properties.example_selector.filet_mignon_option.review.value ))
               secret_sauce: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
           - name: provides_section
             manifest: |
@@ -248,6 +252,11 @@ property_blueprints:
                 label: 'Medium'
               - name: well-done
                 label: 'Well done'
+          - name: review
+            type: string
+            configurable: true
+            default: A+++++ power seller of mail order steak
+            optional: false
           - name: secret_sauce
             type: secret
             configurable: true
@@ -584,6 +593,7 @@ job_types:
       type: network_address_list
       configurable: true
       default: '1.1.1.1,example.com,foo.bar.example.com'
+      freeze_on_deploy: true
     - name: example_network_address
       type: network_address
       configurable: true
