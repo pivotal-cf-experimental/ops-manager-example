@@ -1,3 +1,11 @@
+# The OpsManager example-product CI build is structured as follows:
+#
+# * Pipeline configuration for all versions is contained in this file
+# * Versioned builds reference git branches via git resources, defined at the bottom of this file.
+# * The scripts responsible for building the jobs are in the respective git branches.
+#   (e.g., the 1.7 example product's ensure-versions-match task lives in ops-manager-example/ci/tasks/ensure-versions-match.yml,
+#   in the releases/1.7 branch.)
+
 jobs:
 - name: create-product-1.8
   serial: true
