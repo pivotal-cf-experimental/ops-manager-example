@@ -196,6 +196,7 @@ property_blueprints:
     type: selector
     configurable: true
     default: Pizza
+    freeze_on_deploy: true
     option_templates:
       - name: pizza_option
         select_value: Pizza
@@ -216,6 +217,7 @@ property_blueprints:
           - name: pepperoni
             type: boolean
             configurable: true
+            freeze_on_deploy: true
           - name: pineapple
             type: boolean
             configurable: true
