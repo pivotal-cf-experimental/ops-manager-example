@@ -393,6 +393,10 @@ job_types:
               identity: (( .web_server.configured_simple_credentials.identity ))
               password: (( .web_server.configured_simple_credentials.password ))
           director_provided_accessors:
+            hostname: (( $director.hostname ))
+            deployment_ip: (( $director.deployment_ip ))
+            username: (( $director.username ))
+            password: (( $director.password ))
             ntp_servers: (( $director.ntp_servers ))
             ca_public_key: (( $director.ca_public_key ))
           product:
@@ -668,6 +672,10 @@ job_types:
         ips: (( ips ))
         ips_by_availability_zone: (( ips_by_availability_zone ))
       director_provided_accessors:
+        hostname: (( $director.hostname ))
+        deployment_ip: (( $director.deployment_ip ))
+        username: (( $director.username ))
+        password: (( $director.password ))
         ntp_servers: (( $director.ntp_servers ))
         ca_public_key: (( $director.ca_public_key ))
       product:
