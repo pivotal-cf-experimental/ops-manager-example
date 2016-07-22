@@ -1,0 +1,256 @@
+# The OpsManager example-product CI build is structured as follows:
+#
+# * Pipeline configuration for all versions is contained in this file
+# * Versioned builds reference git branches via git resources, defined at the bottom of this file.
+# * The scripts responsible for building the jobs are in the respective git branches.
+#   (e.g., the 1.7 example product's ensure-versions-match task lives in ops-manager-example/ci/tasks/ensure-versions-match.yml,
+#   in the releases/1.7 branch.)
+
+jobs:
+- name: create-product-1.8
+  serial: true
+  plan:
+  - get: version
+    resource: version_1_8
+    params:
+      pre: build
+  - put: version_1_8
+    params:
+      file: version/number
+  - get: ops-manager-example
+    resource: ops-manager-example-1.8
+    trigger: true
+  - task: ensure-versions-match
+    file: ops-manager-example/ci/tasks/ensure-versions-match.yml
+  - task: generate-example-product
+    privileged: true
+    file: ops-manager-example/ci/tasks/generate-example-product.yml
+  - put: generated-example-product-1.8
+    params:
+      from: example-product-output/example-product-(.*).pivotal
+
+- name: create-product-1.7
+  serial: true
+  plan:
+  - get: version
+    resource: version_1_7
+    params:
+      pre: build
+  - put: version_1_7
+    params:
+      file: version/number
+  - get: ops-manager-example
+    resource: ops-manager-example-1.7
+    trigger: true
+  - task: ensure-versions-match
+    file: ops-manager-example/ci/tasks/ensure-versions-match.yml
+  - task: generate-example-product
+    privileged: true
+    file: ops-manager-example/ci/tasks/generate-example-product.yml
+  - put: generated-example-product-1.7
+    params:
+      from: example-product-output/example-product-(.*).pivotal
+
+- name: create-product-1.6
+  serial: true
+  plan:
+  - get: version
+    resource: version_1_6
+    params:
+      pre: build
+  - put: version_1_6
+    params:
+      file: version/number
+  - get: ops-manager-example
+    resource: ops-manager-example-1.6
+    trigger: true
+  - task: ensure-versions-match
+    file: ops-manager-example/ci/tasks/ensure-versions-match.yml
+  - task: generate-example-product
+    privileged: true
+    file: ops-manager-example/ci/tasks/generate-example-product.yml
+  - put: generated-example-product-1.6
+    params:
+      from: example-product-output/example-product-(.*).pivotal
+
+- name: create-product-1.5
+  serial: true
+  plan:
+  - get: version
+    resource: version_1_5
+    params:
+      pre: build
+  - put: version_1_5
+    params:
+      file: version/number
+  - get: ops-manager-example
+    resource: ops-manager-example-1.5
+    trigger: true
+  - task: ensure-versions-match
+    file: ops-manager-example/ci/tasks/ensure-versions-match.yml
+  - task: generate-example-product
+    privileged: true
+    file: ops-manager-example/ci/tasks/generate-example-product.yml
+  - put: generated-example-product-1.5
+    params:
+      from: example-product-output/example-product-(.*).pivotal
+
+- name: after-release-1.5
+  serial: true
+  plan:
+  - get: version
+    resource: version_1_5
+    params:
+      bump: final
+
+  - put: version_1_5
+    params:
+      file: version/number
+
+  - get: version
+    resource: version_1_5
+    params:
+      bump: patch
+      pre: build
+
+  - put: version_1_5
+    params:
+      file: version/number
+
+- name: after-release-1.6
+  serial: true
+  plan:
+  - get: version
+    resource: version_1_6
+    params:
+      bump: final
+
+  - put: version_1_6
+    params:
+      file: version/number
+
+  - get: version
+    resource: version_1_6
+    params:
+      bump: patch
+      pre: build
+
+  - put: version_1_6
+    params:
+      file: version/number
+
+  - put: version_1_6
+    params:
+      file: version/number
+
+- name: after-release-1.7
+  serial: true
+  plan:
+  - get: version
+    resource: version_1_7
+    params:
+      bump: final
+
+  - put: version_1_7
+    params:
+      file: version/number
+
+  - get: version
+    resource: version_1_7
+    params:
+      bump: patch
+      pre: build
+
+  - put: version_1_7
+    params:
+      file: version/number
+
+  - put: version_1_7
+    params:
+      file: version/number
+
+resources:
+- name: ops-manager-example-1.8
+  type: git
+  source:
+    private_key: {{ops-manager-example-git-key}}
+    branch: master
+    uri: git@github.com:pivotal-cf-experimental/ops-manager-example.git
+- name: ops-manager-example-1.7
+  type: git
+  source:
+    private_key: {{ops-manager-example-git-key}}
+    branch: releases/1.7
+    uri: git@github.com:pivotal-cf-experimental/ops-manager-example.git
+- name: ops-manager-example-1.6
+  type: git
+  source:
+    private_key: {{ops-manager-example-git-key}}
+    branch: releases/1.6
+    uri: git@github.com:pivotal-cf-experimental/ops-manager-example.git
+- name: ops-manager-example-1.5
+  type: git
+  source:
+    private_key: {{ops-manager-example-git-key}}
+    branch: releases/1.5
+    uri: git@github.com:pivotal-cf-experimental/ops-manager-example.git
+- name: generated-example-product-1.8
+  type: s3
+  source:
+    regexp: example-product-(1\.8.*).pivotal
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+- name: generated-example-product-1.7
+  type: s3
+  source:
+    regexp: example-product-(1\.7.*).pivotal
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+- name: generated-example-product-1.6
+  type: s3
+  source:
+    regexp: example-product-(1\.6.*).pivotal
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+- name: generated-example-product-1.5
+  type: s3
+  source:
+    regexp: example-product-(1\.5.*).pivotal
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+- name: version_1_8
+  type: semver
+  source:
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+    key: releases/1.8/version
+    initial_version: 1.8.0-build.0
+- name: version_1_7
+  type: semver
+  source:
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+    key: releases/1.7/version
+    initial_version: 1.7.0-build.0
+- name: version_1_5
+  type: semver
+  source:
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+    key: releases/1.5/version
+    initial_version: 1.5.5-build.0
+- name: version_1_6
+  type: semver
+  source:
+    access_key_id: {{concourse-artifacts-access-key}}
+    secret_access_key: {{concourse-artifacts-secret-access-key}}
+    bucket: {{pivotal-files-bucket}}
+    key: releases/1.6/version
+    initial_version: 1.6.0-alpha.0
