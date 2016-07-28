@@ -408,6 +408,7 @@ job_types:
     dynamic_ip: 1
     max_in_flight: 1
     single_az_only: true
+    default_internet_connected: false
     instance_definition:
       name: instances
       configurable: false
@@ -442,6 +443,7 @@ job_types:
     dynamic_ip: 0
     max_in_flight: 1
     single_az_only: true
+    default_internet_connected: false
     instance_definition:
       name: instances
       configurable: true
@@ -691,6 +693,7 @@ job_types:
     dynamic_ip: 1
     max_in_flight: 2
     single_az_only: false
+    default_internet_connected: false
     instance_definition:
       name: instances
       configurable: true
