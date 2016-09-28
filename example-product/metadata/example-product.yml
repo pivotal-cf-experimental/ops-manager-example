@@ -1,7 +1,7 @@
 ---
 name: example-product
-product_version: "1.8.0.0-alpha"
-minimum_version_for_upgrade: "1.7.0.0"
+product_version: "1.8.3-alpha"
+minimum_version_for_upgrade: "1.7.0"
 metadata_version: "1.8"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
@@ -408,6 +408,7 @@ job_types:
     dynamic_ip: 1
     max_in_flight: 1
     single_az_only: true
+    default_internet_connected: false
     instance_definition:
       name: instances
       configurable: false
@@ -442,6 +443,7 @@ job_types:
     dynamic_ip: 0
     max_in_flight: 1
     single_az_only: true
+    default_internet_connected: false
     instance_definition:
       name: instances
       configurable: true
@@ -691,6 +693,7 @@ job_types:
     dynamic_ip: 1
     max_in_flight: 100%
     single_az_only: false
+    default_internet_connected: false
     instance_definition:
       name: instances
       configurable: true
