@@ -1,6 +1,6 @@
 ---
 name: example-product
-product_version: "1.7.17"
+product_version: "1.7.18-alpha"
 minimum_version_for_upgrade: "1.6.0.0"
 metadata_version: "1.7"
 label: 'Ops Manager: Example Product'
