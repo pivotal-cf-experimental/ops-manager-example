@@ -56,7 +56,7 @@
         'configured.selector',
       ].each do |property| %>
         <dt><%= property %></dt>
-        <dd><%= p(property) %></dd>
+        <dd><pre><%= p(property) %></pre></dd>
     <% end %>
     </dl>
 
@@ -75,7 +75,7 @@
         'ops_manager_provided_accessors.bosh_job_partition_stats',
        ].each do |property| %>
         <dt><%= property %></dt>
-        <dd><%= p(property) %></dd>
+        <dd><pre><%= p(property) %></pre></dd>
     <% end %>
     </dl>
   </body>
