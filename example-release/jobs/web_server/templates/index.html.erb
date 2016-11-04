@@ -65,7 +65,7 @@
         <dt><%= property %></dt>
         <dd>
           <% if_p(property) do |prop| %>
-            <%= prop %>
+            <pre><%= prop %></pre>
           <% end %>
         </dd>
     <% end %>
@@ -86,7 +86,7 @@
         'ops_manager_provided_accessors.bosh_job_partition_stats',
        ].each do |property| %>
         <dt><%= property %></dt>
-        <dd><%= p(property) %></dd>
+        <dd><pre><%= p(property) %></pre></dd>
     <% end %>
     </dl>
   </body>
