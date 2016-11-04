@@ -98,7 +98,7 @@
         <dt><%= property %></dt>
         <dd>
           <% if_p(property) do |prop| %>
-            <%= prop %>
+            <pre><%= prop %></pre>
           <% end %>
         </dd>
     <% end %>
@@ -128,7 +128,7 @@
          'director_provided_accessors.ca_public_key',
        ].each do |property| %>
         <dt><%= property %></dt>
-        <dd><%= p(property) %></dd>
+        <dd><pre><%= p(property) %></pre></dd>
     <% end %>
     </dl>
   </body>
