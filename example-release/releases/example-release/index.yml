@@ -36,4 +36,6 @@ builds:
     version: '17'
   02c6a0e6-364a-40de-a0c3-64783c17dbb4:
     version: '18'
+  170da2c2-fa88-4ad2-94be-1536273b416f:
+    version: '19'
 format-version: '2'

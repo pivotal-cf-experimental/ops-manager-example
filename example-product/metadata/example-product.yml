@@ -19,8 +19,8 @@ stemcell_criteria:
   enable_patch_security_updates: true
 releases:
   - name: example-release
-    file: example-release-18.tgz
-    version: "18"
+    file: example-release-19.tgz
+    version: "19"
 
 post_deploy_errands:
   - name: example-errand
