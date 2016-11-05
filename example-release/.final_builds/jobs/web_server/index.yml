@@ -1,3 +1,7 @@
 ---
-builds: {}
+builds:
+  a797ed1256ec21731157a52958d879394e19ce72:
+    version: a797ed1256ec21731157a52958d879394e19ce72
+    sha1: e1aea4c43b158bc2b14f7f0a08bc509ebbaf74ad
+    blobstore_id: cd25d56d-05c6-4fc5-83af-fb9d5409c201
 format-version: '2'
