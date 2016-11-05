@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'yaml'
+require 'active_support'
+
+def example_product_version
+  raw_version = YAML.load_file(
+    File.expand_path('../example-product/metadata/example-product.yml', __dir__)
+  ).fetch('product_version')
+  full_version = Gem::Version.new(raw_version)
+  full_version.to_s.split('.').first(2).join('.')
+end
+
+def next_release_build
+  release_file_names = Dir.glob(
+    File.expand_path("releases/example-release/example-release-#{example_product_version}.release*.yml", __dir__)
+  )
+  build_versions = release_file_names.map {|file_name| file_name.match(/\.release(\d+).yml\z/)[1].to_i }
+  most_recent_build_version = build_versions.max
+  "#{example_product_version}.release#{most_recent_build_version+1}"
+end
+
+puts "Cutting final release #{next_release_build.inspect}"
+exec("bosh create release --final --version #{next_release_build} --force")
