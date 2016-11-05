@@ -11,8 +11,8 @@ stemcell_criteria:
   version: "3151.3" # Bosh stemcell should match Ops Manager with same version
 releases:
   - name: example-release
-    file: example-release-10.tgz
-    version: "10"
+    file: example-release-1.6.release11.tgz
+    version: "1.6.release11"
 
 post_deploy_errands:
   - name: example-errand
