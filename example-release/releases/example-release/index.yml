@@ -2,4 +2,6 @@
 builds:
   b59678a3-1a4c-4849-9de4-6bb5452334d4:
     version: 1.8.release13
+  87253b71-c7a8-4a29-8f9c-97bb49ec09bc:
+    version: 1.8.release14
 format-version: '2'
