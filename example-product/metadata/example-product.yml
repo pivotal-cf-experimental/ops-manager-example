@@ -1,6 +1,6 @@
 ---
 name: example-product
-product_version: "1.6.27-alpha"
+product_version: "1.6.27"
 metadata_version: "1.6"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
@@ -8,7 +8,7 @@ rank: 1
 stemcell_criteria:
   os: ubuntu-trusty
   requires_cpi: false
-  version: "3151.5" # Bosh stemcell should match Ops Manager with same version
+  version: "3151.6" # Bosh stemcell should match Ops Manager with same version
 releases:
   - name: example-release
     file: example-release-1.6.release11.tgz
