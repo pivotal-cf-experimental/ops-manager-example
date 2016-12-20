@@ -1,5 +1,2 @@
 ---
-builds:
-  f8ed6b95-8e8d-450f-ab36-b25afd81e7dc:
-    version: 1.9.release20
-format-version: '2'
+builds: {}
