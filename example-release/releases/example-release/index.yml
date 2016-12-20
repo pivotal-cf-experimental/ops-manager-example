@@ -1,2 +1,5 @@
 ---
-builds: {}
+builds:
+  71584461-9c3d-4f3e-9aaa-cd667de94bd6:
+    version: 1.10.release21
+format-version: '2'
