@@ -1,7 +1,7 @@
 ---
 product: example-product
 installation_schema_version: "1.6"
-to_version: &to_version "1.6.27"
+to_version: &to_version "1.6.28"
 
 migrations:
   - from_version: "1.4.0.0"
@@ -347,228 +347,97 @@ migrations:
         selector: "properties.[identifier=example_http_url].value"
         to: "http://migrated-value.com"
   - from_version: "1.5.0.0"
-    rules:
+    rules: &update_version
       - type: update
         selector: "product_version"
         to: *to_version
   - from_version: "1.5.3.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.5.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.6.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.7.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.8.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.9.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.10.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.11.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.12.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.13.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.14.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.15.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.16.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.17.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.18.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.19.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.5.20.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
-
+    rules: *update_version
   - from_version: "1.6.0.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.1.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.2.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.3.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.4.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.5.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.6.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.7.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.8.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.9.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.10.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.11.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.12.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.13.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.14.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.15.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.16.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.17.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.18.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.19.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.20.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.21.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.22.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.23.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.24.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.25.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
   - from_version: "1.6.26.0"
-    rules:
-      - type: update
-        selector: "product_version"
-        to: *to_version
+    rules: *update_version
+  - from_version: "1.6.27.0"
+    rules: *update_version
