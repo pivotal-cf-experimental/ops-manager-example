@@ -221,6 +221,7 @@ property_blueprints:
           - name: pineapple
             type: boolean
             configurable: true
+            default: true
           - name: other_toppings
             type: string
             configurable: true
