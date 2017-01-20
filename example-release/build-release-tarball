@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -uxe
+
+OUTPUT_DIR=${1}
+
+EXAMPLE_RELEASE_DIR="$(dirname ${0})"
+cd "${EXAMPLE_RELEASE_DIR}"
+
+bundle # installs bosh_cli
+
+echo "removing any previous release tarballs"
+rm -f releases/example-release/*.tgz
+
+release_yml=$(ls releases/example-release/example-release-*.yml | sort -t '-' -k 4 -g | tail -1)
+echo "creating release from ${release_yml}"
+bundle exec bosh create release "${release_yml}" --with-tarball
+
+release_tgz=$(ls releases/example-release/example-release-*.tgz | sort -t '-' -k 4 -g | tail -1)
+if [[ ! -f ${release_tgz} ]]; then
+  echo "No release created from ${release_yml}"
+  exit 1
+fi
+
+echo "moving release ${release_tgz} to ${OUTPUT_DIR}"
+mv "${release_tgz}" "${OUTPUT_DIR}"
