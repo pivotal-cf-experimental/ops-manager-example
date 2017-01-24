@@ -441,3 +441,5 @@ migrations:
     rules: *update_version
   - from_version: "1.6.27.0"
     rules: *update_version
+  - from_version: "1.6.28.0"
+    rules: *update_version
