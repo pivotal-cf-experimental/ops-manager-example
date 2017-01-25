@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -uxe
+
+version_num="${1}"
+stemcell_version="${2}"
+OUTPUT_DIR="${3}"
+TMP_DIR="$(mktemp -d)"
+
+cd "$(dirname ${0})"
+
+mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
+
+# Add releases
+example-release/build-release-tarball "${TMP_DIR}/releases"
+
+# Add migrations
+cp -r example-product/migrations/* "${TMP_DIR}/migrations"
+
+# Add metadata YAML
+example-product/generate-metadata "${version_num}" "${stemcell_version}" > "${TMP_DIR}/metadata/example-product.yml"
+
+(
+  # Create .pivotal file
+
+  cd "${TMP_DIR}"
+  echo "creating .pivotal file"
+
+  TARGET_FILE="example-product-${version_num}.pivotal"
+  zip -r "${OUTPUT_DIR}/${TARGET_FILE}" migrations metadata releases
+
+  echo "created pivotal file: [${OUTPUT_DIR}/${TARGET_FILE}]"
+)
+
+echo "Done"
