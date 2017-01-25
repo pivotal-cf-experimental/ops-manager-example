@@ -1,15 +1,10 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-require 'yaml'
 require 'active_support'
 
 def example_product_version
-  raw_version = YAML.load_file(
-    File.expand_path('../example-product/metadata/example-product.yml', __dir__)
-  ).fetch('product_version')
-  full_version = Gem::Version.new(raw_version)
-  full_version.to_s.split('.').first(2).join('.')
+  ARGV[0] || fail("Must provide the OM version. For example, on the releases/1.9 branch run '#{$0} 1.9'")
 end
 
 def next_release_build
@@ -22,4 +17,4 @@ def next_release_build
 end
 
 puts "Cutting final release #{next_release_build.inspect}"
-exec("bosh create release --final --version #{next_release_build} --force")
+exec("cd #{__dir__}; bosh create release --final --version #{next_release_build} --force")
