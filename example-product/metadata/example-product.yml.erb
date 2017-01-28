@@ -2,7 +2,7 @@
 name: example-product
 product_version: <%= version.inspect %>
 minimum_version_for_upgrade: "1.7.0"
-metadata_version: "1.9"
+metadata_version: "1.10"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
@@ -19,8 +19,8 @@ stemcell_criteria:
   enable_patch_security_updates: true
 releases:
   - name: example-release
-    file: example-release-1.9.release20.tgz
-    version: "1.9.release20"
+    file: example-release-1.10.release21.tgz
+    version: "1.10.release21"
 
 post_deploy_errands:
   - name: example-errand
