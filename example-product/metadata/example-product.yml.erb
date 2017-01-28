@@ -1,16 +1,17 @@
 ---
 name: example-product
 product_version: <%= version.inspect %>
-minimum_version_for_upgrade: "1.6.0.0"
-metadata_version: "1.7"
+minimum_version_for_upgrade: "1.7.0"
+metadata_version: "1.8"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
+service_broker: false # Default value
 stemcell_criteria:
   os: ubuntu-trusty
   version: <%= stemcell_version.inspect %>
 
-  # allows you to opt-out of the default behaviour of Ops Manager 1.7 to always
+  # allows you to opt-out of the default behaviour of Ops Manager 1.8 to always
   # use the latest patch update of an available stemcell version. Set to 'false'
   # to use the exact version match of the stemcell.
   #
@@ -18,8 +19,8 @@ stemcell_criteria:
   enable_patch_security_updates: true
 releases:
   - name: example-release
-    file: example-release-1.7.release13.tgz
-    version: "1.7.release13"
+    file: example-release-1.8.release14.tgz
+    version: "1.8.release14"
 
 post_deploy_errands:
   - name: example-errand
@@ -90,7 +91,7 @@ form_types:
         description: 'Configure a property of type multi_select_options'
       - reference: .web_server.example_network_address_list
         label: Example network_address_list
-        description: 'Configure a property of type network_address_list'
+        description: 'Configure a property of type network_address_list (this property was marked with freeze_on_deploy, and so will not be editable after changes are first applied)'
       - reference: .web_server.example_network_address
         label: Example network_address
         description: 'Configure a property of type network_address'
@@ -123,6 +124,17 @@ form_types:
           - reference: secret_meaning
             label: 'Secret Meaning'
             description: 'If you play it backwards...'
+          - reference: genre
+            label: 'Genre'
+            description: Are there others?
+          - reference: vm_type
+            label: 'Music VM Type'
+          - reference: disk_type
+            label: 'Music Disk Type'
+          - reference: example_service_network_az_single_select
+            label: 'Country of Origin (Service Network Single AZ Select) Note: Only applicable when service_broker is turned on'
+          - reference: example_service_network_az_multi_select
+            label: 'CF-Pop Service Network Multi AZ picker? Note: Only applicable when service_broker is turned on'
   - name: example_selector_form
     label: 'Selector Example'
     description: 'A selector example form'
@@ -146,6 +158,9 @@ form_types:
               - reference: .properties.example_selector.filet_mignon_option.rarity_dropdown
                 label: 'How rare?'
                 description: 'Extinct.'
+              - reference: .properties.example_selector.filet_mignon_option.review
+                label: 'Write your review'
+                description: '"Contained live jaguar, would not buy again."'
               - reference: .properties.example_selector.filet_mignon_option.secret_sauce
                 label: 'Secret Sauce'
                 description: 'Probably mayonnaise'
@@ -181,6 +196,7 @@ property_blueprints:
     type: selector
     configurable: true
     default: Pizza
+    freeze_on_deploy: true
     option_templates:
       - name: pizza_option
         select_value: Pizza
@@ -191,10 +207,17 @@ property_blueprints:
                 pepperoni: (( .properties.example_selector.pizza_option.pepperoni.value ))
                 pineapple: (( .properties.example_selector.pizza_option.pineapple.value ))
                 other: (( .properties.example_selector.pizza_option.other_toppings.value ))
+          - name: provides_section
+            manifest: |
+              as: 'pizza_link_web_server_job'
+          - name: consumes_section
+            manifest: |
+              from: 'pizza_link_web_server_job'
         property_blueprints:
           - name: pepperoni
             type: boolean
             configurable: true
+            freeze_on_deploy: true
           - name: pineapple
             type: boolean
             configurable: true
@@ -212,7 +235,14 @@ property_blueprints:
           - name: my_snippet
             manifest: |
               rarity: (( .properties.example_selector.filet_mignon_option.rarity_dropdown.value ))
+              review: (( .properties.example_selector.filet_mignon_option.review.value ))
               secret_sauce: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
+          - name: provides_section
+            manifest: |
+              as: 'filet_mignon_link_web_server_job'
+          - name: consumes_section
+            manifest: |
+              from: 'filet_mignon_link_web_server_job'
         property_blueprints:
           - name: rarity_dropdown
             type: dropdown_select
@@ -225,6 +255,11 @@ property_blueprints:
                 label: 'Medium'
               - name: well-done
                 label: 'Well done'
+          - name: review
+            type: string
+            configurable: true
+            default: A+++++ power seller of mail order steak
+            optional: false
           - name: secret_sauce
             type: secret
             configurable: true
@@ -241,117 +276,167 @@ property_blueprints:
           - name: my_snippet
             manifest: |
               beverage: (( .properties.example_selector.beverage_option.cola.value ))
+          - name: provides_section
+            manifest: |
+              as: 'beverage_link_web_server_job'
+          - name: consumes_section
+            manifest: |
+              from: 'beverage_link_web_server_job'
   - name: example_collection
     type: collection
     configurable: true
     property_blueprints:
       - name: album
         type: string
+        freeze_on_deploy: true
       - name: artist
         type: string
+        freeze_on_deploy: true
       - name: explicit
         type: boolean
       - name: secret_meaning
         type: secret
         configurable: true
         optional: true
+      - name: vm_type
+        type: vm_type_dropdown
+        optional: true
+        configurable: true
+      - name: disk_type
+        type: disk_type_dropdown
+        configurable: true
+        optional: true
+      - name: genre
+        type: dropdown_select
+        configurable: true
+        optional: true
+        options:
+          - name: rock
+            label: 'Rock'
+          - name: country
+            label: 'Country'
+          - name: edm
+            label: 'Beep Boop PSH'
+      - name: example_service_network_az_single_select # Only used if service_broker is turned on
+        type: service_network_az_single_select
+        configurable: true
+        optional: true
+      - name: example_service_network_az_multi_select # Only used if service_broker is turned on
+        type: service_network_az_multi_select
+        configurable: true
+        optional: true
     default:
       - album: Christmas Carols
         artist: Ops Manatee
         explicit: true
+        genre: edm
 job_types:
   - name: example-errand
     resource_label: an errand to log properties
     templates:
       - name: example-errand
         release: example-release
+        manifest: |
+          generated:
+            root_rsa_certificate: (( $ops_manager.ca_certificate ))
+            http_proxy: (( $ops_manager.http_proxy ))
+            https_proxy: (( $ops_manager.https_proxy ))
+            no_proxy: (( $ops_manager.no_proxy ))
+            rsa_cert_credentials:
+              public_key_pem: (( .web_server.generated_rsa_cert_credentials.public_key_pem ))
+              cert_and_private_key_pems: (( .web_server.generated_rsa_cert_credentials.cert_and_private_key_pems ))
+            rsa_pkey_credentials:
+              public_key_pem: (( .web_server.generated_rsa_pkey_credentials.public_key_pem ))
+              private_key_pem: (( .web_server.generated_rsa_pkey_credentials.private_key_pem ))
+              public_key_openssh: (( .web_server.generated_rsa_pkey_credentials.public_key_openssh ))
+              public_key_fingerprint: (( .web_server.generated_rsa_pkey_credentials.public_key_fingerprint ))
+            salted_credentials:
+              sha512_hashed_password: (( .web_server.generated_salted_credentials.sha512_hashed_password ))
+              identity: (( .web_server.generated_salted_credentials.identity ))
+              salt: (( .web_server.generated_salted_credentials.salt ))
+              password: (( .web_server.generated_salted_credentials.password ))
+            simple_credentials:
+              identity: (( .web_server.generated_simple_credentials.identity ))
+              password: (( .web_server.generated_simple_credentials.password ))
+            secret: (( .web_server.generated_secret.value ))
+            uuid: (( .web_server.generated_uuid.value ))
+          configured:
+            string: (( .web_server.example_string.value ))
+            integer: (( .web_server.example_migrated_integer.value ))
+            boolean: (( .web_server.example_boolean.value ))
+            dropdown: (( .web_server.example_dropdown.value ))
+            domain: (( .web_server.example_domain.value ))
+            wildcard_domain: (( .web_server.example_wildcard_domain.value ))
+            string_list: (( .web_server.example_string_list.value ))
+            text: (( .web_server.example_text.value ))
+            ldap_url: (( .web_server.example_ldap_url.value ))
+            email: (( .web_server.example_email.value ))
+            http_url: (( .web_server.example_http_url.value ))
+            ip_address: (( .web_server.example_ip_address.value ))
+            ip_ranges:
+              value: (( .web_server.example_ip_ranges.value ))
+              parsed_ip_ranges: (( .web_server.example_ip_ranges.parsed_ip_ranges ))
+            multi_select_options: (( .web_server.example_multi_select_options.value ))
+            network_address_list:
+              value: (( .web_server.example_network_address_list.value ))
+              parsed_network_addresses: (( .web_server.example_network_address_list.parsed_network_addresses ))
+            network_address: (( .web_server.example_network_address.value ))
+            port: (( .web_server.example_port.value ))
+            smtp_authentication: (( .web_server.example_smtp_authentication.value ))
+            ca_certificate: (( .web_server.client_certificate.value ))
+            record_collection: (( .properties.example_collection.value || [] ))
+            selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
+            secret: (( .web_server.configured_secret.value ))
+            rsa_cert_credentials:
+              public_key_pem: (( .web_server.configured_rsa_cert_credentials.public_key_pem ))
+              cert_and_private_key_pems: (( .web_server.configured_rsa_cert_credentials.cert_and_private_key_pems ))
+            simple_credentials:
+              identity: (( .web_server.configured_simple_credentials.identity ))
+              password: (( .web_server.configured_simple_credentials.password ))
+          director_provided_accessors:
+            hostname: (( $director.hostname ))
+            deployment_ip: (( $director.deployment_ip ))
+            username: (( $director.username ))
+            password: (( $director.password ))
+            ntp_servers: (( $director.ntp_servers ))
+            ca_public_key: (( $director.ca_public_key ))
+          product:
+            deployment_name: (( ..example-product.deployment_name ))
+          self:
+            stemcell_version: (( $self.stemcell_version ))
     errand: true
     static_ip: 0
     dynamic_ip: 1
     max_in_flight: 1
     single_az_only: true
+    default_internet_connected: false
     instance_definition:
       name: instances
-      type: integer
       configurable: false
       default: 1
     resource_definitions:
       - name: ram
-        type: integer
         configurable: true
         default: 1024
       - name: ephemeral_disk
-        type: integer
         configurable: true
         default: 1024
       - name: persistent_disk
-        type: integer
         configurable: false
         default: 0
       - name: cpu
-        type: integer
         configurable: true
         default: 1
     property_blueprints: []
-    manifest: |
-      generated:
-        root_rsa_certificate: (( $ops_manager.ca_certificate ))
-        rsa_cert_credentials:
-          public_key_pem: (( .web_server.generated_rsa_cert_credentials.public_key_pem ))
-          cert_and_private_key_pems: (( .web_server.generated_rsa_cert_credentials.cert_and_private_key_pems ))
-        rsa_pkey_credentials:
-          public_key_pem: (( .web_server.generated_rsa_pkey_credentials.public_key_pem ))
-          private_key_pem: (( .web_server.generated_rsa_pkey_credentials.private_key_pem ))
-          public_key_openssh: (( .web_server.generated_rsa_pkey_credentials.public_key_openssh ))
-          public_key_fingerprint: (( .web_server.generated_rsa_pkey_credentials.public_key_fingerprint ))
-        salted_credentials:
-          sha512_hashed_password: (( .web_server.generated_salted_credentials.sha512_hashed_password ))
-          identity: (( .web_server.generated_salted_credentials.identity ))
-          salt: (( .web_server.generated_salted_credentials.salt ))
-          password: (( .web_server.generated_salted_credentials.password ))
-        simple_credentials:
-          identity: (( .web_server.generated_simple_credentials.identity ))
-          password: (( .web_server.generated_simple_credentials.password ))
-        secret: (( .web_server.generated_secret.value ))
-        uuid: (( .web_server.generated_uuid.value ))
-      configured:
-        string: (( .web_server.example_string.value ))
-        integer: (( .web_server.example_migrated_integer.value ))
-        boolean: (( .web_server.example_boolean.value ))
-        dropdown: (( .web_server.example_dropdown.value ))
-        domain: (( .web_server.example_domain.value ))
-        wildcard_domain: (( .web_server.example_wildcard_domain.value ))
-        string_list: (( .web_server.example_string_list.value ))
-        text: (( .web_server.example_text.value ))
-        ldap_url: (( .web_server.example_ldap_url.value ))
-        email: (( .web_server.example_email.value ))
-        http_url: (( .web_server.example_http_url.value ))
-        ip_address: (( .web_server.example_ip_address.value ))
-        ip_ranges:
-          value: (( .web_server.example_ip_ranges.value ))
-          parsed_ip_ranges: (( .web_server.example_ip_ranges.parsed_ip_ranges ))
-        multi_select_options: (( .web_server.example_multi_select_options.value ))
-        network_address_list:
-          value: (( .web_server.example_network_address_list.value ))
-          parsed_network_addresses: (( .web_server.example_network_address_list.parsed_network_addresses ))
-        network_address: (( .web_server.example_network_address.value ))
-        port: (( .web_server.example_port.value ))
-        smtp_authentication: (( .web_server.example_smtp_authentication.value ))
-        ca_certificate: (( .web_server.client_certificate.value ))
-        record_collection: (( .properties.example_collection.value || [] ))
-        selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
-        secret: (( .web_server.configured_secret.value ))
-        rsa_cert_credentials:
-          public_key_pem: (( .web_server.configured_rsa_cert_credentials.public_key_pem ))
-          cert_and_private_key_pems: (( .web_server.configured_rsa_cert_credentials.cert_and_private_key_pems ))
-        simple_credentials:
-          identity: (( .web_server.configured_simple_credentials.identity ))
-          password: (( .web_server.configured_simple_credentials.password ))
   - name: web_server
     resource_label: Web Server
     templates:
       - name: web_server
         release: example-release
+        provides: |
+          web_server_info: (( .properties.example_selector.selected_option.parsed_manifest(provides_section) ))
+        consumes: |
+          web_server_info: (( .properties.example_selector.selected_option.parsed_manifest(consumes_section) ))
       - name: time_logger
         release: example-release
     release: example-release
@@ -359,9 +444,9 @@ job_types:
     dynamic_ip: 0
     max_in_flight: 1
     single_az_only: true
+    default_internet_connected: false
     instance_definition:
       name: instances
-      type: integer
       configurable: true
       default: 1
       constraints:
@@ -373,21 +458,17 @@ job_types:
           - Beverage
     resource_definitions:
       - name: ram
-        type: integer
         configurable: true
         default: 1024
       - name: ephemeral_disk
-        type: integer
         configurable: true
         default: 2048
       - name: persistent_disk
-        type: integer
         configurable: true
         default: 1024
         constraints:
           min: 1024
       - name: cpu
-        type: integer
         configurable: true
         default: 1
     property_blueprints:
@@ -513,6 +594,7 @@ job_types:
       type: network_address_list
       configurable: true
       default: '1.1.1.1,example.com,foo.bar.example.com'
+      freeze_on_deploy: true
     - name: example_network_address
       type: network_address
       configurable: true
@@ -589,11 +671,20 @@ job_types:
         ephemeral_disk: (( ephemeral_disk ))
         persistent_disk: (( persistent_disk ))
         instances: (( instances ))
-        availability_zone: (( availability_zone ))
         first_ip: (( first_ip ))
         ips: (( ips ))
         ips_by_availability_zone: (( ips_by_availability_zone ))
-        bosh_job_partition_stats: (( bosh_job_partition_stats ))
+      director_provided_accessors:
+        hostname: (( $director.hostname ))
+        deployment_ip: (( $director.deployment_ip ))
+        username: (( $director.username ))
+        password: (( $director.password ))
+        ntp_servers: (( $director.ntp_servers ))
+        ca_public_key: (( $director.ca_public_key ))
+      product:
+        deployment_name: (( .deployment_name ))
+      self:
+        stemcell_version: (( $self.stemcell_version ))
   - name: no_op
     resource_label: No Operation
     templates:
@@ -601,59 +692,26 @@ job_types:
         release: example-release
     static_ip: 0
     dynamic_ip: 1
-    max_in_flight: 2
+    max_in_flight: 100%
     single_az_only: false
+    default_internet_connected: false
     instance_definition:
       name: instances
-      type: integer
       configurable: true
       default: 0
     resource_definitions:
       - name: ram
-        type: integer
         configurable: true
         default: 1024
       - name: ephemeral_disk
-        type: integer
         configurable: true
         default: 2048
       - name: persistent_disk
-        type: integer
         configurable: true
         default: 8_192
         constraints:
           min: 7000
       - name: cpu
-        type: integer
-        configurable: true
-        default: 1
-    property_blueprints: []
-  - name: compilation
-    resource_label: compilation
-    static_ip: 0
-    dynamic_ip: 1
-    max_in_flight: 1
-    single_az_only: false
-    instance_definition:
-      name: instances
-      type: integer
-      configurable: true
-      default: 1
-    resource_definitions:
-      - name: ram
-        type: integer
-        configurable: true
-        default: 1024
-      - name: ephemeral_disk
-        type: integer
-        configurable: true
-        default: 2048
-      - name: persistent_disk
-        type: integer
-        configurable: true
-        default: 0
-      - name: cpu
-        type: integer
         configurable: true
         default: 1
     property_blueprints: []
