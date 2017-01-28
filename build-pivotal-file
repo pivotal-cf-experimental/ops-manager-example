@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
-set -uxe
+set -ue
+
+if [[ ! "$#" -eq 3 ]]; then
+  echo "Usage: ${0} <version> <stemcell-version> <output-directory>">&2
+  exit 1
+fi
 
 version_num="${1}"
 stemcell_version="${2}"
 OUTPUT_DIR="${3}"
+
+set -x
+
 TMP_DIR="$(mktemp -d)"
 
 cd "$(dirname ${0})"
