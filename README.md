@@ -27,6 +27,8 @@ create temporary products out of to test.
 Make your changes and run the following:
 
 ```
+$ cd example-release
+$ git clean -fd dev_releases
 $ bosh create release --with-tarball --force
 ```
 
