@@ -20,12 +20,13 @@ mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
 
 # Add releases
 example-release/build-release-tarball "${TMP_DIR}/releases"
+release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
 
 # Add migrations
 cp -r example-product/migrations/* "${TMP_DIR}/migrations"
 
 # Add metadata YAML
-example-product/generate-metadata "${version_num}" "${stemcell_version}" > "${TMP_DIR}/metadata/example-product.yml"
+example-product/generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" > "${TMP_DIR}/metadata/example-product.yml"
 
 (
   # Create .pivotal file
