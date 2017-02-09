@@ -4,19 +4,23 @@ set -uxe
 
 OUTPUT_DIR=${1}
 
-EXAMPLE_RELEASE_DIR="$(dirname ${0})"
-cd "${EXAMPLE_RELEASE_DIR}"
+cd "$(dirname ${0})"
+if [[ -n ${DEV_RELEASE:-} ]]; then
+  RELEASES_DIR="dev_releases"
+else
+  RELEASES_DIR="releases"
+fi
 
 bundle # installs bosh_cli
 
 echo "removing any previous release tarballs"
-rm -f releases/example-release/*.tgz
+rm -f ${RELEASES_DIR}/example-release/*.tgz
 
-release_yml=$(ls releases/example-release/example-release-*.yml | sort -t '-' -k 4 -g | tail -1)
+release_yml=$(ls ${RELEASES_DIR}/example-release/example-release-*.yml | sort -t '-' -k 4 -g | tail -1)
 echo "creating release from ${release_yml}"
-bundle exec bosh create release "${release_yml}" --with-tarball
+bundle exec bosh create release "${release_yml}" --force --with-tarball
 
-release_tgz=$(ls releases/example-release/example-release-*.tgz | sort -t '-' -k 4 -g | tail -1)
+release_tgz=$(ls ${RELEASES_DIR}/example-release/example-release-*.tgz | sort -t '-' -k 4 -g | tail -1)
 if [[ ! -f ${release_tgz} ]]; then
   echo "No release created from ${release_yml}"
   exit 1
