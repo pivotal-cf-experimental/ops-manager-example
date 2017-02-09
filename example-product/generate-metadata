@@ -3,6 +3,7 @@
 require 'erb'
 version = ARGV.fetch(0)
 stemcell_version = ARGV.fetch(1)
+release_file_name = ARGV.fetch(2)
 
 metadata_template = File.join(__dir__, 'metadata', 'example-product.yml.erb')
 puts ERB.new(File.read(metadata_template)).result

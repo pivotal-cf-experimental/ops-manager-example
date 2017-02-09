@@ -18,8 +18,8 @@ stemcell_criteria:
   enable_patch_security_updates: true
 releases:
   - name: example-release
-    file: example-release-1.7.release13.tgz
-    version: "1.7.release13"
+    file: <%= release_file_name.inspect %>
+    version: <%= release_file_name.match(/^example-release-(.*)\.tgz$/)[1].inspect %>
 
 post_deploy_errands:
   - name: example-errand
