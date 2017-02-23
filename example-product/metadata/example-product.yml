@@ -9,7 +9,7 @@ rank: 1
 service_broker: false # Default value
 stemcell_criteria:
   os: ubuntu-trusty
-  version: "3363.1" # Bosh stemcell should match Ops Manager with same version
+  version: "3363.9" # Bosh stemcell should match Ops Manager with same version
 
   # allows you to opt-out of the default behaviour of Ops Manager 1.8+ to always
   # use the latest patch update of an available stemcell version. Set to 'false'
