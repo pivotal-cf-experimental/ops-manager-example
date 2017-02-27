@@ -1,7 +1,7 @@
 ---
 product: example-product
 installation_schema_version: "1.6"
-to_version: &to_version "1.6.29"
+to_version: &to_version "1.6.30-alpha"
 
 migrations:
   - from_version: "1.4.0.0"
@@ -442,4 +442,6 @@ migrations:
   - from_version: "1.6.27.0"
     rules: *update_version
   - from_version: "1.6.28.0"
+    rules: *update_version
+  - from_version: "1.6.29.0"
     rules: *update_version
