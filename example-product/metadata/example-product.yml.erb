@@ -22,6 +22,12 @@ releases:
     file: <%= release_file_name.inspect %>
     version: <%= release_file_name.match(/^example-release-(.*)\.tgz$/)[1].inspect %>
 
+variables:
+  - name: var1
+    type: password
+  - name: var2
+    type: rsa
+
 post_deploy_errands:
   - name: example-errand
 
