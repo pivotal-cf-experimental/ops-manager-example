@@ -4,4 +4,8 @@ builds:
     version: a797ed1256ec21731157a52958d879394e19ce72
     sha1: e1aea4c43b158bc2b14f7f0a08bc509ebbaf74ad
     blobstore_id: cd25d56d-05c6-4fc5-83af-fb9d5409c201
+  0b200502506789f59ac5ca029caa4a9823a34f5f:
+    version: 0b200502506789f59ac5ca029caa4a9823a34f5f
+    sha1: d3872c89fb71d247baf215daa298a02bab4c1d55
+    blobstore_id: 9cb67b34-688f-4af3-b558-298950324dbc
 format-version: '2'
