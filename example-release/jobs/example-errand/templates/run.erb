@@ -17,6 +17,14 @@ echo 'Self Accessors'
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>
 
+echo "Credhub Values"
+<% [
+       'credhub.password',
+   ].each do |property| %>
+  echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
+<% end %>
+
+
 echo "Generated Values"
 <% [
      'generated.rsa_cert_credentials.public_key_pem',

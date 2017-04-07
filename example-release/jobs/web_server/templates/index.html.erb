@@ -40,6 +40,16 @@
       <% end %>
     </dl>
 
+    <h2>Credhub Values:</h2>
+    <dl>
+      <% [
+             'credhub.password',
+         ].each do |property| %>
+        <dt><%= property %></dt>
+        <dd><pre><%= p(property) %></pre></dd>
+      <% end %>
+    </dl>
+
     <h2>Generated values:</h2>
     <dl>
     <% [
