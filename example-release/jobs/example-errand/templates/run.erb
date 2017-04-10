@@ -20,6 +20,7 @@ echo 'Self Accessors'
 echo "Credhub Values"
 <% [
        'credhub.password',
+       'credhub.concatenated_password'
    ].each do |property| %>
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>

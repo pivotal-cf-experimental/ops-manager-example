@@ -61,13 +61,13 @@ You can now import the pivotal file you just created into an Ops Manager and tes
 After you've tested that your new bosh release works, you need to create the final release with...
 
 ```
-$ bosh create release --final
+$ ./example-release/cut-new-release $version
 ```
 
 BOSH will create a couple new assets to indicate a new version of the release has been built. You can commit this with
 the assurance that all the changes are ok, this is simply because we did not make these changes...BOSH did.
 
-The result of running `bosh create release` will be a new release file (found in `example-release/releases/example-release/`).
+The result of running `cut-new-release` will be a new release file (found in `example-release/releases/example-release/`).
 
 ### Creating an example-product with the final example-release
 

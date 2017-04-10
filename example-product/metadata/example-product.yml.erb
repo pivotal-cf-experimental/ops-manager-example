@@ -342,6 +342,7 @@ job_types:
         release: example-release
         manifest: |
           credhub:
+            concatenated_password: prefix-((( credhub-password )))-suffix
             password: ((( credhub-password )))
           generated:
             root_rsa_certificate: (( $ops_manager.ca_certificate ))
@@ -621,6 +622,7 @@ job_types:
       optional: true
     manifest: |
       credhub:
+        concatenated_password: prefix-((( credhub-password )))-suffix
         password: ((( credhub-password )))
       generated:
         root_rsa_certificate: (( $ops_manager.ca_certificate ))

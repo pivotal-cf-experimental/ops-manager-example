@@ -2,4 +2,6 @@
 builds:
   7d391c2d-449e-447a-b812-8544e7630dc4:
     version: 1.11.release22
+  c6406d90-9a5e-4d12-8723-397faaa3ab2c:
+    version: 1.11.release23
 format-version: '2'
