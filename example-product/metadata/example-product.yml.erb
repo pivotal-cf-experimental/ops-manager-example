@@ -139,6 +139,19 @@ form_types:
             label: 'Country of Origin (Service Network Single AZ Select) Note: Only applicable when service_broker is turned on'
           - reference: example_service_network_az_multi_select
             label: 'CF-Pop Service Network Multi AZ picker? Note: Only applicable when service_broker is turned on'
+
+  - name: 'amelia and tom form'
+    label: 'testing'
+    description: 'stuff'
+    property_inputs:
+      - reference: .properties.tom-and-amelia-example
+        label: 'cool example'
+        selector_property_inputs:
+          - reference: .properties.tom-and-amelia-example.disabled
+            label: 'disabled'
+          - reference: .properties.tom-and-amelia-example.enabled
+            label: 'enabled'
+
   - name: example_selector_form
     label: 'Selector Example'
     description: 'A selector example form'
@@ -196,6 +209,16 @@ form_types:
         label: Web Server IPs
         description: Optional comma-seperated list of static IPs that will be assigned to the web server
 property_blueprints:
+  - name: tom-and-amelia-example
+    type: selector
+    configurable: true
+    default: false
+    option_templates:
+      - name: disabled
+        select_value: false
+      - name: enabled
+        select_value: true
+
   - name: example_selector
     type: selector
     configurable: true
