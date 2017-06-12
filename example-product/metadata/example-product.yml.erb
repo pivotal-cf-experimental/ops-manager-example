@@ -25,6 +25,8 @@ releases:
 variables:
   - name: credhub-password
     type: password
+  - name: generated-secret-name-to-migrate-to-credhub
+    type: password
 
 post_deploy_errands:
   - name: example-errand
@@ -365,7 +367,7 @@ job_types:
             simple_credentials:
               identity: (( .web_server.generated_simple_credentials.identity ))
               password: (( .web_server.generated_simple_credentials.password ))
-            secret: (( .web_server.generated_secret.value ))
+            secret: ((( generated-secret-name-to-migrate-to-credhub )))
             uuid: (( .web_server.generated_uuid.value ))
           configured:
             string: (( .web_server.example_string.value ))
@@ -491,8 +493,6 @@ job_types:
       type: salted_credentials
     - name: generated_simple_credentials
       type: simple_credentials
-    - name: generated_secret
-      type: secret
     - name: generated_uuid
       type: uuid
     - name: configured_secret
@@ -640,7 +640,7 @@ job_types:
         simple_credentials:
           identity: (( generated_simple_credentials.identity ))
           password: (( generated_simple_credentials.password ))
-        secret: (( generated_secret.value ))
+        secret: ((( generated-secret-name-to-migrate-to-credhub )))
         uuid: (( generated_uuid.value ))
       configured:
         string: (( example_string.value ))
