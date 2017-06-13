@@ -61,7 +61,7 @@ You can now import the pivotal file you just created into an Ops Manager and tes
 After you've tested that your new bosh release works, you need to create the final release with...
 
 ```
-$ ./example-release/cut-new-release $version
+$ ./example-release/cut-new-release <major and minor version, e.g. 1.10>
 ```
 
 BOSH will create a couple new assets to indicate a new version of the release has been built. You can commit this with
