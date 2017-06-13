@@ -2,4 +2,6 @@
 builds:
   71584461-9c3d-4f3e-9aaa-cd667de94bd6:
     version: 1.10.release21
+  ac4d8449-5b69-410f-8adf-f6c566141bb3:
+    version: 1.10.release22
 format-version: '2'

@@ -37,6 +37,25 @@ echo "Generated Values"
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>
 
+echo "Generated values to migrate to credhub during upgrade to the next version of the example tile"
+<% [
+     'generated.for_migration_to_credhub.rsa_cert_credentials.public_key_pem',
+     'generated.for_migration_to_credhub.rsa_cert_credentials.cert_and_private_key_pems',
+     'generated.for_migration_to_credhub.rsa_pkey_credentials.public_key_pem',
+     'generated.for_migration_to_credhub.rsa_pkey_credentials.private_key_pem',
+     'generated.for_migration_to_credhub.rsa_pkey_credentials.public_key_openssh',
+     'generated.for_migration_to_credhub.rsa_pkey_credentials.public_key_fingerprint',
+     'generated.for_migration_to_credhub.salted_credentials.sha512_hashed_password',
+     'generated.for_migration_to_credhub.salted_credentials.identity',
+     'generated.for_migration_to_credhub.salted_credentials.salt',
+     'generated.for_migration_to_credhub.salted_credentials.password',
+     'generated.for_migration_to_credhub.simple_credentials.identity',
+     'generated.for_migration_to_credhub.simple_credentials.password',
+     'generated.for_migration_to_credhub.secret',
+   ].each do |property| %>
+  echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
+<% end %>
+
 echo "Configured Values"
 
 <% [
