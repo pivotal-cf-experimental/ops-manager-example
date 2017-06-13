@@ -346,6 +346,8 @@ job_types:
           credhub:
             concatenated_password: prefix-((( credhub-password )))-suffix
             password: ((( credhub-password )))
+          migrated_to_credhub:
+            secret: ((( generated-secret-migrated-to-credhub )))
           generated:
             root_rsa_certificate: (( $ops_manager.ca_certificate ))
             http_proxy: (( $ops_manager.http_proxy ))
@@ -670,7 +672,7 @@ job_types:
         simple_credentials:
           identity: (( generated_simple_credentials.identity ))
           password: (( generated_simple_credentials.password ))
-        secret: ((( generated-secret-name-to-migrate-to-credhub )))
+        secret: (( .web_server.generated_secret.value ))
         uuid: (( generated_uuid.value ))
       configured:
         string: (( example_string.value ))

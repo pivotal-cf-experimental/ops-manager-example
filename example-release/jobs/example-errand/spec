@@ -67,6 +67,8 @@ properties:
     description: 'password for simple_credentials to migrate to credhub during upgrade to the next version of the example tile'
   generated.for_migration_to_credhub.secret:
     description: 'secret to migrate to credhub during upgrade to the next version of the example tile'
+  migrated_to_credhub.secret:
+    description: 'a secret from credhub'
   configured.string:
     description: 'a basic configured string'
   configured.integer:

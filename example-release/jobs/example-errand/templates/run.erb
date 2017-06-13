@@ -2,7 +2,6 @@
 <% require 'shellwords' %>
 
 echo 'Product Accessors'
-
 <% [
        'product.deployment_name',
    ].each do |property| %>
@@ -10,7 +9,6 @@ echo 'Product Accessors'
 <% end %>
 
 echo 'Self Accessors'
-
 <% [
        'self.stemcell_version',
    ].each do |property| %>
@@ -24,7 +22,6 @@ echo "Credhub Values"
    ].each do |property| %>
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>
-
 
 echo "Generated Values"
 <% [
@@ -65,8 +62,14 @@ echo "Generated values to migrate to credhub during upgrade to the next version 
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>
 
-echo "Configured Values"
+echo "Values from credhub"
+<% [
+     'migrated_to_credhub.secret',
+   ].each do |property| %>
+  echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
+<% end %>
 
+echo "Configured Values"
 <% [
      'configured.string',
      'configured.integer',
@@ -101,7 +104,6 @@ echo "Configured Values"
 <% end %>
 
 echo 'Director Provided Accessors'
-
 <% [
      'director_provided_accessors.ntp_servers',
      'director_provided_accessors.ca_public_key',

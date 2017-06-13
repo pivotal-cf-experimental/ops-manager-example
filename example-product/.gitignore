@@ -1,2 +1,3 @@
 releases/*.tgz
 generated-example-product.pivotal
+migrations/v1/*_example_credhub_credential_migration*.js

@@ -6,4 +6,6 @@ builds:
     version: 1.11.release23
   7c058f3a-913f-43f3-a015-df67d5ffed6a:
     version: 1.11.release24
+  4318efcb-c9af-4b69-bcdf-a8cd22949423:
+    version: 1.11.release25
 format-version: '2'

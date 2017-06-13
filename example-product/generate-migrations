@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require 'erb'
+
+version = ARGV.fetch(0)
+major_and_minor_version = version.split('.').slice(0, 2).join('_')
+previous_major_and_minor_version = version.split('.')[0] + '_' + (version.split('.')[1].to_i - 1).to_s
+
+Dir.glob(File.join(__dir__, 'migration_templates', '*.erb')).each do |template_file_path|
+
+  filled_template = ERB.new(File.read(template_file_path)).result
+
+  # Include the current major/minor version number in the migration name to ensure
+  # that it will not be named the same as in the previous minor version of the example tile.
+  output_filename = File.basename(template_file_path, '.js.erb') + major_and_minor_version + '.js'
+  output_full_path = File.join(__dir__, 'migrations', 'v1', output_filename)
+
+  File.write(output_full_path, filled_template)
+
+end

@@ -22,6 +22,9 @@ mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
 example-release/build-release-tarball "${TMP_DIR}/releases"
 release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
 
+# Generate some files using the migration_templates into the migrations/v1 directory
+example-product/generate-migrations "${version_num}"
+
 # Add migrations
 cp -r example-product/migrations/* "${TMP_DIR}/migrations"
 
