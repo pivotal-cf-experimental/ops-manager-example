@@ -25,7 +25,7 @@ releases:
 variables:
   - name: credhub-password
     type: password
-  - name: generated-secret-name-to-migrate-to-credhub
+  - name: generated-secret-migrated-to-credhub
     type: password
 
 post_deploy_errands:
@@ -369,7 +369,7 @@ job_types:
             simple_credentials:
               identity: (( .web_server.generated_simple_credentials.identity ))
               password: (( .web_server.generated_simple_credentials.password ))
-            secret: ((( generated-secret-name-to-migrate-to-credhub )))
+            secret: ((( generated-secret-migrated-to-credhub )))
             uuid: (( .web_server.generated_uuid.value ))
             for_migration_to_credhub:
               rsa_cert_credentials:
