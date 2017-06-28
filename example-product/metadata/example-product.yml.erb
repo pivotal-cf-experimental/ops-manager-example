@@ -348,6 +348,7 @@ job_types:
             password: ((( credhub-password )))
           migrated_to_credhub:
             secret: ((( generated-secret-migrated-to-credhub )))
+            rsa: ((( generated-rsa-key-migrated-to-credhub )))
           generated:
             root_rsa_certificate: (( $ops_manager.ca_certificate ))
             http_proxy: (( $ops_manager.http_proxy ))

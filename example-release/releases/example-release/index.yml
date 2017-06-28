@@ -10,4 +10,6 @@ builds:
     version: 1.11.release25
   17ba41f3-7b99-4da1-9861-e9837b833ae7:
     version: 1.11.release26
+  9777d970-f1e5-4bb1-a812-7e5f227ac931:
+    version: 1.11.release27
 format-version: '2'
