@@ -27,6 +27,8 @@ variables:
     type: password
   - name: generated-secret-migrated-to-credhub
     type: password
+  - name: generated-rsa-key-migrated-to-credhub
+    type: rsa
 
 post_deploy_errands:
   - name: example-errand
