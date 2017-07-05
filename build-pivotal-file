@@ -18,6 +18,8 @@ cd "$(dirname ${0})"
 
 mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
 
+git clean -Xf example-product/migrations
+
 # Add releases
 example-release/build-release-tarball "${TMP_DIR}/releases"
 release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
