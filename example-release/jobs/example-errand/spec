@@ -69,7 +69,9 @@ properties:
     description: 'secret to migrate to credhub during upgrade to the next version of the example tile'
   migrated_to_credhub.secret:
     description: 'a secret from credhub'
-  migrated_to_credhub.rsa:
+  migrated_to_credhub.rsa_public_key:
+    description: 'an rsa public key from credhub'
+  migrated_to_credhub.rsa_private_key:
     description: 'an rsa private key from credhub'
   configured.string:
     description: 'a basic configured string'

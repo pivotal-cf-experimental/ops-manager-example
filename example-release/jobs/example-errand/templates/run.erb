@@ -65,8 +65,8 @@ echo "Generated values to migrate to credhub during upgrade to the next version 
 echo "Values from credhub"
 <% [
      'migrated_to_credhub.secret',
-     'migrated_to_credhub.rsa-public-key',
-     'migrated_to_credhub.rsa-private-key',
+     'migrated_to_credhub.rsa_public_key',
+     'migrated_to_credhub.rsa_private_key',
    ].each do |property| %>
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>
