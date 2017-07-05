@@ -1,6 +1,5 @@
 # Ops Manager 
 
-
 # Building the example-product
 
 ```
@@ -74,7 +73,7 @@ The result of running `cut-new-release` will be a new release file (found in `ex
 To test your changes one more time, you should call `./build-pivotal-file $version $stemcell_version $output_directory`
 and again deploy the resulting pivotal file in an Ops Manager.
 
-### Commiting your changes
+### Committing your changes
 
 If you made it this far, you're ready to commit your changes and push.
 
