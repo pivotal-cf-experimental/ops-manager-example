@@ -31,7 +31,7 @@ $ git clean -fd dev_releases
 $ bosh create release --with-tarball --force
 ```
 
-This will give you a dev release .tgz.
+This will give you a dev release `.tgz`.
 
 ### Updating your metadata
 
