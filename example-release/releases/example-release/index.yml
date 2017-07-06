@@ -12,4 +12,6 @@ builds:
     version: 1.11.release26
   9777d970-f1e5-4bb1-a812-7e5f227ac931:
     version: 1.11.release27
+  d3781db9-a80f-433c-a1cc-34086d62e940:
+    version: 1.11.release28
 format-version: '2'
