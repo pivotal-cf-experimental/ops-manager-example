@@ -15,7 +15,13 @@ with product version `1.7.42` and using stemcell `123.4`
 It is important to note what part of our example repo you are trying to change. When changing the example release, it 
 often leads to bumping example-release. This is because products are explicit around which release version they are consuming.
 
-The classic example is that you've added/removed a property to one of the job specs. 
+The classic example is that you've added/removed a property to one of the job specs.
+
+## Templating
+
+Both the metadata and the credhub migration js migration are templates which get populated with the relevant version,
+stemcell, and other info when you run the `./build-pivotal-file` script. When making changes, be sure to change
+the template, rather than the generated files.
 
 ## Cutting a dev release
 
