@@ -27,6 +27,8 @@ variables:
     type: password
   - name: generated-secret-migrated-to-credhub
     type: password
+  - name: generated-rsa-key-migrated-to-credhub
+    type: rsa
 
 post_deploy_errands:
   - name: example-errand
@@ -348,6 +350,8 @@ job_types:
             password: ((( credhub-password )))
           migrated_to_credhub:
             secret: ((( generated-secret-migrated-to-credhub )))
+            rsa_public_key: ((( generated-rsa-key-migrated-to-credhub.public_key )))
+            rsa_private_key: ((( generated-rsa-key-migrated-to-credhub.private_key )))
           generated:
             root_rsa_certificate: (( $ops_manager.ca_certificate ))
             http_proxy: (( $ops_manager.http_proxy ))
