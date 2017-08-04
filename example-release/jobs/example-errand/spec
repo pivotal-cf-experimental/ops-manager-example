@@ -79,6 +79,10 @@ properties:
     description: 'a username from credhub'
   migrated_to_credhub.simple_creds_password:
     description: 'a password from credhub'
+  migrated_to_credhub.salted_creds_username:
+    description: 'a username from credhub'
+  migrated_to_credhub.salted_creds_password:
+    description: 'a password from credhub'
 
   configured.string:
     description: 'a basic configured string'
