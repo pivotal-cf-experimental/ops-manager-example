@@ -1,3 +1,5 @@
 ---
 builds:
+  fd3bb6f4-607a-4cb7-a119-e32973982bf0:
+    version: 1.12.release30
 format-version: '2'
