@@ -74,44 +74,6 @@
     <% end %>
     </dl>
 
-    <h2>Generated values to migrate to credhub during upgrade to the next version of the example tile:</h2>
-    <dl>
-      <% [
-             'generated.for_migration_to_credhub.rsa_cert_credentials.public_key_pem',
-             'generated.for_migration_to_credhub.rsa_cert_credentials.cert_and_private_key_pems',
-             'generated.for_migration_to_credhub.rsa_pkey_credentials.public_key_pem',
-             'generated.for_migration_to_credhub.rsa_pkey_credentials.private_key_pem',
-             'generated.for_migration_to_credhub.rsa_pkey_credentials.public_key_openssh',
-             'generated.for_migration_to_credhub.rsa_pkey_credentials.public_key_fingerprint',
-             'generated.for_migration_to_credhub.salted_credentials.sha512_hashed_password',
-             'generated.for_migration_to_credhub.salted_credentials.identity',
-             'generated.for_migration_to_credhub.salted_credentials.salt',
-             'generated.for_migration_to_credhub.salted_credentials.password',
-             'generated.for_migration_to_credhub.simple_credentials.identity',
-             'generated.for_migration_to_credhub.simple_credentials.password',
-             'generated.for_migration_to_credhub.secret',
-         ].each do |property| %>
-        <dt><%= property %></dt>
-        <dd><pre><%= p(property) %></pre></dd>
-      <% end %>
-    </dl>
-
-    <h2>Values from credhub:</h2>
-    <dl>
-      <% [
-             'migrated_to_credhub.secret',
-             'migrated_to_credhub.rsa_public_key',
-             'migrated_to_credhub.rsa_private_key',
-             'migrated_to_credhub.simple_creds_username',
-             'migrated_to_credhub.simple_creds_password',
-             'migrated_to_credhub.salted_creds_username',
-             'migrated_to_credhub.salted_creds_password',
-         ].each do |property| %>
-        <dt><%= property %></dt>
-        <dd><pre><%= p(property) %></pre></dd>
-      <% end %>
-    </dl>
-
     <h2>Configured values:</h2>
     <dl>
     <% [

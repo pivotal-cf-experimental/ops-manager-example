@@ -69,8 +69,6 @@ echo "Values from credhub"
      'migrated_to_credhub.rsa_private_key',
      'migrated_to_credhub.simple_creds_username',
      'migrated_to_credhub.simple_creds_password',
-     'migrated_to_credhub.salted_creds_username',
-     'migrated_to_credhub.salted_creds_password',
    ].each do |property| %>
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>
