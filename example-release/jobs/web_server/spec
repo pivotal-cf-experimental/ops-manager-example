@@ -51,6 +51,48 @@ properties:
   generated.uuid:
     description: 'a generated uuid'
 
+  generated.for_migration_to_credhub.rsa_cert_credentials.public_key_pem:
+    description: 'public_key_pem for rsa_cert_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.rsa_cert_credentials.cert_and_private_key_pems:
+    description: 'cert_and_private_key_pems for rsa_cert_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.rsa_pkey_credentials.public_key_pem:
+    description: 'public_key_pem for rsa_pkey_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.rsa_pkey_credentials.private_key_pem:
+    description: 'private_key_pem for rsa_pkey_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.rsa_pkey_credentials.public_key_openssh:
+    description: 'public_key_openssh for rsa_pkey_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.rsa_pkey_credentials.public_key_fingerprint:
+    description: 'public_key_fingerprint for rsa_pkey_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.salted_credentials.sha512_hashed_password:
+    description: 'sha512_hashed_password for salted_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.salted_credentials.identity:
+    description: 'identity for salted_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.salted_credentials.password:
+    description: 'password for salted_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.salted_credentials.salt:
+    description: 'salt for salted_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.simple_credentials.identity:
+    description: 'identity for simple_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.simple_credentials.password:
+    description: 'password for simple_credentials to migrate to credhub during upgrade to the next version of the example tile'
+  generated.for_migration_to_credhub.secret:
+    description: 'secret to migrate to credhub during upgrade to the next version of the example tile'
+
+  migrated_to_credhub.secret:
+    description: 'a secret from credhub'
+  migrated_to_credhub.rsa_public_key:
+    description: 'an rsa public key from credhub'
+  migrated_to_credhub.rsa_private_key:
+    description: 'an rsa private key from credhub'
+  migrated_to_credhub.simple_creds_username:
+    description: 'a username from credhub'
+  migrated_to_credhub.simple_creds_password:
+    description: 'a password from credhub'
+  migrated_to_credhub.salted_creds_username:
+    description: 'a username from credhub'
+  migrated_to_credhub.salted_creds_password:
+    description: 'a password from credhub'
+
   configured.string:
     description: 'a basic configured string'
   configured.integer:

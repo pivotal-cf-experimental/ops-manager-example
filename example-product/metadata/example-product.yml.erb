@@ -31,6 +31,8 @@ variables:
     type: rsa
   - name: generated-simple-creds-migrated-to-credhub
     type: user
+  - name: generated-salted-creds-migrated-to-credhub
+    type: user
 
 post_deploy_errands:
   - name: example-errand
@@ -356,6 +358,8 @@ job_types:
             rsa_private_key: ((( generated-rsa-key-migrated-to-credhub.private_key )))
             simple_creds_username: ((( generated-simple-creds-migrated-to-credhub.username )))
             simple_creds_password: ((( generated-simple-creds-migrated-to-credhub.password )))
+            salted_creds_username: ((( generated-salted-creds-migrated-to-credhub.username )))
+            salted_creds_password: ((( generated-salted-creds-migrated-to-credhub.password )))
           generated:
             root_rsa_certificate: (( $ops_manager.ca_certificate ))
             http_proxy: (( $ops_manager.http_proxy ))
@@ -663,6 +667,14 @@ job_types:
       credhub:
         concatenated_password: prefix-((( credhub-password )))-suffix
         password: ((( credhub-password )))
+      migrated_to_credhub:
+        secret: ((( generated-secret-migrated-to-credhub )))
+        rsa_public_key: ((( generated-rsa-key-migrated-to-credhub.public_key )))
+        rsa_private_key: ((( generated-rsa-key-migrated-to-credhub.private_key )))
+        simple_creds_username: ((( generated-simple-creds-migrated-to-credhub.username )))
+        simple_creds_password: ((( generated-simple-creds-migrated-to-credhub.password )))
+        salted_creds_username: ((( generated-salted-creds-migrated-to-credhub.username )))
+        salted_creds_password: ((( generated-salted-creds-migrated-to-credhub.password )))
       generated:
         dns_enabled: (( $ops_manager.dns_enabled ))
         root_rsa_certificate: (( $ops_manager.ca_certificate ))
@@ -684,6 +696,24 @@ job_types:
           password: (( generated_simple_credentials.password ))
         secret: (( .web_server.generated_secret.value ))
         uuid: (( generated_uuid.value ))
+        for_migration_to_credhub:
+          rsa_cert_credentials:
+            public_key_pem: (( .web_server.generated_rsa_cert_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.public_key_pem ))
+            cert_and_private_key_pems: (( .web_server.generated_rsa_cert_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.cert_and_private_key_pems ))
+          rsa_pkey_credentials:
+            public_key_pem: (( .web_server.generated_rsa_pkey_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.public_key_pem ))
+            private_key_pem: (( .web_server.generated_rsa_pkey_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.private_key_pem ))
+            public_key_openssh: (( .web_server.generated_rsa_pkey_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.public_key_openssh ))
+            public_key_fingerprint: (( .web_server.generated_rsa_pkey_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.public_key_fingerprint ))
+          salted_credentials:
+            sha512_hashed_password: (( .web_server.generated_salted_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.sha512_hashed_password ))
+            identity: (( .web_server.generated_salted_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.identity ))
+            salt: (( .web_server.generated_salted_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.salt ))
+            password: (( .web_server.generated_salted_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.password ))
+          simple_credentials:
+            identity: (( .web_server.generated_simple_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.identity ))
+            password: (( .web_server.generated_simple_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.password ))
+          secret: (( .web_server.generated_secret_to_migrate_to_credhub_<%= major_and_minor_version %>.value ))
       configured:
         string: (( example_string.value ))
         integer: (( example_migrated_integer.value ))

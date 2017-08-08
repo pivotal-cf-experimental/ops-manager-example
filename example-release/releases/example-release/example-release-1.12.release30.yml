@@ -7,9 +7,9 @@ packages:
   dependencies: []
 jobs:
 - name: example-errand
-  version: 614bec8233f9a1e195e57bb518949014e163e663
-  fingerprint: 614bec8233f9a1e195e57bb518949014e163e663
-  sha1: 1af8e904d458a7c16b85c0b2418edc3a4a2fe50a
+  version: 638a6fef1cf9e4f1b06a83ca698e868bfbf81cd0
+  fingerprint: 638a6fef1cf9e4f1b06a83ca698e868bfbf81cd0
+  sha1: f6fda329adcee6047d6cc47dc39cd6dbf318751a
 - name: no_op
   version: 8c5d3b5ba16186d72c633c703d65797d4d2889b2
   fingerprint: 8c5d3b5ba16186d72c633c703d65797d4d2889b2
@@ -19,14 +19,14 @@ jobs:
   fingerprint: 20de578a988bddd11ee5e83f298a8f34a48089a8
   sha1: 4a420158b1316b95915b0a4bab437c4b65c867a7
 - name: web_server
-  version: 1891059f066af99a10b2565951a28954e573d95b
-  fingerprint: 1891059f066af99a10b2565951a28954e573d95b
-  sha1: 424bca938593921a48d07a0f9cdd8035b1b277a7
+  version: d9e77e38ecffcb50800762e639113c54dc193c2c
+  fingerprint: d9e77e38ecffcb50800762e639113c54dc193c2c
+  sha1: 5266e39a5566c07da27813970fa309776124e59d
 license:
   version: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
   fingerprint: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
   sha1: e9f73d92771324e6da16044b1d28d045e5eb71c3
-commit_hash: 927eebcd
+commit_hash: bd37e5e3
 uncommitted_changes: true
 name: example-release
-version: 1.11.release25
+version: 1.12.release30
