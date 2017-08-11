@@ -426,7 +426,7 @@ job_types:
             port: (( .web_server.example_port.value ))
             smtp_authentication: (( .web_server.example_smtp_authentication.value ))
             ca_certificate: (( .web_server.client_certificate.value ))
-            record_collection: (( .properties.example_collection.value || [] ))
+            record_collection: (( .properties.example_collection.value ))
             selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
             secret: (( .web_server.configured_secret.value ))
             rsa_cert_credentials:
@@ -514,6 +514,16 @@ job_types:
         configurable: true
         default: 1
     property_blueprints:
+    - name: property_with_nil_value
+      type: string
+    - name: property_with_false_value
+      type: boolean
+      configurable: false
+      default: false
+    - name: property_with_true_value
+      type: boolean
+      configurable: false
+      default: true
     - name: static_ips
       type: ip_ranges
       configurable: true
@@ -696,6 +706,9 @@ job_types:
           password: (( generated_simple_credentials.password ))
         secret: (( .web_server.generated_secret.value ))
         uuid: (( generated_uuid.value ))
+        # Note that ':' is a special value in yaml, so ternaries need to be quoted...
+        ternary_with_property_example: "(( property_with_true_value.value ? 'hello world' : generated_uuid.value ))"
+        ternary_with_boolean_example: "(( false ? true : false ))"
         for_migration_to_credhub:
           rsa_cert_credentials:
             public_key_pem: (( .web_server.generated_rsa_cert_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.public_key_pem ))
@@ -715,6 +728,7 @@ job_types:
             password: (( .web_server.generated_simple_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.password ))
           secret: (( .web_server.generated_secret_to_migrate_to_credhub_<%= major_and_minor_version %>.value ))
       configured:
+        concat_example: Hello, (( example_string.value ))! Nice to (( example_text.value )) you.
         string: (( example_string.value ))
         integer: (( example_migrated_integer.value ))
         boolean: (( example_boolean.value ))
@@ -738,15 +752,15 @@ job_types:
         port: (( example_port.value ))
         smtp_authentication: (( example_smtp_authentication.value ))
         ca_certificate: (( client_certificate.value ))
-        record_collection: (( .properties.example_collection.value || [] ))
+        record_collection: (( property_with_nil_value.value || .properties.example_collection.value ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
-        secret: (( configured_secret.value ))
+        secret: "(( false ? true : configured_secret.value ))"
         rsa_cert_credentials:
-          public_key_pem: (( configured_rsa_cert_credentials.public_key_pem ))
-          cert_and_private_key_pems: (( configured_rsa_cert_credentials.cert_and_private_key_pems ))
+          public_key_pem: "(( property_with_true_value.value ? configured_rsa_cert_credentials.public_key_pem : false ))"
+          cert_and_private_key_pems: (( property_with_false_value.value || configured_rsa_cert_credentials.cert_and_private_key_pems ))
         simple_credentials:
-          identity: (( configured_simple_credentials.identity ))
-          password: (( configured_simple_credentials.password ))
+          identity: (( property_with_nil_value.value || configured_simple_credentials.identity ))
+          password: (( false || configured_simple_credentials.password ))
       ops_manager_provided_accessors:
         name: (( name ))
         ram: (( ram ))
