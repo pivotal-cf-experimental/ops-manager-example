@@ -413,7 +413,7 @@ job_types:
             port: (( .web_server.example_port.value ))
             smtp_authentication: (( .web_server.example_smtp_authentication.value ))
             ca_certificate: (( .web_server.client_certificate.value ))
-            record_collection: (( .properties.example_collection.value || [] ))
+            record_collection: (( .properties.example_collection.value ))
             selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
             secret: (( .web_server.configured_secret.value ))
             rsa_cert_credentials:
