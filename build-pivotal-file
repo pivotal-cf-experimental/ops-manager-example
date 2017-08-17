@@ -44,7 +44,7 @@ pushd $script_dir
   # Add metadata YAML
   example-product/generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" > "${TMP_DIR}/metadata/example-product.yml"
 
-popd $script_dir
+popd
 
 (
   # Create .pivotal file
