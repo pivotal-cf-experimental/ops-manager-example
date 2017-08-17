@@ -1,37 +1,46 @@
 #!/usr/bin/env bash
-set -ue
+
+dir="$( cd "$( dirname "$0" )" && pwd )"
+
+installation_dir="$dir/../installation"
+version_num="${1:-$($installation_dir/web/scripts/opsman_version 2> /dev/null )}"
+stemcell_version="${2:-$($installation_dir/web/scripts/opsman_stemcell_version 2> /dev/null)}"
+output_dir="${3:-/tmp}"
+
+set -e
 
 if [[ ! "$#" -eq 3 ]]; then
   echo "Usage: ${0} <version> <stemcell-version> <output-directory>">&2
-  exit 1
+  if ! test -f $installation_dir/web/scripts/opsman_version; then
+    echo ""
+    echo "could not generate reasonable defaults"
+    echo "opsman helper scripts not found in $installation_dir/web/scripts/opsman_version"
+    exit 1
+  fi
+  echo "With no arguments you will be given 'sensible' defaults"
+  echo "this command is running as if you had typed the command:"
+  echo "$0 $version_num $stemcell_version $output_dir"
 fi
-
-version_num="${1}"
-stemcell_version="${2}"
-OUTPUT_DIR="${3}"
-
-set -x
 
 TMP_DIR="$(mktemp -d)"
 
-cd "$(dirname ${0})"
 
 mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
 
-git clean -Xf example-product/migrations
+git clean -Xf $dir/example-product/migrations
 
 # Add releases
-example-release/build-release-tarball "${TMP_DIR}/releases"
+$dir/example-release/build-release-tarball "${TMP_DIR}/releases"
 release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
 
 # Generate some files using the migration_templates into the migrations/v1 directory
-example-product/generate-migrations "${version_num}"
+$dir/example-product/generate-migrations "${version_num}"
 
 # Add migrations
-cp -r example-product/migrations/* "${TMP_DIR}/migrations"
+cp -r $dir/example-product/migrations/* "${TMP_DIR}/migrations"
 
 # Add metadata YAML
-example-product/generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" > "${TMP_DIR}/metadata/example-product.yml"
+$dir/example-product/generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" > "${TMP_DIR}/metadata/example-product.yml"
 
 (
   # Create .pivotal file
@@ -40,9 +49,11 @@ example-product/generate-metadata "${version_num}" "${stemcell_version}" "${rele
   echo "creating .pivotal file"
 
   TARGET_FILE="example-product-${version_num}.pivotal"
-  zip -r "${OUTPUT_DIR}/${TARGET_FILE}" migrations metadata releases
+  zip -r "${output_dir}/${TARGET_FILE}" migrations metadata releases
 
-  echo "created pivotal file: [${OUTPUT_DIR}/${TARGET_FILE}]"
+  echo "created pivotal file: [${output_dir}/${TARGET_FILE}]"
 )
+
+test "$#" -eq 3 || printf "\e[0;33mRan with defaults:\e[m\n$0 $version_num $stemcell_version $output_dir\n"
 
 echo "Done"
