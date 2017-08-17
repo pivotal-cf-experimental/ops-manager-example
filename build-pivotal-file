@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-dir="$( cd "$( dirname "$0" )" && pwd )"
+script_dir="$( cd "$( dirname "$0" )" && pwd )"
 
-installation_dir="$dir/../installation"
+installation_dir="$script_dir/../installation"
 version_num="${1:-$($installation_dir/web/scripts/opsman_version 2> /dev/null )}"
 stemcell_version="${2:-$($installation_dir/web/scripts/opsman_stemcell_version 2> /dev/null)}"
 output_dir="${3:-/tmp}"
@@ -27,20 +27,24 @@ TMP_DIR="$(mktemp -d)"
 
 mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
 
-git clean -Xf $dir/example-product/migrations
+pushd $script_dir
 
-# Add releases
-$dir/example-release/build-release-tarball "${TMP_DIR}/releases"
-release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
+  git clean -Xf $script_dir/example-product/migrations
 
-# Generate some files using the migration_templates into the migrations/v1 directory
-$dir/example-product/generate-migrations "${version_num}"
+  # Add releases
+  example-release/build-release-tarball "${TMP_DIR}/releases"
+  release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
 
-# Add migrations
-cp -r $dir/example-product/migrations/* "${TMP_DIR}/migrations"
+  # Generate some files using the migration_templates into the migrations/v1 directory
+  example-product/generate-migrations "${version_num}"
 
-# Add metadata YAML
-$dir/example-product/generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" > "${TMP_DIR}/metadata/example-product.yml"
+  # Add migrations
+  cp -r $script_dir/example-product/migrations/* "${TMP_DIR}/migrations"
+
+  # Add metadata YAML
+  example-product/generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" > "${TMP_DIR}/metadata/example-product.yml"
+
+popd $script_dir
 
 (
   # Create .pivotal file
