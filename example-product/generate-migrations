@@ -3,7 +3,7 @@ require 'erb'
 
 version = ARGV.fetch(0)
 major_and_minor_version = version.split('.').slice(0, 2).join('_')
-minor_version = version.split('.')[1]
+minor_version = version.split('.')[1] || '0'
 previous_major_and_minor_version = version.split('.')[0] + '_' + (version.split('.')[1].to_i - 1).to_s
 
 Dir.glob(File.join(__dir__, 'migration_templates', '*.erb')).each do |template_file_path|
