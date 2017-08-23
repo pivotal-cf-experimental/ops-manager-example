@@ -7,6 +7,13 @@ major_and_minor_version = version.split('.').slice(0, 2).join('_')
 #  must be in the format YYYMMDDHHMM_*.js
 minor_version = version.split('.')[1] || '00'
 minor_version.prepend('0') if minor_version.length == 1
+major_version = version.split('.')[0]
+# The following variable is utilized by the erb template
+previous_major_and_minor_version = if minor_version == '00' # first major release!
+                                     '1_12'
+                                   else
+                                     major_version + '_' + (version.split('.')[1].to_i - 1).to_s
+                                   end
 
 Dir.glob(File.join(__dir__, 'migration_templates', '*.erb')).each do |template_file_path|
   filled_template = ERB.new(File.read(template_file_path)).result
