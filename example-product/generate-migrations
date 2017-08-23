@@ -3,11 +3,12 @@ require 'erb'
 
 version = ARGV.fetch(0)
 major_and_minor_version = version.split('.').slice(0, 2).join('_')
-minor_version = version.split('.')[1] || '0'
-previous_major_and_minor_version = version.split('.')[0] + '_' + (version.split('.')[1].to_i - 1).to_s
+# If we have 99+ minor versions, this will fail as the filename generated below
+#  must be in the format YYYMMDDHHMM_*.js
+minor_version = version.split('.')[1] || '00'
+minor_version.prepend('0') if minor_version.length == 1
 
 Dir.glob(File.join(__dir__, 'migration_templates', '*.erb')).each do |template_file_path|
-
   filled_template = ERB.new(File.read(template_file_path)).result
 
   # Include the current major/minor version number in the migration name to ensure that it will not be
@@ -16,5 +17,4 @@ Dir.glob(File.join(__dir__, 'migration_templates', '*.erb')).each do |template_f
   output_full_path = File.join(__dir__, 'migrations', 'v1', output_filename)
 
   File.write(output_full_path, filled_template)
-
 end
