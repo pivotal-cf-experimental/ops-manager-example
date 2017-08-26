@@ -105,6 +105,7 @@ echo "Configured Values"
      'configured.secret',
      'configured.rsa_cert_credentials.public_key_pem',
      'configured.rsa_cert_credentials.cert_and_private_key_pems',
+     'configured.vm_type',
    ].each do |property| %>
   echo <%= Shellwords.escape(property) %>=<% if_p(property) do |prop| %><%= Shellwords.escape(prop) %><% end %>
 <% end %>

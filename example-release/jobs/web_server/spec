@@ -149,6 +149,8 @@ properties:
     description: 'RSA cert public_key_pem'
   configured.rsa_cert_credentials.cert_and_private_key_pems:
     description: 'RSA cert cert_and_private_key_pems'
+  configured.vm_type:
+    description: 'The larger the VM the more cookies we can bake'
 
   ops_manager_provided_accessors.name:
     description: 'job name'

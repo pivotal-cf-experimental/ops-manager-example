@@ -140,6 +140,8 @@ properties:
     description: 'RSA cert public_key_pem'
   configured.rsa_cert_credentials.cert_and_private_key_pems:
     description: 'RSA cert cert_and_private_key_pems'
+  configured.vm_type:
+    description: 'The larger the VM the more cookies we can bake'
 
   director_provided_accessors.ntp_servers:
     description: 'Director ntp_servers'
