@@ -119,6 +119,9 @@ form_types:
       - reference: .web_server.example_vm_type_dropdown
         label: Example vm type dropdown
         description: 'The larger the VM the more cookies we can bake'
+      - reference: .web_server.example_disk_type_dropdown
+        label: Example disk type dropdown
+        description: 'The larger the disk the more cookies we store'
   - name: example_collections_form
     label: 'Collection example'
     description: 'A collection example form'
@@ -446,7 +449,8 @@ job_types:
             port: (( .web_server.example_port.value ))
             smtp_authentication: (( .web_server.example_smtp_authentication.value ))
             ca_certificate: (( .web_server.client_certificate.value ))
-            vm_type: (( .web_server.example_vm_type_dropdown.value ))
+            example_vm_type_dropdown_value: (( .web_server.example_vm_type_dropdown.value ))
+            example_disk_type_dropdown_value: (( .web_server.example_disk_type_dropdown.value ))
             record_collection: (( .properties.example_collection.value ))
             selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
             secret: (( .web_server.configured_secret.value ))
@@ -708,6 +712,13 @@ job_types:
       - name: cpu
         configurable: true
         default: 1
+    - name: example_disk_type_dropdown
+      type: disk_type_dropdown
+      configurable: true
+      optional: true
+      resource_definitions:
+      - name: persistent_disk
+        default: 2000
     manifest: |
       credhub:
         concatenated_password: prefix-((( credhub-password )))-suffix
@@ -787,7 +798,8 @@ job_types:
         port: (( example_port.value ))
         smtp_authentication: (( example_smtp_authentication.value ))
         ca_certificate: (( client_certificate.value ))
-        vm_type: (( example_vm_type_dropdown.value ))
+        example_vm_type_dropdown_value: (( example_vm_type_dropdown.value ))
+        example_disk_type_dropdown_value: (( example_disk_type_dropdown.value ))
         record_collection: (( property_with_nil_value.value || .properties.example_collection.value ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
         secret: "(( false ? true : configured_secret.value ))"
