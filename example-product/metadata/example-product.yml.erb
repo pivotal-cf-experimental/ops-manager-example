@@ -21,6 +21,9 @@ releases:
   - name: example-release
     file: <%= release_file_name.inspect %>
     version: <%= release_file_name.match(/^example-release-(.*)\.tgz$/)[1].inspect %>
+  - name: os-conf
+    file: os-conf
+    version: '15'
 
 variables:
   - name: credhub-password
@@ -866,7 +869,7 @@ runtime_configs:
     runtime_config: |
       releases:
       - name: os-conf
-        version: 3
+        version: 15
       addons:
       - name: misc
         jobs:
