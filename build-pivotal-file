@@ -33,7 +33,6 @@ pushd $script_dir
 
   # Add releases
   example-release/build-release-tarball "${TMP_DIR}/releases"
-  wget https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=15 -O "${TMP_DIR}/releases/os-conf"
   release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
 
   # Generate some files using the migration_templates into the migrations/v1 directory
