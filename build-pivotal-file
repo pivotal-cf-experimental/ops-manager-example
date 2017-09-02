@@ -3,7 +3,7 @@
 script_dir="$( cd "$( dirname "$0" )" && pwd )"
 
 installation_dir="$script_dir/../installation"
-version_num="${1:-$($installation_dir/web/scripts/opsman_version 2> /dev/null )}"
+version_num="${1:-33.44}"
 stemcell_version="${2:-$($installation_dir/web/scripts/opsman_stemcell_version 2> /dev/null)}"
 output_dir="${3:-/tmp}"
 
@@ -11,12 +11,6 @@ set -e
 
 if [[ ! "$#" -eq 3 ]]; then
   echo "Usage: ${0} <version> <stemcell-version> <output-directory>">&2
-  if ! test -f $installation_dir/web/scripts/opsman_version; then
-    echo ""
-    echo "could not generate reasonable defaults"
-    echo "opsman helper scripts not found in $installation_dir/web/scripts/opsman_version"
-    exit 1
-  fi
   echo "With no arguments you will be given 'sensible' defaults"
   echo "this command is running as if you had typed the command:"
   echo "$0 $version_num $stemcell_version $output_dir"
