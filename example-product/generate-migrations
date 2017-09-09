@@ -2,25 +2,29 @@
 require 'erb'
 
 version = ARGV.fetch(0)
-major_and_minor_version = version.split('.').slice(0, 2).join('_')
-# If we have 99+ minor versions, this will fail as the filename generated below
-#  must be in the format YYYMMDDHHMM_*.js
-minor_version = version.split('.')[1] || '00'
-minor_version.prepend('0') if minor_version.length == 1
-major_version = version.split('.')[0]
-# The following variable is utilized by the erb template
-previous_major_and_minor_version = if minor_version == '00' # first major release!
+match_data = /(?<major_version>\d+)\.(?<minor_version>\d+)[.\-]/.match(version)
+minor_version = match_data[:minor_version]
+major_version = match_data[:major_version]
+major_and_minor_version = "#{major_version}_#{minor_version}"
+
+# The following variable is utilized by the erb template, so don't remove it unless you've removed it there as well.
+previous_major_and_minor_version = if minor_version == '0' # first major release!
                                      '1_12'
                                    else
-                                     major_version + '_' + (version.split('.')[1].to_i - 1).to_s
+                                     "#{major_version}_#{minor_version.to_i - 1}"
                                    end
+
+# If we have 99+ minor versions, this will fail as the filename generated below
+#  must be in the format YYYMMDDHHMM_*.js
+minor_version.prepend('0') if minor_version.length == 1
+major_version.prepend('0') if major_version.length == 1
 
 Dir.glob(File.join(__dir__, 'migration_templates', '*.erb')).each do |template_file_path|
   filled_template = ERB.new(File.read(template_file_path)).result
-
   # Include the current major/minor version number in the migration name to ensure that it will not be
   # named the same or have the same timestamp as in the previous minor version of the example tile.
-  output_filename = '2017050602' + minor_version + '_' + File.basename(template_file_path, '.js.erb') + major_and_minor_version + '.js'
+  timestamp = "20170506#{major_version}#{minor_version}"
+  output_filename = timestamp + '_' + File.basename(template_file_path, '.js.erb') + major_and_minor_version + '.js'
   output_full_path = File.join(__dir__, 'migrations', 'v1', output_filename)
 
   File.write(output_full_path, filled_template)
