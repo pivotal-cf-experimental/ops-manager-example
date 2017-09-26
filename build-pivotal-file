@@ -26,16 +26,16 @@ pushd $script_dir
   git clean -Xf $script_dir/example-product/migrations
 
   # Add releases
-  example-release/build-release-tarball "${TMP_DIR}/releases"
+  #  example-release/build-release-tarball "${TMP_DIR}/releases"
   # wget on linux was having trouble with the cloudfront url
   curl -fLo "${TMP_DIR}/releases/os-conf" https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=15
   release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
 
   # Generate some files using the migration_templates into the migrations/v1 directory
-  example-product/generate-migrations "${version_num}"
+#  example-product/generate-migrations "${version_num}"
 
   # Add migrations
-  cp -r $script_dir/example-product/migrations/* "${TMP_DIR}/migrations"
+#  cp -r $script_dir/example-product/migrations/* "${TMP_DIR}/migrations"
 
   # Add metadata YAML
   example-product/generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" > "${TMP_DIR}/metadata/example-product.yml"
@@ -48,7 +48,7 @@ popd
   cd "${TMP_DIR}"
   echo "creating .pivotal file"
 
-  TARGET_FILE="example-product-${version_num}.pivotal"
+  TARGET_FILE="example-product-no-runtime-configs-${version_num}.pivotal"
   zip -r "${output_dir}/${TARGET_FILE}" migrations metadata releases
 
   echo "created pivotal file: [${output_dir}/${TARGET_FILE}]"
