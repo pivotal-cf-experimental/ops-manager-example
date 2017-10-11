@@ -179,6 +179,10 @@ properties:
     description: 'Director ca_public_key'
   director_provided_accessors.tld:
     description: 'Director tld'
+  director_provided_accessors.bosh_metrics_forwarder_client_name:
+    description: 'UAA Client name for Bosh Metrics Client'
+  director_provided_accessors.bosh_metrics_forwarder_client_secret:
+    description: 'UAA Client secret for Bosh Metrics Client'
 
   product.deployment_name:
     description: 'deployment name for the product'
