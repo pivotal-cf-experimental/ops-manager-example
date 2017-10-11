@@ -4,6 +4,7 @@
 echo 'Product Accessors'
 <% [
        'product.deployment_name',
+       'product.network_name',
    ].each do |property| %>
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>
@@ -115,6 +116,7 @@ echo 'Director Provided Accessors'
 <% [
      'director_provided_accessors.ntp_servers',
      'director_provided_accessors.ca_public_key',
+     'director_provided_accessors.tld',
    ].each do |property| %>
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>

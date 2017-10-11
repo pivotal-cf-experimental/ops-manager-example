@@ -518,8 +518,10 @@ job_types:
             password: (( $director.password ))
             ntp_servers: (( $director.ntp_servers ))
             ca_public_key: (( $director.ca_public_key ))
+            tld: (( $director.tld ))
           product:
             deployment_name: (( ..example-product.deployment_name ))
+            network_name: (( ..example-product.network_name ))
           self:
             stemcell_version: (( $self.stemcell_version ))
     errand: true
@@ -877,8 +879,10 @@ job_types:
         password: (( $director.password ))
         ntp_servers: (( $director.ntp_servers ))
         ca_public_key: (( $director.ca_public_key ))
+        tld: (( $director.tld ))
       product:
         deployment_name: (( .deployment_name ))
+        network_name: (( .network_name ))
       self:
         stemcell_version: (( $self.stemcell_version ))
   - name: no_op

@@ -24,6 +24,7 @@
     <dl>
       <% [
              'product.deployment_name',
+             'product.network_name',
          ].each do |property| %>
         <dt><%= property %></dt>
         <dd><%= p(property) %></dd>
@@ -178,6 +179,7 @@
     <% [
          'director_provided_accessors.ntp_servers',
          'director_provided_accessors.ca_public_key',
+         'director_provided_accessors.tld',
        ].each do |property| %>
         <dt><%= property %></dt>
         <dd><pre><%= p(property) %></pre></dd>

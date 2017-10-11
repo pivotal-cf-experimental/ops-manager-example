@@ -149,9 +149,13 @@ properties:
     description: 'Director ntp_servers'
   director_provided_accessors.ca_public_key:
     description: 'Director ca_public_key'
+  director_provided_accessors.tld:
+    description: 'Director tld'
 
   product.deployment_name:
     description: 'deployment name for the product'
+  product.network_name:
+    description: 'network name for the product'
 
   self.stemcell_version:
     description: 'stemcell assigned to product'
