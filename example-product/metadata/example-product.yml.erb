@@ -156,6 +156,20 @@ form_types:
             label: 'Country of Origin (Service Network Single AZ Select) Note: Only applicable when service_broker is turned on'
           - reference: example_service_network_az_multi_select
             label: 'CF-Pop Service Network Multi AZ picker? Note: Only applicable when service_broker is turned on'
+  - name: example_certificate_collections_form
+    label: 'Certificate Collection example'
+    description: 'A certificate collection example form'
+    property_inputs:
+      - reference: .properties.example_cert_collection
+        label: 'Certificate collection'
+        description: 'Add some certificates here'
+        property_inputs:
+          - reference: example_cert_from_collection_name
+            label: 'Certificate Name'
+            description: 'A description, e.g. "My cert for *.example.com"'
+          - reference: example_cert_from_collection
+            label: 'Certificate'
+            description: 'Put your cert here'
   - name: example_selector_form
     label: 'Selector Example'
     description: 'A selector example form'
@@ -382,6 +396,23 @@ property_blueprints:
         artist: Ops Manatee
         explicit: true
         genre: edm
+  - name: example_cert_collection
+    type: collection
+    configurable: true
+    optional: true
+    property_blueprints:
+      - name: example_cert_from_collection_name
+        type: string
+        configurable: true
+      - name: example_cert_from_collection
+        type: rsa_cert_credentials
+        configurable: true
+        optional: true
+    named_manifests:
+    - name: hello_ert_team
+      manifest: |
+        private_key: (( current_record.example_cert_from_collection.private_key_pem ))
+        certificate: (( current_record.example_cert_from_collection.cert_pem ))
   - type: selector
     name: example_runtime_config_selector
     configurable: true
@@ -717,7 +748,7 @@ job_types:
       default: ['earth', 'jupiter']
       options:
         - name: mercury
-          label: 'label f or mercury'
+          label: 'label for mercury'
         - name: venus
           label: 'label for venus'
         - name: earth
@@ -856,6 +887,7 @@ job_types:
         example_vm_type_dropdown_value: (( example_vm_type_dropdown.value ))
         example_disk_type_dropdown_value: (( example_disk_type_dropdown.value ))
         record_collection: (( property_with_nil_value.value || .properties.example_collection.value ))
+        certificate_collection_manifest_snippet: (( .properties.example_cert_collection.parsed_manifest(hello_ert_team) ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
         secret: "(( false ? true : configured_secret.value ))"
         rsa_cert_credentials:
