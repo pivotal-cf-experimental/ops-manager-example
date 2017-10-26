@@ -39,6 +39,14 @@ variables:
 
 post_deploy_errands:
   - name: example-errand
+    colocated: false
+  - name: example_colocated_errand
+    colocated: true
+    run_default: on
+    instances:
+      - web_server/first
+    label: colocated errand on web_server
+    description: This errand does little more than print a message in order to prove colocated errands work.
 
 pre_delete_errands:
   - name: example-errand
@@ -449,7 +457,7 @@ property_blueprints:
 
 job_types:
   - name: example-errand
-    resource_label: an errand to log properties
+    description: The very best illustrative errand that prints all the properties, including secrets.
     templates:
       - name: example-errand
         release: example-release
@@ -558,6 +566,9 @@ job_types:
           self:
             stemcell_version: (( $self.stemcell_version ))
     errand: true
+    resource_label: an errand to log properties
+    run_post_deploy_errand_default: on
+    run_pre_delete_errand_default: off
     static_ip: 0
     dynamic_ip: 1
     max_in_flight: 1
@@ -591,6 +602,8 @@ job_types:
         consumes: |
           web_server_info: (( .properties.example_selector.selected_option.parsed_manifest(consumes_section) ))
       - name: time_logger
+        release: example-release
+      - name: example_colocated_errand
         release: example-release
     release: example-release
     static_ip: 1

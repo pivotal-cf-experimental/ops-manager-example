@@ -1,0 +1,10 @@
+---
+name: example_colocated_errand
+description: "An example colocated errand that will output if it ran"
+
+packages: []
+
+templates:
+  run.sh: bin/run
+
+properties: {}
