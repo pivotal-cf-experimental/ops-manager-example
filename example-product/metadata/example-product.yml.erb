@@ -214,6 +214,14 @@ form_types:
             property_inputs:
               - reference: .properties.example_selector.beverage_option.cola
                 label: 'What kind of soda?'
+      - reference: .properties.example_selector_with_deployed_director_accessors
+        label: 'Utilize director username and password in example product metadata'
+        description: 'If selected, director needs to be deployed before example product'
+        selector_property_inputs:
+        - reference: .properties.example_selector_with_deployed_director_accessors.enable_option
+          label: 'Utilize it'
+        - reference: .properties.example_selector_with_deployed_director_accessors.disable_option
+          label: 'Do not utilize it'
   - name: example_runtime_configs_form
     label: 'Runtime Config Selector Example'
     description: 'A runtime config example form'
@@ -454,6 +462,23 @@ property_blueprints:
                 login_banner:
                   text: |
                     (( .properties.example_runtime_config_selector.enable_option.salutation.value )). You are welcome here. Always be kind. 🤗
+  - type: selector
+    name: example_selector_with_deployed_director_accessors
+    configurable: true
+    default: 'No'
+    option_templates:
+    - name: disable_option
+      select_value: 'No'
+      named_manifests:
+      - name: director_deploy_accessors_snippet
+        manifest:
+    - name: enable_option
+      select_value: 'Yes'
+      named_manifests:
+      - name: director_deploy_accessors_snippet
+        manifest: |
+          director_username: (( $director.username ))
+          director_password: (( $director.password ))
 
 job_types:
   - name: example-errand
@@ -553,8 +578,7 @@ job_types:
           director_provided_accessors:
             hostname: (( $director.hostname ))
             deployment_ip: (( $director.deployment_ip ))
-            username: (( $director.username ))
-            password: (( $director.password ))
+            username_and_pass: (( .properties.example_selector_with_deployed_director_accessors.selected_option.parsed_manifest(director_deploy_accessors_snippet) ))
             ntp_servers: (( $director.ntp_servers ))
             ca_public_key: (( $director.ca_public_key ))
             tld: (( $director.tld ))
@@ -922,8 +946,7 @@ job_types:
       director_provided_accessors:
         hostname: (( $director.hostname ))
         deployment_ip: (( $director.deployment_ip ))
-        username: (( $director.username ))
-        password: (( $director.password ))
+        username_and_pass: (( .properties.example_selector_with_deployed_director_accessors.selected_option.parsed_manifest(director_deploy_accessors_snippet) ))
         ntp_servers: (( $director.ntp_servers ))
         ca_public_key: (( $director.ca_public_key ))
         tld: (( $director.tld ))
