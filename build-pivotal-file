@@ -3,7 +3,7 @@
 script_dir="$( cd "$( dirname "$0" )" && pwd )"
 
 installation_dir="$script_dir/../installation"
-version_num="${1:-1.0-build.0}"
+version_num="${1:-1.0-build.1}"
 stemcell_version="${2:-$($installation_dir/web/scripts/opsman_stemcell_version 2> /dev/null)}"
 output_dir="${3:-/tmp}"
 
