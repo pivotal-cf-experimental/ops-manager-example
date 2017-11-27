@@ -222,6 +222,14 @@ form_types:
           label: 'Utilize it'
         - reference: .properties.example_selector_with_deployed_director_accessors.disable_option
           label: 'Do not utilize it'
+      - reference: .properties.caitlyn_and_brian_selector
+        label: 'Pre-migration example selector (Caitlyn & Brian debugging) (per Dave Walters)'
+        description: 'This should not be reflected in any BOSH manifest'
+        selector_property_inputs:
+        - reference: .properties.caitlyn_and_brian_selector.caitlyn
+          label: 'Caitlyn'
+        - reference: .properties.caitlyn_and_brian_selector.brian
+          label: 'Brian'
   - name: example_runtime_configs_form
     label: 'Runtime Config Selector Example'
     description: 'A runtime config example form'
@@ -479,6 +487,15 @@ property_blueprints:
         manifest: |
           director_username: (( $director.username ))
           director_password: (( $director.password ))
+  - type: selector
+    name: caitlyn_and_brian_selector
+    configurable: true
+    default: 'caitlyn'
+    option_templates:
+    - name: caitlyn
+      select_value: 'caitlyn'
+    - name: brian
+      select_value: 'brian'
 
 job_types:
   - name: example-errand
