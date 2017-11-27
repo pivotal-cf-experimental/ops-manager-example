@@ -8,7 +8,7 @@ end
 
 def next_release_build
   release_file_names = Dir.glob(
-    File.expand_path("releases/example-release/example-release-#{example_product_version}.release*.yml", __dir__)
+    File.expand_path("releases/example-release/example-release-*.release*.yml", __dir__)
   )
   build_versions = release_file_names.map {|file_name| file_name.match(/\.release(\d+).yml\z/)[1].to_i }
   most_recent_build_version = build_versions.max
