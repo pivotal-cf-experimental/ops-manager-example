@@ -190,7 +190,7 @@ form_types:
             property_inputs:
               - reference: .properties.example_selector.pizza_option.pepperoni
                 label: 'Add Pepperoni'
-              - reference: .properties.example_selector.pizza_option.pineapple
+              - reference: .properties.pineapple
                 label: 'Add Pineapple'
                 description: 'Nothing like an apple, would not buy again'
               - reference: .properties.example_selector.pizza_option.other_toppings
@@ -259,6 +259,9 @@ form_types:
         label: Web Server IPs
         description: Optional comma-seperated list of static IPs that will be assigned to the web server
 property_blueprints:
+  - name: pineapple
+    type: boolean
+    configurable: true
   - name: example_selector
     type: selector
     configurable: true
@@ -272,7 +275,7 @@ property_blueprints:
             manifest: |
               pizza_toppings:
                 pepperoni: (( .properties.example_selector.pizza_option.pepperoni.value ))
-                pineapple: (( .properties.example_selector.pizza_option.pineapple.value ))
+                pineapple: (( .properties.pineapple.value ))
                 other: (( .properties.example_selector.pizza_option.other_toppings.value ))
                 cheesy_vm_type: (( .properties.example_selector.pizza_option.cheesy_vm_type.value ))
           - name: provides_section
@@ -286,10 +289,6 @@ property_blueprints:
             type: boolean
             configurable: true
             freeze_on_deploy: true
-          - name: pineapple
-            type: boolean
-            configurable: true
-            default: true
           - name: other_toppings
             type: string
             configurable: true
