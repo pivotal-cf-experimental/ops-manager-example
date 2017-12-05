@@ -164,12 +164,6 @@ properties:
     description: 'value of ram'
   ops_manager_provided_accessors.instances:
     description: 'number of instances'
-  ops_manager_provided_accessors.first_ip:
-    description: 'first static ip of the job'
-  ops_manager_provided_accessors.ips:
-    description: 'all ips for the job'
-  ops_manager_provided_accessors.ips_by_availability_zone:
-    description: 'ips by availability zone'
   ops_manager_provided_accessors.any_instances:
     description: 'true if there are 1 or more instances of the job'
 
