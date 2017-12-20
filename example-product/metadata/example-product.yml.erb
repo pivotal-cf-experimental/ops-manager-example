@@ -6,7 +6,7 @@ metadata_version: "2.1"
 label: 'Ops Manager: Example Product'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
-service_broker: false # Default value
+service_broker: true # Default value
 stemcell_criteria:
   os: ubuntu-trusty
   version: <%= stemcell_version.inspect %>
@@ -133,6 +133,9 @@ form_types:
       - reference: .web_server.example_disk_type_dropdown
         label: Example disk type dropdown
         description: 'The larger the disk the more cookies we store'
+      - reference: .web_server.az_multi_chooser
+        label: Example AZ multi chooser
+        description: 'AZ zones'
   - name: example_collections_form
     label: 'Collection example'
     description: 'A collection example form'
@@ -842,6 +845,9 @@ job_types:
       resource_definitions:
       - name: persistent_disk
         default: 2000
+    - name: az_multi_chooser
+      type: service_network_az_multi_select
+      configurable: true
     manifest: |
       credhub:
         concatenated_password: prefix-((( credhub-password )))-suffix
@@ -923,6 +929,7 @@ job_types:
         ca_certificate: (( client_certificate.value ))
         example_vm_type_dropdown_value: (( example_vm_type_dropdown.value ))
         example_disk_type_dropdown_value: (( example_disk_type_dropdown.value ))
+        az_multi_chooser_value: (( az_multi_chooser.value ))
         record_collection: (( property_with_nil_value.value || .properties.example_collection.value ))
         certificate_collection_manifest_snippet: (( .properties.example_cert_collection.parsed_manifest(hello_ert_team) ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
@@ -954,6 +961,9 @@ job_types:
         network_name: (( .network_name ))
       self:
         stemcell_version: (( $self.stemcell_version ))
+        uaa_client_name: (( $self.uaa_client_name ))
+        uaa_client_secret: (( $self.uaa_client_secret ))
+
   - name: no_op
     resource_label: No Operation
     templates:

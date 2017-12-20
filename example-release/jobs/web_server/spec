@@ -1,10 +1,12 @@
 ---
 name: web_server
 templates:
+  odb_instructions.sh.erb: config/odb_instructions.sh
   ctl.erb: bin/ctl
   nginx_conf.erb: config/nginx.conf
   mime.types: config/mime.types
   index.html.erb: pages/index.html
+  no_op_manifest.yml.erb: config/no_op_manifest.yml
 
 packages: [nginx]
 
@@ -153,6 +155,8 @@ properties:
     description: 'The larger the VM the more cookies we can bake'
   configured.example_disk_type_dropdown_value:
     description: 'The larger the disk the more cookies we can store'
+  configured.az_multi_chooser_value:
+    description: 'The AZs'
 
   ops_manager_provided_accessors.name:
     description: 'job name'
@@ -167,6 +171,8 @@ properties:
   ops_manager_provided_accessors.any_instances:
     description: 'true if there are 1 or more instances of the job'
 
+  director_provided_accessors.hostname:
+    description: "BOSH_ENVIRONMENT"
   director_provided_accessors.ntp_servers:
     description: 'Director ntp_servers'
   director_provided_accessors.ca_public_key:
@@ -185,3 +191,7 @@ properties:
 
   self.stemcell_version:
     description: 'stemcell assigned to product'
+  self.uaa_client_name:
+    description: 'client name'
+  self.uaa_client_secret:
+    description: 'client secret'
