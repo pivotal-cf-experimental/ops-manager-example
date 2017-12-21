@@ -3,11 +3,27 @@
 # Building the example-product
 
 ```
+./build-pivotal-file
+```
+
+Or, if you want to override the sensible defaults, you may specify a version, a stemcell, and
+an output directory (i.e. not `/tmp/`):
+
+```
 ./build-pivotal-file $version $stemcell_version $output_directory
 ```
 
 For example, `./build-pivotal-file 1.7.42 123.4 /tmp` will create the file `/tmp/example-product-1.7.42.pivotal` 
 with product version `1.7.42` and using stemcell `123.4`
+
+# Building the example-broker-product
+
+The _example-broker-product_ is an anemic (minimal) service broker exclusively for manually testing
+service broker-related deployments. Not included in any automation (it may be out-of-date):
+
+```
+PRODUCT_NAME=example-broker-product ./build-pivotal-file
+```
 
 # Making changes
 

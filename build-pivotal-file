@@ -6,6 +6,7 @@ installation_dir="$script_dir/../installation"
 version_num="${1:-1.0-build.0}"
 stemcell_version="${2:-$($installation_dir/web/scripts/opsman_stemcell_version 2> /dev/null)}"
 output_dir="${3:-/tmp}"
+PRODUCT_NAME="${PRODUCT_NAME:-example-product}"
 
 set -e
 
@@ -23,7 +24,7 @@ mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
 
 pushd $script_dir
 
-  git clean -Xf $script_dir/example-product/migrations
+  git clean -Xf $script_dir/${PRODUCT_NAME}/migrations
 
   # Add releases
   example-release/build-release-tarball "${TMP_DIR}/releases"
@@ -32,13 +33,16 @@ pushd $script_dir
   release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
 
   # Generate some files using the migration_templates into the migrations/v1 directory
-  example-product/generate-migrations "${version_num}"
+  # broker-product doesn't currently have migrations, so we skip this step if there's no script
+  if [ -f ${PRODUCT_NAME}/generate-migrations ]; then
+    ${PRODUCT_NAME}/generate-migrations "${version_num}"
 
-  # Add migrations
-  cp -r $script_dir/example-product/migrations/* "${TMP_DIR}/migrations"
+    # Add migrations
+    cp -r $script_dir/${PRODUCT_NAME}/migrations/* "${TMP_DIR}/migrations"
+  fi
 
   # Add metadata YAML
-  example-product/generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" > "${TMP_DIR}/metadata/example-product.yml"
+  ./generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" "${PRODUCT_NAME}" > "${TMP_DIR}/metadata/${PRODUCT_NAME}.yml"
 
 popd
 
@@ -48,7 +52,7 @@ popd
   cd "${TMP_DIR}"
   echo "creating .pivotal file"
 
-  TARGET_FILE="example-product-${version_num}.pivotal"
+  TARGET_FILE="${PRODUCT_NAME}-${version_num}.pivotal"
   zip -r "${output_dir}/${TARGET_FILE}" migrations metadata releases
 
   echo "created pivotal file: [${output_dir}/${TARGET_FILE}]"

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+export BOSH_ENVIRONMENT="<%= p('director_provided_accessors.hostname') %>"
+export BOSH_CA_CERT="<%= p('director_provided_accessors.ca_public_key') %>"
+export BOSH_CLIENT="<%= p('self.uaa_client_name') %>"
+export BOSH_CLIENT_SECRET="<%= p('self.uaa_client_secret') %>"
+
+if [ ! -f /usr/local/bin/bosh ]; then
+  pushd /usr/local/bin
+    wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.45-linux-amd64
+    mv bosh-cli-2.0.45-linux-amd64 bosh
+    chmod +x bosh
+  popd
+fi
+
+# Instructions
+
+# - Run `source odb_instructions.sh` to export the environment variables and install bosh2 cli
+# - Run `bosh deploy no_op_manifest.yml -d $(head -1 no_op_manifest.yml | awk '{ print $2 }')` which
+#   mimics an ODB from our web_server to deploy a new VM
+# - Exit this VM and verify there exists a new deployment with a no_op vm running in it

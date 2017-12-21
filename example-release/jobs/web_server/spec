@@ -172,7 +172,7 @@ properties:
     description: 'true if there are 1 or more instances of the job'
 
   director_provided_accessors.hostname:
-    description: "BOSH_ENVIRONMENT"
+    description: 'BOSH_ENVIRONMENT'
   director_provided_accessors.ntp_servers:
     description: 'Director ntp_servers'
   director_provided_accessors.ca_public_key:

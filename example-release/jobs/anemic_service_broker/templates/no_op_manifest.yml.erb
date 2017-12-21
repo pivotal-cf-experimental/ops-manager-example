@@ -1,0 +1,36 @@
+name: <%= p('product.deployment_name') %>-service-instance-1
+releases:
+- name: example-release
+  version: latest
+stemcells:
+- alias: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+  os: ubuntu-trusty
+  version: '<%= p('self.stemcell_version') %>'
+update:
+  canaries: 1
+  canary_watch_time: 30000-300000
+  update_watch_time: 30000-300000
+  max_in_flight: 1
+  max_errors: 2
+  serial: true
+instance_groups:
+- name: no_op.odb
+  azs: <%= p('configured.az_multi_chooser_value') %>
+  instances: 1
+  lifecycle: service
+  jobs:
+  - name: no_op
+    release: example-release
+    consumes: {}
+    provides: {}
+  vm_type: <%= p('configured.example_vm_type_dropdown_value') %>
+  stemcell: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+  properties: {}
+  update:
+    max_in_flight: 1
+  networks:
+  - name: <%= p('product.network_name') %>
+    default:
+    - dns
+    - gateway
+  persistent_disk_type: <%= p('configured.example_disk_type_dropdown_value') %>

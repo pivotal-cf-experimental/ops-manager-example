@@ -1,0 +1,5 @@
+check process anemic_service_broker
+  with pidfile /var/vcap/sys/run/anemic_service_broker/pidfile
+  start program "/var/vcap/jobs/anemic_service_broker/bin/ctl start"
+  stop program "/var/vcap/jobs/anemic_service_broker/bin/ctl stop"
+  group vcap

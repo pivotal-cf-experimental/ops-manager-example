@@ -1,0 +1,34 @@
+---
+name: anemic_service_broker
+
+templates:
+  ctl: bin/ctl
+  odb_instructions.sh.erb: config/odb_instructions.sh
+  no_op_manifest.yml.erb: config/no_op_manifest.yml
+
+packages: []
+
+properties:
+  configured.example_vm_type_dropdown_value:
+    description: 'The larger the VM the more cookies we can bake'
+  configured.example_disk_type_dropdown_value:
+    description: 'The larger the disk the more cookies we can store'
+  configured.az_multi_chooser_value:
+    description: 'The AZs'
+
+  director_provided_accessors.hostname:
+    description: 'IP of Director'
+  director_provided_accessors.ca_public_key:
+    description: 'Director ca_public_key'
+
+  product.deployment_name:
+    description: 'deployment name for the product'
+  product.network_name:
+    description: 'network name for the product'
+
+  self.stemcell_version:
+    description: 'stemcell assigned to product'
+  self.uaa_client_name:
+    description: 'client name'
+  self.uaa_client_secret:
+    description: 'client secret'
