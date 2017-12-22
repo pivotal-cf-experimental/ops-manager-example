@@ -10,4 +10,6 @@ builds:
     version: 2.1.release34
   4f8235da-1034-407a-8fbb-03e36c068e97:
     version: 2.1.release35
+  31981a63-0fa0-4ff6-aff8-cdcca4afe88b:
+    version: 2.1.release36
 format-version: '2'
