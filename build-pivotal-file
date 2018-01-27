@@ -19,6 +19,7 @@ product_name="${PRODUCT_NAME:-$default_product_name}"
 set -eu
 
 main() {
+  cd $script_dir
   needs_help ${1:-""} && print_help && exit
   wants_dry_run ${1:-""} && print_dry_run && exit
   setup_tmp_workspace
@@ -43,7 +44,7 @@ setup_tmp_workspace() {
 }
 
 build_example_product_release() {
-  example-release/build-release-tarball "${tmp_dir}/releases" > /dev/null
+  ./example-release/build-release-tarball "${tmp_dir}/releases" > /dev/null
 }
 
 fetch_dependency_releases() {
@@ -55,10 +56,10 @@ get_release_path(){
 }
 
 generate_javascript_migrations() {
-  git clean -Xf $script_dir/${product_name}/migrations > /dev/null
+  git clean -Xf ${product_name}/migrations > /dev/null
   if [ -f ${product_name}/generate-migrations ]; then
     ${product_name}/generate-migrations "${version_num}" > /dev/null
-    cp -r $script_dir/${product_name}/migrations/* "${tmp_dir}/migrations"
+    cp -r ${product_name}/migrations/* "${tmp_dir}/migrations"
   fi
 }
 
@@ -78,7 +79,7 @@ package_pivotal_file() {
 }
 
 print_success() {
-  printf "\e[0;1;32mFinished:\e[0m PRODUCT_NAME=$product_name SUFFIX=$suffix $0 $version_num $stemcell_version $output_dir" >&2
+  printf "\e[0;1;32mFinished:\e[0m PRODUCT_NAME=$product_name SUFFIX=$suffix $0 $version_num $stemcell_version $output_dir\n" >&2
   echo ${output_dir}/${TARGET_FILE}
 }
 
