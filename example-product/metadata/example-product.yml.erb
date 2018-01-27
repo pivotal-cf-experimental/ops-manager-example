@@ -1,9 +1,10 @@
+<% product_name = "example-product#{suffix}" -%>
 ---
-name: example-product
+name: <%= product_name %>
 product_version: <%= version.inspect %>
 minimum_version_for_upgrade: "0"
 metadata_version: "2.1"
-label: 'Ops Manager: Example Product'
+label: 'Ops Manager: Example Product<%= suffix ? " #{suffix}" : nil%>'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
 service_broker: false # Default value
@@ -585,8 +586,8 @@ job_types:
             bosh_metrics_forwarder_client_name: (( $director.bosh_metrics_forwarder_client_name ))
             bosh_metrics_forwarder_client_secret: (( $director.bosh_metrics_forwarder_client_secret ))
           product:
-            deployment_name: (( ..example-product.deployment_name ))
-            network_name: (( ..example-product.network_name ))
+            deployment_name: (( ..<%= product_name %>.deployment_name ))
+            network_name: (( ..<%= product_name %>.network_name ))
           self:
             stemcell_version: (( $self.stemcell_version ))
     errand: true

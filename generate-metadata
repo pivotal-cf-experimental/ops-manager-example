@@ -5,6 +5,7 @@ version = ARGV.fetch(0)
 stemcell_version = ARGV.fetch(1)
 release_file_name = ARGV.fetch(2)
 product_name = ARGV.fetch(3)
+suffix = ARGV.fetch(4) == "" ? nil : ARGV.fetch(4)
 
 match_data = /(?<major_version>\d+)\.(?<minor_version>\d+)[.\-]/.match(version)
 minor_version = match_data[:minor_version]
@@ -12,4 +13,4 @@ major_version = match_data[:major_version]
 major_and_minor_version = "#{major_version}_#{minor_version}"
 
 metadata_template = File.join(__dir__, product_name, 'metadata', "#{product_name}.yml.erb")
-puts ERB.new(File.read(metadata_template)).result
+puts ERB.new(File.read(metadata_template), nil, '-').result

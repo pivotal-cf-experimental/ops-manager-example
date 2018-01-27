@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -uxe
+set -ue
 
 OUTPUT_DIR=${1}
 

@@ -1,63 +1,122 @@
 #!/usr/bin/env bash
 
 script_dir="$( cd "$( dirname "$0" )" && pwd )"
-
 installation_dir="$script_dir/../installation"
-version_num="${1:-1.0-build.0}"
-stemcell_version="${2:-$($installation_dir/web/scripts/opsman_stemcell_version 2> /dev/null)}"
-output_dir="${3:-/tmp}"
-PRODUCT_NAME="${PRODUCT_NAME:-example-product}"
+tmp_dir="$(mktemp -d)"
 
-set -e
+default_version_num="1.0-build.0"
+default_stemcell_version=$($installation_dir/web/scripts/opsman_stemcell_version 2> /dev/null)
+default_output_dir="/tmp"
+default_suffix=""
+default_product_name="example-product"
 
-if [[ ! "$#" -eq 3 ]]; then
-  echo "Usage: ${0} <version> <stemcell-version> <output-directory>">&2
-  echo "With no arguments you will be given 'sensible' defaults"
-  echo "this command is running as if you had typed the command:"
-  echo "$0 $version_num $stemcell_version $output_dir"
-fi
+version_num=${1:-"$default_version_num"}
+stemcell_version=${2:-$default_stemcell_version}
+output_dir=${3:-$default_output_dir}
+suffix=${SUFFIX:-$default_suffic}
+product_name="${PRODUCT_NAME:-$default_product_name}"
 
-TMP_DIR="$(mktemp -d)"
+set -eu
 
+main() {
+  needs_help ${1:-""} && print_help && exit
+  wants_dry_run ${1:-""} && print_dry_run && exit
+  setup_tmp_workspace
+  build_example_product_release
+  fetch_dependency_releases
+  generate_javascript_migrations
+  generate_metadata
+  package_pivotal_file
+  print_success
+}
 
-mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
+needs_help() {
+  test "$1" == '-h' -o "$1" == '--help'
+}
 
-pushd $script_dir
+wants_dry_run() {
+  test "$1" == '-d' -o "$1" == '--dry-run'
+}
 
-  git clean -Xf $script_dir/${PRODUCT_NAME}/migrations
+setup_tmp_workspace() {
+  mkdir -p "${tmp_dir}/"{metadata,migrations,releases}
+}
 
-  # Add releases
-  example-release/build-release-tarball "${TMP_DIR}/releases"
-  # wget on linux was having trouble with the cloudfront url
-  curl -fLo "${TMP_DIR}/releases/os-conf" https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=15
-  release_file_name="$(basename ${TMP_DIR}/releases/*.tgz)"
+build_example_product_release() {
+  example-release/build-release-tarball "${tmp_dir}/releases" > /dev/null
+}
 
-  # Generate some files using the migration_templates into the migrations/v1 directory
-  # broker-product doesn't currently have migrations, so we skip this step if there's no script
-  if [ -f ${PRODUCT_NAME}/generate-migrations ]; then
-    ${PRODUCT_NAME}/generate-migrations "${version_num}"
+fetch_dependency_releases() {
+  curl -sfLo "${tmp_dir}/releases/os-conf" https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=15
+}
 
-    # Add migrations
-    cp -r $script_dir/${PRODUCT_NAME}/migrations/* "${TMP_DIR}/migrations"
+get_release_path(){
+  basename ${tmp_dir}/releases/*.tgz
+}
+
+generate_javascript_migrations() {
+  git clean -Xf $script_dir/${product_name}/migrations > /dev/null
+  if [ -f ${product_name}/generate-migrations ]; then
+    ${product_name}/generate-migrations "${version_num}" > /dev/null
+    cp -r $script_dir/${product_name}/migrations/* "${tmp_dir}/migrations"
   fi
+}
 
-  # Add metadata YAML
-  ./generate-metadata "${version_num}" "${stemcell_version}" "${release_file_name}" "${PRODUCT_NAME}" > "${TMP_DIR}/metadata/${PRODUCT_NAME}.yml"
+generate_metadata() {
+  ./generate-metadata \
+    "${version_num}" \
+    "${stemcell_version}" \
+    "$(get_release_path)" \
+    "${product_name}" \
+    "${suffix}" > "${tmp_dir}/metadata/${product_name}.yml"
+}
 
-popd
+package_pivotal_file() {
+  cd "${tmp_dir}"
+  TARGET_FILE="${product_name}${suffix}-${version_num}.pivotal"
+  zip -qr "${output_dir}/${TARGET_FILE}" migrations metadata releases
+}
 
-(
-  # Create .pivotal file
+print_success() {
+  printf "\e[0;1;32mFinished:\e[0m PRODUCT_NAME=$product_name SUFFIX=$suffix $0 $version_num $stemcell_version $output_dir" >&2
+  echo ${output_dir}/${TARGET_FILE}
+}
 
-  cd "${TMP_DIR}"
-  echo "creating .pivotal file"
 
-  TARGET_FILE="${PRODUCT_NAME}-${version_num}.pivotal"
-  zip -r "${output_dir}/${TARGET_FILE}" migrations metadata releases
+print_help() {
+cat <<HERE >&2
 
-  echo "created pivotal file: [${output_dir}/${TARGET_FILE}]"
-)
+Usage: [ENV_VARS] ${0} [switches] [PRODUCT_VERSION] [STEMCELL_VERSION] [OUTPUT_DIRECTORY]
 
-test "$#" -eq 3 || printf "\e[0;33mRan with defaults:\e[m\n$0 $version_num $stemcell_version $output_dir\n"
+  PRODUCT_VERSION:  version to give to the created tile
+                    this is useful if you are creating two tiles of the different versions to test product upgrades
+                    (default: ${default_version_num})
 
-echo "Done"
+  STEMCELL_VERSION: stemcell version that tile will require
+                    this is useful if you are testing stemcell requirements
+                    (default: ${default_stemcell_version})
+                    (note: the default is based off of the version of Ops Manager is checked out in workspace)
+
+  OUTPUT_DIRECTORY: to where the new .pivotal file is written
+                    (default: ${default_output_dir})
+
+  switches:
+    -d --dry-run:   print the command that would be run without building any files
+    -h --help:      print this help
+
+  ENV_VARS:
+    PRODUCT_NAME:   generate a different example product
+                    (default: ${default_product_name})
+
+    SUFFIX:         a suffix to give to the example product's name and label
+                    this is useful if you are testing adding multiple different products
+                    (default: "${default_suffix}")
+
+HERE
+}
+
+print_dry_run() {
+  echo "PRODUCT_NAME=$default_product_name SUFFIX=$default_suffix $0 $default_version_num $default_stemcell_version $default_output_dir"
+}
+
+main $@
