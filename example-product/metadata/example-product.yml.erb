@@ -456,13 +456,16 @@ property_blueprints:
              version: 15
           addons:
             - name: misc
-              jobs:
-                - name: login_banner
-                  release: os-conf
-              properties:
-                login_banner:
-                  text: |
-                    (( .properties.example_runtime_config_selector.enable_option.salutation.value )). You are welcome here. Always be kind. 🤗
+              include:
+                deployments:
+                  - (( .deployment_name ))
+                jobs:
+                  - name: login_banner
+                    release: os-conf
+                    properties:
+                      login_banner:
+                        text: |
+                          (( .properties.example_runtime_config_selector.enable_option.salutation.value )). You are welcome here. Always be kind. 🤗
   - type: selector
     name: example_selector_with_deployed_director_accessors
     configurable: true
