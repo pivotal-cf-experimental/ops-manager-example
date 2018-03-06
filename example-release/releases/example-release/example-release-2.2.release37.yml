@@ -6,6 +6,10 @@ packages:
   sha1: 4ed574ab8049dd2ba18fd26b1d05ac511b82c797
   dependencies: []
 jobs:
+- name: anemic_service_broker
+  version: 7d18d98a39ee8543ad7a920d6e31430dfebee547
+  fingerprint: 7d18d98a39ee8543ad7a920d6e31430dfebee547
+  sha1: 6c553c376641882fac73a8bde2eba11694a8a6c0
 - name: example-errand
   version: 2397902c2471b5347dd556f8bf68cbb447145c06
   fingerprint: 2397902c2471b5347dd556f8bf68cbb447145c06
@@ -30,7 +34,7 @@ license:
   version: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
   fingerprint: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
   sha1: e9f73d92771324e6da16044b1d28d045e5eb71c3
-commit_hash: 898b413e
+commit_hash: 04d985b7
 uncommitted_changes: true
 name: example-release
-version: 2.1.release34
+version: 2.2.release37
