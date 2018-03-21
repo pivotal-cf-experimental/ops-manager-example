@@ -509,22 +509,30 @@ job_types:
             no_proxy: (( $ops_manager.no_proxy ))
             dns_enabled: (( $ops_manager.dns_enabled ))
             rsa_cert_credentials:
+              present: (( .web_server.generated_rsa_cert_credentials.value_present? ))
               public_key_pem: (( .web_server.generated_rsa_cert_credentials.public_key_pem ))
               cert_and_private_key_pems: (( .web_server.generated_rsa_cert_credentials.cert_and_private_key_pems ))
+              cert_pem: (( .web_server.generated_rsa_cert_credentials.cert_pem ))
+              private_key_pem: (( .web_server.generated_rsa_cert_credentials.private_key_pem ))
             rsa_pkey_credentials:
+              present: (( .web_server.generated_rsa_pkey_credentials.value_present? ))
               public_key_pem: (( .web_server.generated_rsa_pkey_credentials.public_key_pem ))
               private_key_pem: (( .web_server.generated_rsa_pkey_credentials.private_key_pem ))
               public_key_openssh: (( .web_server.generated_rsa_pkey_credentials.public_key_openssh ))
               public_key_fingerprint: (( .web_server.generated_rsa_pkey_credentials.public_key_fingerprint ))
             salted_credentials:
+              present: (( .web_server.generated_salted_credentials.value_present? ))
               sha512_hashed_password: (( .web_server.generated_salted_credentials.sha512_hashed_password ))
               identity: (( .web_server.generated_salted_credentials.identity ))
               salt: (( .web_server.generated_salted_credentials.salt ))
               password: (( .web_server.generated_salted_credentials.password ))
             simple_credentials:
+              present: (( .web_server.generated_simple_credentials.value_present? ))
               identity: (( .web_server.generated_simple_credentials.identity ))
               password: (( .web_server.generated_simple_credentials.password ))
-            secret: ((( generated-secret-migrated-to-credhub )))
+            secret:
+              present: (( .web_server.generated_secret.value_present? ))
+              value: (( .web_server.generated_secret.value ))
             uuid: (( .web_server.generated_uuid.value ))
             for_migration_to_credhub:
               rsa_cert_credentials:
@@ -862,22 +870,30 @@ job_types:
         dns_enabled: (( $ops_manager.dns_enabled ))
         root_rsa_certificate: (( $ops_manager.ca_certificate ))
         rsa_cert_credentials:
+          present: (( generated_rsa_cert_credentials.value_present? ))
           public_key_pem: (( generated_rsa_cert_credentials.public_key_pem ))
           cert_and_private_key_pems: (( generated_rsa_cert_credentials.cert_and_private_key_pems ))
+          cert_pem: (( generated_rsa_cert_credentials.cert_pem ))
+          private_key_pem: (( generated_rsa_cert_credentials.private_key_pem ))
         rsa_pkey_credentials:
+          present: (( generated_rsa_pkey_credentials.value_present? ))
           public_key_pem: (( generated_rsa_pkey_credentials.public_key_pem ))
           private_key_pem: (( generated_rsa_pkey_credentials.private_key_pem ))
           public_key_openssh: (( generated_rsa_pkey_credentials.public_key_openssh ))
           public_key_fingerprint: (( generated_rsa_pkey_credentials.public_key_fingerprint ))
         salted_credentials:
+          present: (( generated_salted_credentials.value_present? ))
           sha512_hashed_password: (( generated_salted_credentials.sha512_hashed_password ))
           identity: (( generated_salted_credentials.identity ))
           salt: (( generated_salted_credentials.salt ))
           password: (( generated_salted_credentials.password ))
         simple_credentials:
+          present: (( generated_simple_credentials.value_present? ))
           identity: (( generated_simple_credentials.identity ))
           password: (( generated_simple_credentials.password ))
-        secret: (( .web_server.generated_secret.value ))
+        secret:
+          present: (( .web_server.generated_secret.value_present? ))
+          value: (( .web_server.generated_secret.value ))
         uuid: (( generated_uuid.value ))
         # Note that ':' is a special value in yaml, so ternaries need to be quoted...
         ternary_with_property_example: "(( property_with_true_value.value ? 'hello world' : generated_uuid.value ))"

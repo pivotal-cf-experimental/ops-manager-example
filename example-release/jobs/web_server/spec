@@ -22,10 +22,18 @@ properties:
   credhub.concatenated_password:
     description: 'Used to show credhub generated values concatenated with other strings'
 
+  generated.rsa_cert_credentials.present:
+    description: 'RSA cert value_present?'
+  generated.rsa_cert_credentials.private_key_pem:
+    description: 'RSA cert private_key_pem'
+  generated.rsa_cert_credentials.cert_pem:
+    description: 'RSA cert cert_pem'
   generated.rsa_cert_credentials.public_key_pem:
     description: 'RSA cert public_key_pem'
   generated.rsa_cert_credentials.cert_and_private_key_pems:
     description: 'RSA cert cert_and_private_key_pems'
+  generated.rsa_pkey_credentials.present:
+    description: 'Rsa public key value_present?'
   generated.rsa_pkey_credentials.public_key_pem:
     description: 'Rsa public key pem'
   generated.rsa_pkey_credentials.private_key_pem:
@@ -34,6 +42,8 @@ properties:
     description: 'Rsa public key openssh'
   generated.rsa_pkey_credentials.public_key_fingerprint:
     description: 'Rsa public key fingerprint openssh'
+  generated.salted_credentials.present:
+    description: 'Salted credentials value_present?'
   generated.salted_credentials.sha512_hashed_password:
     description: 'Hashed Password'
   generated.salted_credentials.identity:
@@ -42,11 +52,15 @@ properties:
     description: 'Password salt'
   generated.salted_credentials.password:
     description: 'Password'
+  generated.simple_credentials.present:
+    description: 'Simple credentials value_present?'
   generated.simple_credentials.identity:
     description: 'Identity'
   generated.simple_credentials.password:
     description: 'Password'
-  generated.secret:
+  generated.secret.present:
+    description: 'Secret value_present?'
+  generated.secret.value:
     description: 'A randomly generated value'
   generated.uuid:
     description: 'a generated uuid'

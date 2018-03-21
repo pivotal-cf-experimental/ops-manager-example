@@ -1,0 +1,40 @@
+---
+packages:
+- name: nginx
+  version: 795a8f8acc5e1c4688e3823355e7681532ba85f9
+  fingerprint: 795a8f8acc5e1c4688e3823355e7681532ba85f9
+  sha1: 4ed574ab8049dd2ba18fd26b1d05ac511b82c797
+  dependencies: []
+jobs:
+- name: anemic_service_broker
+  version: 7d18d98a39ee8543ad7a920d6e31430dfebee547
+  fingerprint: 7d18d98a39ee8543ad7a920d6e31430dfebee547
+  sha1: 6c553c376641882fac73a8bde2eba11694a8a6c0
+- name: example-errand
+  version: 8956461f3693019745a08c8d4cfb25570399aa22
+  fingerprint: 8956461f3693019745a08c8d4cfb25570399aa22
+  sha1: 60d4e8c3d20a049183396d8636fd91ca52abad2f
+- name: example_colocated_errand
+  version: 976b7425a7f7ad3965d332d58983ac69d75a1554
+  fingerprint: 976b7425a7f7ad3965d332d58983ac69d75a1554
+  sha1: 5bd44b166764c5702e83c8a4ef4f2ebfd5185089
+- name: no_op
+  version: 8c5d3b5ba16186d72c633c703d65797d4d2889b2
+  fingerprint: 8c5d3b5ba16186d72c633c703d65797d4d2889b2
+  sha1: 0e923b870f44ba0e868058832dc236128aa214df
+- name: time_logger
+  version: 20de578a988bddd11ee5e83f298a8f34a48089a8
+  fingerprint: 20de578a988bddd11ee5e83f298a8f34a48089a8
+  sha1: 4a420158b1316b95915b0a4bab437c4b65c867a7
+- name: web_server
+  version: bd79ed2ae23ae342103dbd52eca512584f0a23cb
+  fingerprint: bd79ed2ae23ae342103dbd52eca512584f0a23cb
+  sha1: 7eda16c2762d4f427b4508333b681dd6722c50df
+license:
+  version: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
+  fingerprint: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
+  sha1: e9f73d92771324e6da16044b1d28d045e5eb71c3
+commit_hash: 04d985b7
+uncommitted_changes: true
+name: example-release
+version: 2.1.release37
