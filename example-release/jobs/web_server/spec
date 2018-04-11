@@ -149,24 +149,36 @@ properties:
     description: 'a basic configured smtp_authentication'
   configured.ca_certificate:
     description: 'a basic configurable ca_certificate'
-  configured.record_collection:
-    description: 'a configured record collection'
-  configured.selector:
-    description: 'a configured selector'
-  configured.simple_credentials.identity:
-    description: 'Identity'
-  configured.simple_credentials.password:
-    description: 'Password'
-  configured.secret:
-    description: 'A configured secret'
-  configured.rsa_cert_credentials.public_key_pem:
-    description: 'RSA cert public_key_pem'
-  configured.rsa_cert_credentials.cert_and_private_key_pems:
-    description: 'RSA cert cert_and_private_key_pems'
   configured.example_vm_type_dropdown_value:
     description: 'The larger the VM the more cookies we can bake'
   configured.example_disk_type_dropdown_value:
     description: 'The larger the disk the more cookies we can store'
+  configured.record_collection:
+    description: 'a configured record collection'
+  configured.selector:
+    description: 'a configured selector'
+  configured.selector_specific_option:
+    description: 'a selector specific option'
+  configured.selector_value:
+    description: 'a selector value'
+  configured.top_level_secret:
+    description: 'a top level secret'
+  configured.concat_secrets:
+    description: 'some concatonated secrets'
+  configured.secret:
+    description: 'A configured secret'
+  configured.secret_ternary:
+    description: 'A configured secret using a ternary'
+  configured.secret_or:
+    description: 'A configured secret using an or'
+  configured.rsa_cert_credentials.public_key_pem:
+    description: 'RSA cert public_key_pem'
+  configured.rsa_cert_credentials.cert_and_private_key_pems:
+    description: 'RSA cert cert_and_private_key_pems'
+  configured.simple_credentials.identity:
+    description: 'Identity'
+  configured.simple_credentials.password:
+    description: 'Password'
 
   ops_manager_provided_accessors.name:
     description: 'job name'

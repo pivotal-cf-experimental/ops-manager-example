@@ -154,6 +154,10 @@ form_types:
           - reference: secret_meaning
             label: 'Secret Meaning'
             description: 'If you play it backwards...'
+          - reference: secret_meaning_rsa_cert_credentials
+            label: 'Secret Meaning RSA Cert'
+          - reference: secret_meaning_simple_credentials
+            label: 'Secret Meaning Simple Creds'
           - reference: genre
             label: 'Genre'
             description: Are there others?
@@ -241,6 +245,8 @@ form_types:
     label: 'Secrets and Credentials Example'
     description: 'A secrets and credentials form'
     property_inputs:
+      - reference: .properties.super_secret
+        label: 'Super secret top-level product property'
       - reference: .web_server.configured_secret
         label: 'So secret, you do not know the secret exists'
         description: A configurable property of type secret
@@ -259,7 +265,12 @@ form_types:
       - reference: .web_server.static_ips
         label: Web Server IPs
         description: Optional comma-separated list of static IPs that will be assigned to the web server
+
 property_blueprints:
+  - name: super_secret
+    type: secret
+    configurable: true
+    optional: true
   - name: example_selector
     type: selector
     configurable: true
@@ -379,6 +390,14 @@ property_blueprints:
         type: boolean
       - name: secret_meaning
         type: secret
+        configurable: true
+        optional: true
+      - name: secret_meaning_rsa_cert_credentials
+        type: rsa_cert_credentials
+        configurable: true
+        optional: true
+      - name: secret_meaning_simple_credentials
+        type: simple_credentials
         configurable: true
         optional: true
       - name: vm_type
@@ -580,7 +599,13 @@ job_types:
             example_disk_type_dropdown_value: (( .web_server.example_disk_type_dropdown.value ))
             record_collection: (( .properties.example_collection.value ))
             selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
+            selector_specific_option: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
+            selector_value: (( .properties.example_selector.value ))
+            top_level_secret: (( .properties.super_secret.value ))
+            concat_secrets: (( .web_server.configured_simple_credentials.identity )):(( .web_server.configured_simple_credentials.password ))
             secret: (( .web_server.configured_secret.value ))
+            secret_ternary: "(( .web_server.configured_secret.value ? '.web_server.configured_secret.value was true' : '.web_server.configured_secret.value was false' ))"
+            secret_or: (( .web_server.configured_secret.value || '.web_server.configured_secret.value was false' ))
             rsa_cert_credentials:
               public_key_pem: (( .web_server.configured_rsa_cert_credentials.public_key_pem ))
               cert_and_private_key_pems: (( .web_server.configured_rsa_cert_credentials.cert_and_private_key_pems ))
@@ -946,7 +971,13 @@ job_types:
         record_collection: (( property_with_nil_value.value || .properties.example_collection.value ))
         certificate_collection_manifest_snippet: (( .properties.example_cert_collection.parsed_manifest(hello_ert_team) ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
-        secret: "(( false ? true : configured_secret.value ))"
+        selector_specific_option: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
+        selector_value: (( .properties.example_selector.value ))
+        top_level_secret: (( .properties.super_secret.value ))
+        concat_secrets: (( .web_server.configured_simple_credentials.identity )):(( .web_server.configured_simple_credentials.password ))
+        secret: (( .web_server.configured_secret.value ))
+        secret_ternary: "(( .web_server.configured_secret.value ? '.web_server.configured_secret.value was true' : '.web_server.configured_secret.value was false' ))"
+        secret_or: (( .web_server.configured_secret.value || '.web_server.configured_secret.value was false' ))
         rsa_cert_credentials:
           public_key_pem: "(( property_with_true_value.value ? configured_rsa_cert_credentials.public_key_pem : false ))"
           cert_and_private_key_pems: (( property_with_false_value.value || configured_rsa_cert_credentials.cert_and_private_key_pems ))
