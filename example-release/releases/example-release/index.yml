@@ -1,9 +1,5 @@
 ---
 builds:
-  449a134b-2db3-48b6-b00f-debeb6711fec:
-    version: 2.2.release37
-  426296c5-2ba9-4561-8120-e491f59a2db6:
-    version: 2.2.release38
-  a2a3572b-7ef9-4b6c-a359-059e4e63f15b:
-    version: 2.2.release39
+  e729776d-c0aa-460c-95f6-bc9bfc373c10:
+    version: 2.3.release40
 format-version: '2'
