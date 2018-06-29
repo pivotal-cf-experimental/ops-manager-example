@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'erb'
+require 'active_support/inflector'
+
 version = ARGV.fetch(0)
 stemcell_version = ARGV.fetch(1)
 release_file_name = ARGV.fetch(2)
