@@ -1,6 +1,6 @@
-<% product_name = "example-product #{suffix}" -%>
+<% product_name = "example-product #{suffix}".parameterize -%>
 ---
-name: <%= product_name.parameterize %>
+name: <%= product_name %>
 product_version: <%= version.inspect %>
 minimum_version_for_upgrade: "0"
 metadata_version: "2.3"
