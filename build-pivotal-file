@@ -16,6 +16,8 @@ output_dir=${3:-$default_output_dir}
 suffix=${SUFFIX:-$default_suffix}
 product_name="${PRODUCT_NAME:-$default_product_name}"
 
+generated_metadata_path="${tmp_dir}/metadata/${product_name}.yml"
+
 set -eu
 
 main() {
@@ -27,6 +29,7 @@ main() {
   fetch_dependency_releases
   generate_javascript_migrations
   generate_metadata
+  check_metadata_syntax
   package_pivotal_file
   print_success
 }
@@ -69,7 +72,14 @@ generate_metadata() {
     "${stemcell_version}" \
     "$(get_release_path)" \
     "${product_name}" \
-    "${suffix}" > "${tmp_dir}/metadata/${product_name}.yml"
+    "${suffix}" > "${generated_metadata_path}"
+}
+
+check_metadata_syntax() {
+  if ! ruby -r yaml -e "YAML.load_file('${generated_metadata_path}')" >&2; then
+    printf "\n\e[0;1;31mError: invalid YAML syntax in metadata\e[0m\n" >&2
+    exit 1;
+  fi
 }
 
 package_pivotal_file() {
