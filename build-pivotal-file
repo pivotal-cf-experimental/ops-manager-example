@@ -13,7 +13,7 @@ default_product_name="example-product"
 version_num=${1:-"$default_version_num"}
 stemcell_version=${2:-$default_stemcell_version}
 output_dir=${3:-$default_output_dir}
-suffix=${SUFFIX:-$default_suffic}
+suffix=${SUFFIX:-$default_suffix}
 product_name="${PRODUCT_NAME:-$default_product_name}"
 
 set -eu
@@ -74,7 +74,11 @@ generate_metadata() {
 
 package_pivotal_file() {
   cd "${tmp_dir}"
-  TARGET_FILE="${product_name}${suffix}-${version_num}.pivotal"
+  hyphenated_suffix=${suffix}
+  if [ "${suffix}" != "" ]; then
+    hyphenated_suffix="-${suffix}"
+  fi
+  TARGET_FILE="${product_name}${hyphenated_suffix}-${version_num}.pivotal"
   zip -qr "${output_dir}/${TARGET_FILE}" migrations metadata releases
 }
 
