@@ -6,6 +6,7 @@ tmp_dir="$(mktemp -d)"
 
 default_version_num="1.0-build.0"
 default_stemcell_version=$($installation_dir/web/scripts/opsman_stemcell_version 2> /dev/null)
+default_stemcell_os=$($installation_dir/web/scripts/opsman_stemcell_os 2> /dev/null)
 default_output_dir="/tmp"
 default_suffix=""
 default_product_name="example-product"
@@ -14,6 +15,7 @@ version_num=${1:-"$default_version_num"}
 stemcell_version=${2:-$default_stemcell_version}
 output_dir=${3:-$default_output_dir}
 suffix=${SUFFIX:-$default_suffix}
+stemcell_os=${4:-$default_stemcell_os}
 product_name="${PRODUCT_NAME:-$default_product_name}"
 
 generated_metadata_path="${tmp_dir}/metadata/${product_name}.yml"
@@ -72,7 +74,9 @@ generate_metadata() {
     "${stemcell_version}" \
     "$(get_release_path)" \
     "${product_name}" \
-    "${suffix}" > "${generated_metadata_path}"
+    "${suffix}" \
+    "${stemcell_os}" \
+      > "${generated_metadata_path}"
 }
 
 check_metadata_syntax() {
@@ -101,7 +105,7 @@ print_success() {
 print_help() {
 cat <<HERE >&2
 
-Usage: [ENV_VARS] ${0} [switches] [PRODUCT_VERSION] [STEMCELL_VERSION] [OUTPUT_DIRECTORY]
+Usage: [ENV_VARS] ${0} [switches] [PRODUCT_VERSION] [STEMCELL_VERSION] [OUTPUT_DIRECTORY] [STEMCELL_OS]
 
   PRODUCT_VERSION:  version to give to the created tile
                     this is useful if you are creating two tiles of the different versions to test product upgrades
@@ -110,6 +114,11 @@ Usage: [ENV_VARS] ${0} [switches] [PRODUCT_VERSION] [STEMCELL_VERSION] [OUTPUT_D
   STEMCELL_VERSION: stemcell version that tile will require
                     this is useful if you are testing stemcell requirements
                     (default: ${default_stemcell_version})
+                    (note: the default is based off of the version of Ops Manager is checked out in workspace)
+
+  STEMCELL_OS:      stemcell operating system that tile will require
+                    this is useful if you are testing stemcell requirements
+                    (default: ${default_stemcell_os})
                     (note: the default is based off of the version of Ops Manager is checked out in workspace)
 
   OUTPUT_DIRECTORY: to where the new .pivotal file is written
