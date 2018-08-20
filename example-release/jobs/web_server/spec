@@ -22,6 +22,8 @@ properties:
   credhub.concatenated_password:
     description: 'Used to show credhub generated values concatenated with other strings'
 
+  generated.root_rsa_certificate:
+    description: 'OpsManager CA chain'
   generated.rsa_cert_credentials.present:
     description: 'RSA cert value_present?'
   generated.rsa_cert_credentials.private_key_pem:
