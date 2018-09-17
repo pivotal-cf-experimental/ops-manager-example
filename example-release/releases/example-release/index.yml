@@ -1,7 +1,5 @@
 ---
 builds:
-  e729776d-c0aa-460c-95f6-bc9bfc373c10:
-    version: 2.3.release40
-  d4da4a4b-026a-4314-8f65-2e44711f0225:
-    version: 2.3.release41
+  c803a210-e7e5-4999-8529-ffc484b56664:
+    version: 2.4.release42
 format-version: '2'
