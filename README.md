@@ -50,7 +50,7 @@ Make your changes and run the following:
 ```
 $ cd example-release
 $ git clean -fd dev_releases
-$ bosh create release --with-tarball --force
+$ bundle exec bosh create release --with-tarball --force
 ```
 
 This will give you a dev release `.tgz`.
