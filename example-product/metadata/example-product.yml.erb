@@ -8,6 +8,7 @@ label: 'Ops Manager: Example Product<%= suffix ? " #{suffix}" : nil%>'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
 service_broker: false # Default value
+opsmanager_syslog: true
 stemcell_criteria:
   os: <%= stemcell_os.inspect %>
   version: <%= stemcell_version.inspect %>
