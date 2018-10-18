@@ -27,9 +27,13 @@ main() {
   needs_help ${1:-""} && print_help && exit
   wants_dry_run ${1:-""} && print_dry_run && exit
   setup_tmp_workspace
-  build_example_product_release
-  fetch_dependency_releases
-  generate_javascript_migrations
+  if [[ $stemcell_os != "windows"* ]]; then
+    build_example_product_release
+    fetch_dependency_releases
+    generate_javascript_migrations
+  else
+    cp "${product_name}"/releases/*.tgz "${tmp_dir}"/releases/
+  fi
   generate_metadata
   check_metadata_syntax
   package_pivotal_file
