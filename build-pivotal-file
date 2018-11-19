@@ -116,14 +116,13 @@ Usage: [ENV_VARS] ${0} [switches] [PRODUCT_VERSION] [STEMCELL_VERSION] [OUTPUT_D
                     (default: ${default_stemcell_version})
                     (note: the default is based off of the version of Ops Manager is checked out in workspace)
 
+  OUTPUT_DIRECTORY: to where the new .pivotal file is written
+                    (default: ${default_output_dir})
+
   STEMCELL_OS:      stemcell operating system that tile will require
                     this is useful if you are testing stemcell requirements
                     (default: ${default_stemcell_os})
                     (note: the default is based off of the version of Ops Manager is checked out in workspace)
-
-  OUTPUT_DIRECTORY: to where the new .pivotal file is written
-                    (default: ${default_output_dir})
-
   switches:
     -d --dry-run:   print the command that would be run without building any files
     -h --help:      print this help
