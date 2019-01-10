@@ -49,6 +49,7 @@ setup_tmp_workspace() {
 }
 
 build_example_product_release() {
+  echo "build example product release....."
   ./example-release/build-release-tarball "${tmp_dir}/releases" > /dev/null
 }
 
