@@ -42,6 +42,7 @@ variables:
 post_deploy_errands:
   - name: example-errand
     colocated: false
+    impact_warning: 'Vms will restart'
   - name: example_colocated_errand
     colocated: true
     run_default: on
@@ -49,9 +50,11 @@ post_deploy_errands:
       - web_server/first
     label: colocated errand on web_server
     description: This errand does little more than print a message in order to prove colocated errands work.
+    impact_warning: null
 
 pre_delete_errands:
   - name: example-errand
+    impact_warning: 'Pre Delete warning'
 
 form_types:
   - name: example-form
