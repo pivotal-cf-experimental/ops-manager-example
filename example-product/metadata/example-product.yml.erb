@@ -528,7 +528,6 @@ job_types:
             https_proxy: (( $ops_manager.https_proxy ))
             no_proxy: (( $ops_manager.no_proxy ))
             dns_enabled: (( $ops_manager.dns_enabled ))
-            restricted_view_api_access_credentials: (( $ops_manager.restricted_view_api_access_credentials ))
             rsa_cert_credentials:
               present: (( .web_server.generated_rsa_cert_credentials.value_present? ))
               public_key_pem: (( .web_server.generated_rsa_cert_credentials.public_key_pem ))
