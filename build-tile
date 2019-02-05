@@ -242,8 +242,14 @@ Application Options (Optional):
   --suffix             Suffix to attach to file name. Default: ""
 
 Help Options (do not pass a value):
-  -h, --help          Show this help message
-  -v, --verbose       Print some extra logging messages
+  -h, --help           Show this help message
+  -v, --verbose        Print some extra logging messages
+
+Example Commands:
+  Example Product    $ ./build-tile
+  Service Broker     $ ./build-tile --type=service-broker
+  Runtime Config     $ ./build-tile --type=runtime-config-only 
+  Windows            $ ./build-tile --type=windows --stemcell-os=windows2016 --stemcell-version=1709.17
 
 HERE
 }
