@@ -34,7 +34,7 @@ license:
   version: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
   fingerprint: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
   sha1: e9f73d92771324e6da16044b1d28d045e5eb71c3
-commit_hash: 2993be84
+commit_hash: 9e7a1ad6
 uncommitted_changes: true
 name: example-release
-version: 2.5.release43
+version: 2.6.release44
