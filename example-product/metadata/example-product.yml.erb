@@ -394,7 +394,7 @@ property_blueprints:
         configurable: true
         optional: true
         constraints:
-          - must_match_regex: '^[a-zA-Z]{20,}$'
+          - must_match_regex: '^[\w\- _]{20,}$'
             error_message: 'This secret must be at least 20 letters'
       - name: secret_meaning_rsa_cert_credentials
         type: rsa_cert_credentials
