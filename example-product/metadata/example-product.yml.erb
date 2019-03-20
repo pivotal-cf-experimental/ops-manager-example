@@ -19,6 +19,11 @@ stemcell_criteria:
   #
   # default: true
   enable_patch_security_updates: true
+additional_stemcells_criteria:
+  - os: windows2016
+    version: 1709.19
+
+
 releases:
   - name: example-release
     file: <%= release_file_name.inspect %>
@@ -138,6 +143,9 @@ form_types:
       - reference: .web_server.example_disk_type_dropdown
         label: Example disk type dropdown
         description: 'The larger the disk the more cookies we store'
+      - reference: .web_server.example_stemcell_selector
+        label: Example stemcell selector
+        description: 'Select which stemcell you want to use'
   - name: example_collections_form
     label: 'Collection example'
     description: 'A collection example form'
@@ -887,6 +895,9 @@ job_types:
       resource_definitions:
       - name: persistent_disk
         default: 2000
+    - type: stemcell_selector
+      name: example_stemcell_selector
+      configurable: true
     manifest: |
       credhub:
         concatenated_password: prefix-((( credhub-password )))-suffix
