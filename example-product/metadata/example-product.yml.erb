@@ -898,6 +898,7 @@ job_types:
     - type: stemcell_selector
       name: example_stemcell_selector
       configurable: true
+      default: <%= stemcell_os.inspect %>
     manifest: |
       credhub:
         concatenated_password: prefix-((( credhub-password )))-suffix
