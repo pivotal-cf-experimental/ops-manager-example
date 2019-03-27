@@ -2,4 +2,10 @@
 builds:
   aad7b167-24f1-426f-b885-e0a5e653cb4a:
     version: 2.6.release44
+  588adeea-f7b8-4004-93e9-1d48b347be45:
+    version: 2.6.release45
+  436f6a5b-b969-4385-8b89-86eb97e415d8:
+    version: 2.6.release46
+  012af4de-b7a2-4a2a-8058-9c0b0002d2d6:
+    version: 2.6.release47
 format-version: '2'

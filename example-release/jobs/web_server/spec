@@ -211,5 +211,12 @@ properties:
   product.network_name:
     description: 'network name for the product'
 
+  stemcell_selector.os:
+    description: 'Selected stemcell OS'
+  stemcell_selector.version:
+    description: 'Selected stemcell version'
+  stemcell_selector.value_present:
+    description: 'Boolean. Whether or not additional stemcell is bound'
+
   self.stemcell_version:
     description: 'stemcell assigned to product'

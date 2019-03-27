@@ -185,6 +185,18 @@
     <% end %>
     </dl>
 
+    <h2>Stemcell Selector</h2>
+    <dl>
+    <% [
+         'stemcell_selector.os',
+         'stemcell_selector.version',
+         'stemcell_selector.value_present',
+       ].each do |property| %>
+        <dt><%= property %></dt>
+        <dd><%= p(property) %></dd>
+    <% end %>
+    </dl>
+
     <h2>Director Provided Accessors:</h2>
     <dl>
     <% [
