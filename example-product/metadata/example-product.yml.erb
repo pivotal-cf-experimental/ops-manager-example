@@ -898,7 +898,7 @@ job_types:
     - type: stemcell_selector
       name: example_stemcell_selector
       configurable: true
-      default: <%= stemcell_os.inspect %>
+      optional: true
     manifest: |
       credhub:
         concatenated_password: prefix-((( credhub-password )))-suffix
@@ -1026,6 +1026,10 @@ job_types:
         network_name: (( .network_name ))
       self:
         stemcell_version: (( $self.stemcell_version ))
+      stemcell_selector:
+        os: (( .web_server.example_stemcell_selector.os ))
+        version: (( .web_server.example_stemcell_selector.version ))
+        value_present: (( .web_server.example_stemcell_selector.value_present? ))
   - name: no_op
     resource_label: No Operation
     templates:
