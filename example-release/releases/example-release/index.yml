@@ -8,4 +8,6 @@ builds:
     version: 2.6.release46
   012af4de-b7a2-4a2a-8058-9c0b0002d2d6:
     version: 2.6.release47
+  bb385128-9792-407d-82d7-66accce23d66:
+    version: 2.6.release48
 format-version: '2'

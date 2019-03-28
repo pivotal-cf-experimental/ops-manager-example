@@ -187,11 +187,9 @@
 
     <h2>Stemcell Selector</h2>
     <dl>
-    <% [
-         'stemcell_selector.os',
-         'stemcell_selector.version',
-         'stemcell_selector.value_present',
-       ].each do |property| %>
+    <% stemcell_selector_properties = ['stemcell_selector.value_present'] %>
+    <% stemcell_selector_properties += ['stemcell_selector.os', 'stemcell_selector.version'] if p('stemcell_selector.value_present') == true %>
+    <% stemcell_selector_properties.each do |property| %>
         <dt><%= property %></dt>
         <dd><%= p(property) %></dd>
     <% end %>
