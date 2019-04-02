@@ -27,14 +27,14 @@ jobs:
   fingerprint: 20de578a988bddd11ee5e83f298a8f34a48089a8
   sha1: 4a420158b1316b95915b0a4bab437c4b65c867a7
 - name: web_server
-  version: 6508da7b643eceba7e026991cca31eaca4b3916a
-  fingerprint: 6508da7b643eceba7e026991cca31eaca4b3916a
-  sha1: c1f47d1aa0f61b64576dd83f5115c43e3bbff96f
+  version: 5b5d82f73c255ac9f3a223dc5d662f1a9f78448a
+  fingerprint: 5b5d82f73c255ac9f3a223dc5d662f1a9f78448a
+  sha1: 8dcccdaafb45847e6212ed691b25e4e533f16376
 license:
   version: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
   fingerprint: e6c4ccc65c76e75e2338d1edabdcf264d37ee663
   sha1: e9f73d92771324e6da16044b1d28d045e5eb71c3
-commit_hash: 742c8add
+commit_hash: cb20d8fb
 uncommitted_changes: true
 name: example-release
-version: 2.6.release48
+version: 2.6.release49
