@@ -2,4 +2,6 @@
 builds:
   c803a210-e7e5-4999-8529-ffc484b56664:
     version: 2.4.release42
+  d02dd46e-c040-4b9c-b5cf-88a85d08d9b0:
+    version: 2.4.release43
 format-version: '2'
