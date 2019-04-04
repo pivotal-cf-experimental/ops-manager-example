@@ -16,4 +16,6 @@ builds:
     version: 2.1.release37
   96ddafb9-8ac9-4194-aef0-e3a5d287ae0d:
     version: 2.1.release38
+  435041d1-bff3-4f1c-92d1-db3944fa9ce2:
+    version: 2.1.release39
 format-version: '2'
