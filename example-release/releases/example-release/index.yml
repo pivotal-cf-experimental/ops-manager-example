@@ -12,4 +12,6 @@ builds:
     version: 2.6.release48
   14d54209-b51b-4b99-b50d-34d3ad525dbe:
     version: 2.6.release49
+  655dd7d6-c0cd-454f-9ac2-aa9ce66ae3da:
+    version: 2.6.release50
 format-version: '2'
