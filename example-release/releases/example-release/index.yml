@@ -8,4 +8,6 @@ builds:
     version: 2.0.release33
   d4ac58a0-369b-453e-a176-fb4bb49dd130:
     version: 2.0.release34
+  f2809ac9-7405-4fd7-b2dc-0c443531da44:
+    version: 2.0.release35
 format-version: '2'

@@ -1,6 +1,22 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
+require 'erb'
+
+def credhub_login
+  if system('! lpass status --quiet')
+    puts "Run 'lpass login YOUR_EMAIL' first"
+    exit 1
+  end
+
+  credhub_url = `lpass show --url "Shared-Ops Manager Secure/ops-manager-credhub"`.strip
+  credhub_username = `lpass show --username "Shared-Ops Manager Secure/ops-manager-credhub"`.strip
+  credhub_password = `lpass show --password "Shared-Ops Manager Secure/ops-manager-credhub"`.strip
+
+  `credhub logout`
+
+  system("credhub login -u #{credhub_username} -p #{credhub_password} -s #{credhub_url} --skip-tls-validation")
+end
 
 def example_product_version
   ARGV[0] || fail("Must provide the OM version. For example, on the releases/1.9 branch run '#{$0} 1.9'")
@@ -15,12 +31,20 @@ def next_release_build
   "#{example_product_version}.release#{most_recent_build_version+1}"
 end
 
-# Copy S3 blobstore credentials from our credentials repo
-private_yml_path = File.expand_path('config/private.yml', __dir__)
-unless File.exists?(private_yml_path)
-  private_yml_source_path = File.expand_path('../../credentials/ops-manager-example/example-release/config/private.yml', __dir__)
-  exec("cp #{private_yml_source_path} #{private_yml_path}")
+def main
+  credhub_login
+
+  aws_access_key_id = `credhub get -n "/example-product/aws-blobstore" -k "username"`.strip
+  aws_secret_access_key = `credhub get -n "/example-product/aws-blobstore" -k "password"`.strip
+
+  private_yml_template = File.expand_path('config/private.yml.erb', __dir__)
+  private_yml_path = File.expand_path('config/private.yml', __dir__)
+  private_yml = ERB.new(File.read(private_yml_template), nil, '-').result(binding)
+  File.write(private_yml_path, private_yml)
+
+  puts "Cutting final release #{next_release_build.inspect}"
+  exec("cd #{__dir__}; bosh create release --final --version #{next_release_build} --force")
 end
 
-puts "Cutting final release #{next_release_build.inspect}"
-exec("cd #{__dir__}; bosh create release --final --version #{next_release_build} --force")
+main
+
