@@ -8,6 +8,8 @@ label: 'Ops Manager: Example Broker Product<%= suffix ? " #{suffix}" : nil%>'
 description: An example product to demonstrate Ops Manager broker product-author features
 rank: 1
 service_broker: true
+opsmanager_syslog: true
+
 stemcell_criteria:
   os: <%= stemcell_os.inspect %>
   version: <%= stemcell_version.inspect %>
