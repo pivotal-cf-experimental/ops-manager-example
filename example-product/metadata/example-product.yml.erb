@@ -1049,10 +1049,15 @@ job_types:
     max_in_flight: 100%
     single_az_only: false
     default_internet_connected: false
+    use_stemcell: windows2016
     instance_definition:
       name: instances
       configurable: true
       default: 0
+      zero_if:
+        property_reference: .properties.example_selector
+        property_values:
+          - Filet Mignon
     resource_definitions:
       - name: ram
         configurable: true
