@@ -1049,7 +1049,7 @@ job_types:
     max_in_flight: 100%
     single_az_only: false
     default_internet_connected: false
-    use_stemcell: windows2016
+    use_stemcell: <%= stemcell_os.inspect %>
     instance_definition:
       name: instances
       configurable: true
