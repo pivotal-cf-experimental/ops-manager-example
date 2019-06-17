@@ -1,0 +1,46 @@
+name: example-release
+version: 2.7.release53
+commit_hash: ef243b6
+uncommitted_changes: true
+jobs:
+- name: anemic_service_broker
+  version: e724d16eec73a629c2aaf1653f1595a179ed99743bee8e63c379f7b91c88e509
+  fingerprint: e724d16eec73a629c2aaf1653f1595a179ed99743bee8e63c379f7b91c88e509
+  sha1: sha256:bbd7edc9b0a292f43f0c2081a94652f51448ed0e36290cdef385844776527053
+  packages: []
+- name: example-errand
+  version: 6abded64a76bf7c27023cf78a3970104e8b93a478d7ee54ca18020dd6838d88e
+  fingerprint: 6abded64a76bf7c27023cf78a3970104e8b93a478d7ee54ca18020dd6838d88e
+  sha1: sha256:9f750ea832111425a47336b2f4cdb5a4597c12a54bcf06deb4ae1d3e43450f97
+  packages: []
+- name: example_colocated_errand
+  version: e67e93765acafa98b353a9858a88fd9952969358aabe30a35f704317da7e5ce4
+  fingerprint: e67e93765acafa98b353a9858a88fd9952969358aabe30a35f704317da7e5ce4
+  sha1: sha256:083bd302972066f5045c57e63da97534a8ee159c04981ffcb3ec4a0ccb4499dd
+  packages: []
+- name: no_op
+  version: 07ac1f2a8fdeb66ceb265d0b82328a97d254c99d68dcdae68825ae0412c663b8
+  fingerprint: 07ac1f2a8fdeb66ceb265d0b82328a97d254c99d68dcdae68825ae0412c663b8
+  sha1: sha256:d7eed0f9168205a117b191567d1222e0f5342e77475962c1bd2cbca72c5f3e34
+  packages: []
+- name: time_logger
+  version: b359d66f297ac3057be88220be1092a0fb4f88c923ddcc430663d7ec85125dbb
+  fingerprint: b359d66f297ac3057be88220be1092a0fb4f88c923ddcc430663d7ec85125dbb
+  sha1: sha256:526c6e2fb307a9952a4c5db9ab6735a96e6d21f2cf8e6e356d86f78bbaa7ac79
+  packages: []
+- name: web_server
+  version: ac61f05ae46dc1be61097496f644b5f25c74ab9f6cf3f20dcb2cc500ca3020c8
+  fingerprint: ac61f05ae46dc1be61097496f644b5f25c74ab9f6cf3f20dcb2cc500ca3020c8
+  sha1: sha256:b6ff00e89637c4fc9c462c4207d65e74e48ff76c2c5b6ce92161c66614e0bff4
+  packages:
+  - nginx
+packages:
+- name: nginx
+  version: b6027914803bedbb8e07f648c68ad43cbcf5f3591d8495b5fe5fb35a6bdb2698
+  fingerprint: b6027914803bedbb8e07f648c68ad43cbcf5f3591d8495b5fe5fb35a6bdb2698
+  sha1: sha256:f5c77bd7cf3754fd553c679cea294ae652d1257f417e70072d73a988364bfd94
+  dependencies: []
+license:
+  version: ffa6a8d5154bcbf5fd82ee01f6840905d982f3222267dcff45223d6ef8388f4c
+  fingerprint: ffa6a8d5154bcbf5fd82ee01f6840905d982f3222267dcff45223d6ef8388f4c
+  sha1: sha256:c46789a17688e919ce7924d6c22b42ac3897e6120fca0c65622a689afd262894

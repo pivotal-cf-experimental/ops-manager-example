@@ -1,4 +1,8 @@
-# Ops Manager 
+# Ops Manager
+
+# Pre-requisite
+
+Tooling in this repo depends on the [BOSH CLI v2+](https://bosh.io/docs/cli-v2-install/).
 
 # Building the example-product
 
@@ -49,8 +53,8 @@ Make your changes and run the following:
 
 ```
 $ cd example-release
-$ git clean -fd dev_releases
-$ bundle exec bosh create release --with-tarball --force
+$ git clean -fdx dev_releases
+$ bosh create-release --with-tarball --force
 ```
 
 This will give you a dev release `.tgz`.

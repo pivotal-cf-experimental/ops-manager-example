@@ -43,7 +43,7 @@ def main
   File.write(private_yml_path, private_yml)
 
   puts "Cutting final release #{next_release_build.inspect}"
-  exec("cd #{__dir__}; bosh create release --final --version #{next_release_build} --force")
+  exec("cd #{__dir__}; bosh create-release --final --version #{next_release_build} --force")
 end
 
 main
