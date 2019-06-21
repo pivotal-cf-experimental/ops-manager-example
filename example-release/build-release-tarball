@@ -16,7 +16,8 @@ rm -f ${RELEASES_DIR}/example-release/*.tgz
 
 release_yml=$(ls ${RELEASES_DIR}/example-release/example-release-*.yml | sort -t '-' -k 4 -g | tail -1)
 echo "creating release from ${release_yml}"
-bosh create-release "${release_yml}" --force --tarball=${RELEASES_DIR}/example-release/example-release-$$.tgz
+version=$(ruby -e "require 'yaml'; puts YAML.load_file(\"$release_yml\")['version']")
+bosh create-release "${release_yml}" --force --tarball=${RELEASES_DIR}/example-release/example-release-$version.tgz
 
 release_tgz=$(ls ${RELEASES_DIR}/example-release/example-release-*.tgz | sort -t '-' -k 4 -g | tail -1)
 if [[ ! -f ${release_tgz} ]]; then
