@@ -151,6 +151,7 @@
         'configured.selector',
         'configured.selector_specific_option',
         'configured.selector_value',
+        'configured.stemcell_selector',
         'configured.top_level_secret',
         'configured.concat_secrets',
         'configured.secret',
@@ -164,7 +165,7 @@
         <dt><%= property %></dt>
         <dd>
           <% if_p(property) do |prop| %>
-            <pre><%= prop %></pre>
+            <pre><%= prop.inspect %></pre>
           <% end %>
         </dd>
     <% end %>

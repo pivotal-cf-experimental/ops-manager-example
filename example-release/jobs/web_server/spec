@@ -163,6 +163,8 @@ properties:
     description: 'a selector specific option'
   configured.selector_value:
     description: 'a selector value'
+  configured.stemcell_selector:
+    description: 'a stemcell selector object'
   configured.top_level_secret:
     description: 'a top level secret'
   configured.concat_secrets:

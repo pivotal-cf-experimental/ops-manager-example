@@ -85,7 +85,7 @@ set_default_stemcell_version() {
   if [[ -z $version ]]; then
     log "Could not find a default stemcell version at ${DEFAULT_INSTALLATION_PATH}. Using default ${DEFAULT_STEMCELL_VERSION}"
   else
-    DEFAULT_STEMCELL_VERSION="${version}" 
+    DEFAULT_STEMCELL_VERSION="${version}"
     STEMCELL_VERSION=$DEFAULT_STEMCELL_VERSION
   fi
 }
@@ -248,7 +248,7 @@ Help Options (do not pass a value):
 Example Commands:
   Example Product    $ ./build-tile
   Service Broker     $ ./build-tile --type=service-broker
-  Runtime Config     $ ./build-tile --type=runtime-config-only 
+  Runtime Config     $ ./build-tile --type=runtime-config-only
   Windows            $ ./build-tile --type=windows --stemcell-os=windows2016 --stemcell-version=1709.17
 
 HERE
@@ -290,7 +290,7 @@ main() {
     print_success
     exit 0
   fi
-  
+
   if [ $TILE_TYPE = "$TILE_TYPE_EXAMPLE_PRODUCT" ]; then
     PRODUCT_NAME="example-product"
 

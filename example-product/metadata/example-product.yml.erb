@@ -19,6 +19,10 @@ stemcell_criteria:
   #
   # default: true
   enable_patch_security_updates: true
+additional_stemcells_criteria:
+  - os: windows2016
+    version: 1709.19
+
 releases:
   - name: example-release
     file: <%= release_file_name.inspect %>
@@ -231,6 +235,14 @@ form_types:
           label: 'Utilize it'
         - reference: .properties.example_selector_with_deployed_director_accessors.disable_option
           label: 'Do not utilize it'
+      - reference: .properties.windows_selector
+        label: 'Use windows stemcell'
+        description: 'If selected, the windows2016 stemcell will be required'
+        selector_property_inputs:
+        - reference: .properties.windows_selector.enable_option
+          label: 'Yes'
+        - reference: .properties.windows_selector.disable_option
+          label: 'No'
   - name: example_runtime_configs_form
     label: 'Runtime Config Selector Example'
     description: 'A runtime config example form'
@@ -458,6 +470,29 @@ property_blueprints:
       manifest: |
         private_key: (( current_record.example_cert_from_collection.private_key_pem ))
         certificate: (( current_record.example_cert_from_collection.cert_pem ))
+  - type: selector
+    name: windows_selector
+    configurable: true
+    default: 'No'
+    option_templates:
+      - name: disable_option
+        select_value: 'No'
+        named_manifests:
+          - name: windows_snippet
+            manifest: |
+              chosen_stemcell_os: null
+      - name: enable_option
+        select_value: 'Yes'
+        property_blueprints:
+          - name: windows_stemcell
+            type: stemcell_selector
+            configurable: false
+            default: 'windows2016'
+        named_manifests:
+          - name: windows_snippet
+            manifest: |
+              chosen_stemcell_os: (( .properties.windows_selector.enable_option.windows_stemcell.os ))
+              chosen_stemcell_version: (( .properties.windows_selector.enable_option.windows_stemcell.version ))
   - type: selector
     name: example_runtime_config_selector
     configurable: true
@@ -983,6 +1018,7 @@ job_types:
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
         selector_specific_option: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
         selector_value: (( .properties.example_selector.value ))
+        stemcell_selector: (( .properties.windows_selector.selected_option.parsed_manifest(windows_snippet) ))
         top_level_secret: (( .properties.super_secret.value ))
         concat_secrets: (( .web_server.configured_simple_credentials.identity )):(( .web_server.configured_simple_credentials.password ))
         secret: (( .web_server.configured_secret.value ))
