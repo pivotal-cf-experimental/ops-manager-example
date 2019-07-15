@@ -42,6 +42,11 @@ variables:
     type: user
   - name: generated-salted-creds-migrated-to-credhub
     type: user
+  - name: generated-certificate-migrated-to-credhub
+    type: certificate
+    options:
+      common_name: example.common
+      is_ca: true
 
 post_deploy_errands:
   - name: example-errand
