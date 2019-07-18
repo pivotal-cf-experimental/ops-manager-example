@@ -83,6 +83,9 @@ form_types:
       - reference: .web_server.example_string
         label: Example string
         description: 'Configure a property of type string'
+      - reference: .web_server.example_cron
+        label: Example cron schedule
+        description: 'Configure a property of type string with the must_be_cron_schedule constraint'
       - reference: .web_server.example_string_with_placeholder
         label: Example string containing Placeholder text
         description: 'Optional field. Configuration not necessary'
@@ -629,6 +632,7 @@ job_types:
               secret: (( .web_server.generated_secret_to_migrate_to_credhub_<%= major_and_minor_version %>.value ))
           configured:
             string: (( .web_server.example_string.value ))
+            cron_schedule: (( .web_server.example_cron.value ))
             integer: (( .web_server.example_migrated_integer.value ))
             boolean: (( .web_server.example_boolean.value ))
             dropdown: (( .web_server.example_dropdown.value ))
@@ -817,6 +821,13 @@ job_types:
         error_message: 'This name cannot contain special characters.'
       - must_match_regex: '\A[^0-9]*\z'
         error_message: 'This name cannot contain digits.'
+    - name: example_cron
+      type: string
+      configurable: true
+      optional: true
+      constraints:
+        - must_be_cron_schedule: true
+          error_message: 'This must be a valid cron schedule.'
     - name: example_migrated_integer
       type: integer
       configurable: true
