@@ -1,6 +1,6 @@
 name: example-release
-version: 2.7.release53
-commit_hash: ef243b6
+version: 2.8.release54
+commit_hash: afdca7c
 uncommitted_changes: true
 jobs:
 - name: anemic_service_broker
@@ -29,9 +29,9 @@ jobs:
   sha1: sha256:526c6e2fb307a9952a4c5db9ab6735a96e6d21f2cf8e6e356d86f78bbaa7ac79
   packages: []
 - name: web_server
-  version: ac61f05ae46dc1be61097496f644b5f25c74ab9f6cf3f20dcb2cc500ca3020c8
-  fingerprint: ac61f05ae46dc1be61097496f644b5f25c74ab9f6cf3f20dcb2cc500ca3020c8
-  sha1: sha256:b6ff00e89637c4fc9c462c4207d65e74e48ff76c2c5b6ce92161c66614e0bff4
+  version: cc57e16efd1cee9a498fd0a00fb9fd6b309505724a3316755ff63646f7082652
+  fingerprint: cc57e16efd1cee9a498fd0a00fb9fd6b309505724a3316755ff63646f7082652
+  sha1: sha256:31e438188d047e780eaa4dedfb300fae64b392c66e0becfbd153360187f556bb
   packages:
   - nginx
 packages:
