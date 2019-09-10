@@ -3,17 +3,17 @@
 # Building the example-product
 
 ```
-./build-pivotal-file
+./build-tile
 ```
 
 Or, if you want to override the sensible defaults, you may specify a version, a stemcell, and
 an output directory (i.e. not `/tmp/`):
 
 ```
-./build-pivotal-file $version $stemcell_version $output_directory
+./build-tile --tile-version=$version --stemcell-version=$stemcell_version --output-dir=$output_directory
 ```
 
-For example, `./build-pivotal-file 1.7.42 123.4 /tmp` will create the file `/tmp/example-product-1.7.42.pivotal` 
+For example, `./build-tile --tile-version=1.7.42 --stemcell-version=123.4 --output-dir=/tmp` will create the file `/tmp/example-product-1.7.42.pivotal` 
 with product version `1.7.42` and using stemcell `123.4`
 
 # Building the example-broker-product
@@ -22,7 +22,7 @@ The _example-broker-product_ is an anemic (minimal) service broker exclusively f
 service broker-related deployments. Not included in any automation (it may be out-of-date):
 
 ```
-PRODUCT_NAME=example-broker-product ./build-pivotal-file
+build-tile --type=service-broker
 ```
 
 # Making changes
@@ -35,7 +35,7 @@ The classic example is that you've added/removed a property to one of the job sp
 ## Templating
 
 Both the metadata and the credhub migration js migration are templates which get populated with the relevant version,
-stemcell, and other info when you run the `./build-pivotal-file` script. When making changes, be sure to change
+stemcell, and other info when you run the `./build-tile` script. When making changes, be sure to change
 the template, rather than the generated files.
 
 ## Cutting a dev release
@@ -65,7 +65,7 @@ if the `web_server` job has changed what properties are required, then you need 
 After creating the dev release (as described above), simply run
 
 ```
-$ DEV_RELEASE=true ./build-pivotal-file $version $stemcell_version $output_directory`
+$ DEV_RELEASE=true ./build-tile`
 ```
 
 The `DEV_RELEASE=true` environment variable tells the script to use the development bosh release you just created 
@@ -92,7 +92,7 @@ The result of running `cut-new-release` will be a new release file (found in `ex
 
 ### Creating an example-product with the final example-release
 
-To test your changes one more time, you should call `./build-pivotal-file $version $stemcell_version $output_directory`
+To test your changes one more time, you should call `./build-tile`
 and again deploy the resulting pivotal file in an Ops Manager.
 
 ### Committing your changes
