@@ -20,10 +20,10 @@ form_types:
         label: Echo Value
         description: 'Configure a value to repeatedly echo'
       - reference: .properties.sleep_value
-        label: Sleep Value 
+        label: Sleep Value
         description: 'Time to sleep between echoes'
       - reference: .properties.exit_value
-        label: Exit Value 
+        label: Exit Value
         description: 'Configure a value to echo at exit'
 
 property_blueprints:
@@ -31,6 +31,7 @@ property_blueprints:
     type: string
     configurable: true
     optional: false
+    default: 'hello'
   - name: sleep_value
     type: integer
     configurable: true
@@ -40,6 +41,7 @@ property_blueprints:
     type: string
     configurable: true
     optional: false
+    default: '0'
 
 runtime_configs:
   - name: dummy
