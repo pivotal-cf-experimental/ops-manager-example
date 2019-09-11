@@ -1,0 +1,320 @@
+#!/usr/bin/env bash
+
+set -eu
+
+readonly TILE_TYPE_EXAMPLE_PRODUCT="example-product"
+readonly TILE_TYPE_RUNTIME_CONFIG_ONLY="runtime-config-only"
+readonly TILE_TYPE_SERVICE_BROKER="service-broker"
+readonly TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT="windows"
+readonly ALLOWED_TILE_TYPES="$TILE_TYPE_EXAMPLE_PRODUCT $TILE_TYPE_SERVICE_BROKER $TILE_TYPE_RUNTIME_CONFIG_ONLY $TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT"
+readonly TILE_TYPES_REQUIRING_STEMCELL="$TILE_TYPE_EXAMPLE_PRODUCT $TILE_TYPE_SERVICE_BROKER $TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT"
+
+readonly DEFAULT_TILE_TYPE="${TILE_TYPE_EXAMPLE_PRODUCT}"
+readonly DEFAULT_OUTPUT_DIR="/tmp"
+readonly DEFAULT_TILE_VERSION="1.0-build.0"
+readonly DEFAULT_FILE_EXTENSION="pivotal"
+readonly DEFAULT_INSTALLATION_PATH="/Users/pivotal/workspace/installation"
+readonly DEFAULT_VERBOSE=""
+DEFAULT_STEMCELL_OS="ubuntu-xenial"
+DEFAULT_STEMCELL_VERSION="170.16"
+
+TMP_DIR="$(mktemp -d)"
+SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
+OUTPUT_DIR="${DEFAULT_OUTPUT_DIR}"
+
+SUFFIX=""
+PRODUCT_NAME=""
+TILE_TYPE="${DEFAULT_TILE_TYPE}"
+FILE_EXTENSION="${DEFAULT_FILE_EXTENSION}"
+STEMCELL_OS="${DEFAULT_STEMCELL_OS}"
+STEMCELL_VERSION="${DEFAULT_STEMCELL_VERSION}"
+TILE_VERSION="${DEFAULT_TILE_VERSION}"
+VERBOSE="${DEFAULT_VERBOSE}"
+
+log() {
+  if [[ ! -z ${VERBOSE} ]]; then
+    echo "$1"
+  fi
+}
+
+setup_tmp_workspace() {
+  mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
+}
+
+get_tmp_releases(){
+  basename $(get_tmp_releases_path)/*.tgz
+}
+
+get_tmp_metadata_path() {
+  echo "${TMP_DIR}/metadata/${PRODUCT_NAME}.yml"
+}
+
+get_tmp_releases_path() {
+  echo "${TMP_DIR}/releases"
+}
+
+get_tmp_migrations_path() {
+  echo "${TMP_DIR}/migrations"
+}
+
+get_tile_destination_path() {
+  local suffix
+
+  suffix=""
+  if [ ! -z "${SUFFIX}" ]; then
+    suffix="-${SUFFIX}"
+  fi
+
+  echo "${OUTPUT_DIR}/${PRODUCT_NAME}${suffix}-${TILE_VERSION}.${FILE_EXTENSION}"
+}
+
+set_default_stemcell_os() {
+  local os
+  os=$(ruby -r "yaml" -e "puts YAML.load_file('${DEFAULT_INSTALLATION_PATH}/web/config/auto-versions.yml')['opsman_stemcell']['os'] rescue ''")
+  if [[ -z $os ]]; then
+    log "Could not find a default stemcell OS at ${DEFAULT_INSTALLATION_PATH}. Using default ${DEFAULT_STEMCELL_OS}"
+  else
+    DEFAULT_STEMCELL_OS="${os}"
+    STEMCELL_OS=$DEFAULT_STEMCELL_OS
+  fi
+}
+
+set_default_stemcell_version() {
+  local version
+  version=$(ruby -r "yaml" -e "puts YAML.load_file('${DEFAULT_INSTALLATION_PATH}/web/config/auto-versions.yml')['opsman_stemcell']['version'] rescue ''")
+  if [[ -z $version ]]; then
+    log "Could not find a default stemcell version at ${DEFAULT_INSTALLATION_PATH}. Using default ${DEFAULT_STEMCELL_VERSION}"
+  else
+    DEFAULT_STEMCELL_VERSION="${version}"
+    STEMCELL_VERSION=$DEFAULT_STEMCELL_VERSION
+  fi
+}
+
+parse_inputs() {
+  for i in "$@"
+  do
+  case $i in
+      --help|-h)
+      print_help
+      exit
+      ;;
+      --stemcell-os=*)
+      STEMCELL_OS="${i#*=}"
+      shift
+      ;;
+      --stemcell-version=*)
+      STEMCELL_VERSION="${i#*=}"
+      ;;
+      --type=*)
+      TILE_TYPE="${i#*=}"
+      shift
+      ;;
+      --output-dir=*)
+      OUTPUT_DIR="${i#*=}"
+      shift
+      ;;
+      --tile-version=*)
+      TILE_VERSION="${i#*=}"
+      shift
+      ;;
+      --file-extension=*)
+      FILE_EXTENSION="${i#*=}"
+      shift
+      ;;
+      --suffix=*)
+      SUFFIX="${i#*=}"
+      shift
+      ;;
+      --verbose|-v)
+      VERBOSE="true"
+      shift
+      ;;
+      *)
+      ;;
+  esac
+  done
+}
+
+validate_inputs() {
+  local error
+  error=""
+
+  if [ -z "${TILE_TYPE}" ]; then
+    echo "Error: --type is required. Allowed types are: ${ALLOWED_TILE_TYPES}"
+    error="true"
+  else
+    if [[ ! "${ALLOWED_TILE_TYPES}" == *"${TILE_TYPE}"* ]]; then
+      echo "Error: --type=${TILE_TYPE} is invalid. Allowed types are: ${ALLOWED_TILE_TYPES}"
+      error="true"
+    fi
+  fi
+
+  if [ -z "${STEMCELL_OS}" ] && [[ "${TILE_TYPES_REQUIRING_STEMCELL}" == *"${TILE_TYPE}"* ]]; then
+    echo "Error: --stemcell-os is required"
+    error="true"
+  fi
+
+  if [ -z "${STEMCELL_VERSION}" ] && [[ "${TILE_TYPES_REQUIRING_STEMCELL}" == *"${TILE_TYPE}"* ]]; then
+    echo "Error: --stemcell-version is required"
+    error="true"
+  fi
+
+  if [ ! -z "${error}" ]; then
+    echo
+    print_help
+    exit 1
+  fi
+}
+
+check_metadata_syntax() {
+  log "checking metadata syntax..."
+  if ! ruby -r yaml -e "YAML.load_file('$(get_tmp_metadata_path)')" >&2; then
+    printf "\n\e[0;1;31mError: invalid YAML syntax in metadata at $(get_tmp_metadata_path)\e[0m\n" >&2
+    exit 1;
+  fi
+}
+
+package_pivotal_file() {
+  pushd "${TMP_DIR}" > /dev/null
+    log "zipping tile to $(get_tile_destination_path)..."
+    zip -qr "$(get_tile_destination_path)" "migrations" "metadata" "releases"
+  popd > /dev/null
+}
+
+build_product_metadata() {
+  log "building ${PRODUCT_NAME} metadata..."
+
+  ${SCRIPT_DIR}/generate-metadata \
+    "${TILE_VERSION}" \
+    "${STEMCELL_VERSION}" \
+    "$(get_tmp_releases)" \
+    "${PRODUCT_NAME}" \
+    "${SUFFIX}" \
+    "${STEMCELL_OS}" \
+      > "$(get_tmp_metadata_path)"
+}
+
+build_example_product_release() {
+  log "building example product release..."
+  ${SCRIPT_DIR}/example-release/build-release-tarball "$(get_tmp_releases_path)" > /dev/null
+}
+
+build_service_broker_migrations() {
+  log "building ${PRODUCT_NAME} migrations..."
+}
+
+copy_runtime_config_only_release() {
+  log "copying dummy release(s) to temporary dir..."
+  cp ${SCRIPT_DIR}/example-runtime-config-product/releases/*.tgz "$(get_tmp_releases_path)"
+}
+
+build_example_product_migrations() {
+  log "building ${PRODUCT_NAME} migrations..."
+  git clean -Xf "${SCRIPT_DIR}/example-product/migrations" > /dev/null
+  ${SCRIPT_DIR}/example-product/generate-migrations "${TILE_VERSION}" > /dev/null
+  cp -r ${SCRIPT_DIR}/example-product/migrations/* "$(get_tmp_migrations_path)"
+}
+
+fetch_example_product_dependency_releases() {
+  log "fetching ${PRODUCT_NAME} dependency releases..."
+  curl -sfLo "$(get_tmp_releases_path)/os-conf" https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=15
+}
+
+fetch_windows_example_product_dependency_releases() {
+  log "fetching ${PRODUCT_NAME} dependency releases..."
+  wget -qO "$(get_tmp_releases_path)/windows-utilities-0.11.0.tgz" https://github.com/cloudfoundry-incubator/windows-utilities-release/releases/download/0.11.0/windows-utilities-0.11.0.tgz
+  wget -qO "$(get_tmp_releases_path)/sample-windows-bosh-release-0.0.2.tgz" https://github.com/madamkiwi/sample-windows-bosh-release/releases/download/0.0.2/sample-windows-bosh-release-0.0.2.tgz
+}
+
+##################### Main #####################
+
+print_help() {
+  cat <<HERE >&2
+Usage: ${0} <--flag=value>
+
+Application Options (Optional):
+  --type               Type of tile to build. Available options: [${ALLOWED_TILE_TYPES}]. Default: ${DEFAULT_TILE_TYPE}
+  --stemcell-os        Stemcell operating system. Default: ${DEFAULT_STEMCELL_OS}
+  --stemcell-version   Stemcell version. Default: ${DEFAULT_STEMCELL_VERSION}
+  --tile-version       Version of tile. Default: ${DEFAULT_TILE_VERSION}
+  --output-dir         Destination directory of tile. Default: ${DEFAULT_OUTPUT_DIR}
+  --file-extension     File extension to attach to tile. Default: ${DEFAULT_FILE_EXTENSION}
+  --suffix             Suffix to attach to file name. Default: ""
+
+Help Options (do not pass a value):
+  -h, --help           Show this help message
+  -v, --verbose        Print some extra logging messages
+
+Example Commands:
+  Example Product    $ ./build-tile
+  Service Broker     $ ./build-tile --type=service-broker
+  Runtime Config     $ ./build-tile --type=runtime-config-only
+  Windows            $ ./build-tile --type=windows --stemcell-os=windows2016 --stemcell-version=1709.17
+
+HERE
+}
+
+print_success() {
+  printf "\e[0;1;32mFinished:\e[0m $(get_tile_destination_path)\n" >&2
+}
+
+main() {
+  cd $SCRIPT_DIR
+
+  set_default_stemcell_os
+  set_default_stemcell_version
+
+  parse_inputs "$@"
+  validate_inputs
+  setup_tmp_workspace
+
+  if [ $TILE_TYPE = "$TILE_TYPE_SERVICE_BROKER" ]; then
+    PRODUCT_NAME="example-broker-product"
+
+    build_example_product_release
+    build_service_broker_migrations
+    build_product_metadata
+    check_metadata_syntax
+    package_pivotal_file
+    print_success
+    exit 0
+  fi
+
+  if [ $TILE_TYPE = "$TILE_TYPE_RUNTIME_CONFIG_ONLY" ]; then
+    PRODUCT_NAME="example-runtime-config-product"
+
+    copy_runtime_config_only_release
+    build_product_metadata
+    check_metadata_syntax
+    package_pivotal_file
+    print_success
+    exit 0
+  fi
+
+  if [ $TILE_TYPE = "$TILE_TYPE_EXAMPLE_PRODUCT" ]; then
+    PRODUCT_NAME="example-product"
+
+    build_example_product_release
+    fetch_example_product_dependency_releases
+    build_example_product_migrations
+    build_product_metadata
+    check_metadata_syntax
+    package_pivotal_file
+    print_success
+    exit 0
+  fi
+
+  if [ $TILE_TYPE = "$TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT" ]; then
+    PRODUCT_NAME="example-windows-product"
+
+    fetch_windows_example_product_dependency_releases
+    build_product_metadata
+    check_metadata_syntax
+    package_pivotal_file
+    print_success
+    exit 0
+  fi
+}
+
+trap "rm -rf ${TMP_DIR}" EXIT
+main $@
