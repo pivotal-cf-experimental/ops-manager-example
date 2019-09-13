@@ -38,7 +38,7 @@ log() {
 }
 
 setup_tmp_workspace() {
-  mkdir -p "${TMP_DIR}/"{metadata,migrations,releases}
+  mkdir -p "${TMP_DIR}/"{metadata,migrations,migrations/v1,releases}
 }
 
 get_tmp_releases(){
@@ -201,6 +201,8 @@ build_example_product_release() {
 
 build_service_broker_migrations() {
   log "building ${PRODUCT_NAME} migrations..."
+  git clean -Xf "${SCRIPT_DIR}/example-broker-product/migrations" > /dev/null
+  cp -r ${SCRIPT_DIR}/example-broker-product/migrations/* "$(get_tmp_migrations_path)"
 }
 
 copy_runtime_config_only_release() {
@@ -213,6 +215,12 @@ build_example_product_migrations() {
   git clean -Xf "${SCRIPT_DIR}/example-product/migrations" > /dev/null
   ${SCRIPT_DIR}/example-product/generate-migrations "${TILE_VERSION}" > /dev/null
   cp -r ${SCRIPT_DIR}/example-product/migrations/* "$(get_tmp_migrations_path)"
+}
+
+build_example_runtime_product_migrations() {
+  log "building ${PRODUCT_NAME} migrations..."
+  git clean -Xf "${SCRIPT_DIR}/example-runtime-config-product/migrations" > /dev/null
+  cp -r ${SCRIPT_DIR}/example-runtime-config-product/migrations/* "$(get_tmp_migrations_path)"
 }
 
 fetch_example_product_dependency_releases() {
@@ -284,6 +292,7 @@ main() {
     PRODUCT_NAME="example-runtime-config-product"
 
     copy_runtime_config_only_release
+    build_example_runtime_product_migrations
     build_product_metadata
     check_metadata_syntax
     package_pivotal_file
