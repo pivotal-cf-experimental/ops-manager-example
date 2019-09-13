@@ -51,10 +51,11 @@ variables:
 post_deploy_errands:
   - name: example-errand
     colocated: false
+    run_default: off
     impact_warning: 'Vms will restart'
   - name: example_colocated_errand
     colocated: true
-    run_default: on
+    run_default: off
     instances:
       - web_server/first
     label: colocated errand on web_server
