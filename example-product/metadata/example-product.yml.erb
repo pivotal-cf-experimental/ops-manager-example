@@ -23,6 +23,11 @@ additional_stemcells_criteria:
   - os: windows2016
     version: 1709.19
 
+requires_product_versions:
+  - name: example-broker-product
+    version: '>= 1.0-build.0'
+    optional: true
+
 releases:
   - name: example-release
     file: <%= release_file_name.inspect %>
