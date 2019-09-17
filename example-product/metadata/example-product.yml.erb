@@ -689,6 +689,7 @@ job_types:
           product:
             deployment_name: (( ..<%= product_name %>.deployment_name ))
             network_name: (( ..<%= product_name %>.network_name ))
+            example-broker-product-present: (( ..example-broker-product.present? ))
           self:
             stemcell_version: (( $self.stemcell_version ))
     errand: true
