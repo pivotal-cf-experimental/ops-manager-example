@@ -276,6 +276,20 @@ form_types:
               label: 'Salutation'
         - reference: .properties.example_runtime_config_selector.disable_option
           label: 'Disabled'
+  - name: example_broker_configs_form
+    label: 'Optional Broker Dependency Config Selector Example'
+    description: 'A form for the optionally dependent broker product'
+    property_inputs:
+      - reference: .properties.example_optional_broker_selector
+        label: 'Enable Conditionally Defaulted Config'
+        selector_property_inputs:
+          - reference: .properties.example_optional_broker_selector.enable_option
+            label: 'Enabled'
+            property_inputs:
+              - reference: .properties.example_optional_broker_selector.enable_option.broker_config
+                label: 'Broker Config'
+          - reference: .properties.example_optional_broker_selector.disable_option
+            label: 'Disabled'
   - name: example_secrets_form
     label: 'Secrets and Credentials Example'
     description: 'A secrets and credentials form'
@@ -548,6 +562,24 @@ property_blueprints:
               include:
                 deployments:
                   - (( .deployment_name ))
+  - type: selector
+    name: example_optional_broker_selector
+    configurable: true
+    default: 'No'
+    conditional_default:
+      dependency_present: example-broker-product
+      value: 'Yes'
+    option_templates:
+      - name: disable_option
+        select_value: 'No'
+      - name: enable_option
+        select_value: 'Yes'
+        property_blueprints:
+          - name: broker_config
+            type: string
+            configurable: true
+            optional: true
+            default: 'Configured as default'
   - type: selector
     name: example_selector_with_deployed_director_accessors
     configurable: true
