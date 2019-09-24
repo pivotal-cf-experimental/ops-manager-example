@@ -223,9 +223,15 @@ build_example_runtime_product_migrations() {
   cp -r ${SCRIPT_DIR}/example-runtime-config-product/migrations/* "$(get_tmp_migrations_path)"
 }
 
+fetch_example_broker_product_dependency_releases() {
+  log "fetching ${PRODUCT_NAME} dependency releases..."
+  curl -sfLo "$(get_tmp_releases_path)/bpm" https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.3
+}
+
 fetch_example_product_dependency_releases() {
   log "fetching ${PRODUCT_NAME} dependency releases..."
   curl -sfLo "$(get_tmp_releases_path)/os-conf" https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=15
+  curl -sfLo "$(get_tmp_releases_path)/bpm" https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.3
 }
 
 fetch_windows_example_product_dependency_releases() {
@@ -279,6 +285,7 @@ main() {
   if [ $TILE_TYPE = "$TILE_TYPE_SERVICE_BROKER" ]; then
     PRODUCT_NAME="example-broker-product"
 
+    fetch_example_broker_product_dependency_releases
     build_example_product_release
     build_service_broker_migrations
     build_product_metadata
