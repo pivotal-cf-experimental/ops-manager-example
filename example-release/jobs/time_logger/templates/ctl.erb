@@ -18,6 +18,7 @@ case $1 in
 
     exec ${JOB_DIR}/bin/time_logger.sh \
       ${PERSISTENT_LOG_DIR}/time.log \
+      ${LOG_DIR}/time.log \
       >> ${LOG_DIR}/stdout.log \
       2>> ${LOG_DIR}/stderr.log
     ;;

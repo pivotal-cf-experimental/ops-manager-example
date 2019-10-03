@@ -1,4 +1,6 @@
 builds:
   7f7b1f68-6741-428a-4819-2c7b7e0c9040:
     version: 2.8.release54
+  ab4a6d8f-c5eb-447e-74fd-ba3b580ad155:
+    version: 2.8.release55
 format-version: "2"
