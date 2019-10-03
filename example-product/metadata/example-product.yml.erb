@@ -633,6 +633,7 @@ job_types:
             https_proxy: (( $ops_manager.https_proxy ))
             no_proxy: (( $ops_manager.no_proxy ))
             dns_enabled: (( $ops_manager.dns_enabled ))
+            iaas_type: (( $ops_manager.iaas_type ))
             restricted_view_api_access_credentials: (( $ops_manager.restricted_view_api_access_credentials ))
             rsa_cert_credentials:
               present: (( .web_server.generated_rsa_cert_credentials.value_present? ))
@@ -727,6 +728,7 @@ job_types:
             ntp_servers: (( $director.ntp_servers ))
             ca_public_key: (( $director.ca_public_key ))
             tld: (( $director.tld ))
+            guid: (( $director.guid ))
             bosh_metrics_forwarder_client_name: (( $director.bosh_metrics_forwarder_client_name ))
             bosh_metrics_forwarder_client_secret: (( $director.bosh_metrics_forwarder_client_secret ))
           product:
