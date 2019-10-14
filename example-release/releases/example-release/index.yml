@@ -3,4 +3,6 @@ builds:
     version: 2.8.release54
   ab4a6d8f-c5eb-447e-74fd-ba3b580ad155:
     version: 2.8.release55
+  b4af50c0-cb9e-437e-7570-576f64fdfbb7:
+    version: 2.8.release56
 format-version: "2"
