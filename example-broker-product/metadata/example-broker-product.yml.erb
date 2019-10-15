@@ -1,4 +1,4 @@
-<% product_name = "example-broker-product#{suffix}" -%>
+<% product_name = "example-broker-product #{suffix}".parameterize -%>
 ---
 name: <%= product_name %>
 product_version: <%= version.inspect %>
