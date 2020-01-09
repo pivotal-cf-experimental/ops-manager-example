@@ -286,6 +286,9 @@ form_types:
       - reference: .web_server.configured_rsa_cert_credentials
         label: 'Credentials with a certificate of achievement. They achieved the highest level of dodgeball at summer camp.'
         description: A configurable property of type rsa_cert_credentials
+      - reference: .web_server.configured_rsa_cert_credentials_with_encrypted_key
+        label: 'Certificate with super secret encrypted key'
+        description: A configurable property of type rsa_cert_credentials
   - name: static_ips_form
     label: 'Static IPs'
     description: 'Where you go to set static IPs'
@@ -807,6 +810,12 @@ job_types:
       type: rsa_cert_credentials
       configurable: true
       optional: true
+    - name: configured_rsa_cert_credentials_with_encrypted_key
+      type: rsa_cert_credentials
+      configurable: true
+      optional: true
+      constraints:
+        allow_encrypted_key: true
     - name: example_string_with_placeholder
       type: string
       configurable: true
@@ -1057,6 +1066,7 @@ job_types:
         rsa_cert_credentials:
           public_key_pem: "(( property_with_true_value.value ? configured_rsa_cert_credentials.public_key_pem : false ))"
           cert_and_private_key_pems: (( property_with_false_value.value || configured_rsa_cert_credentials.cert_and_private_key_pems ))
+        encrypted_private_key_pem: (( configured_rsa_cert_credentials_with_encrypted_key.private_key_pem ))
         simple_credentials:
           identity: (( property_with_nil_value.value || configured_simple_credentials.identity ))
           password: (( false || configured_simple_credentials.password ))
