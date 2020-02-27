@@ -1133,6 +1133,37 @@ job_types:
         configurable: true
         default: 1
     property_blueprints: []
+  - name: non_configurable_zero_instance
+    resource_label: Non Configurable, Zero Instance SHOULD NOT SEE ME
+    templates:
+      - name: no_op
+        release: example-release
+    static_ip: 0
+    dynamic_ip: 1
+    max_in_flight: 100%
+    single_az_only: false
+    default_internet_connected: false
+    use_stemcell: <%= stemcell_os.inspect %>
+    instance_definition:
+      name: instances
+      configurable: false
+      default: 0
+    resource_definitions:
+      - name: ram
+        configurable: true
+        default: 1024
+      - name: ephemeral_disk
+        configurable: true
+        default: 2048
+      - name: persistent_disk
+        configurable: true
+        default: 8_192
+        constraints:
+          min: 7000
+      - name: cpu
+        configurable: true
+        default: 1
+    property_blueprints: []
 
 runtime_configs:
   - name: kindness_banner_everywhere
