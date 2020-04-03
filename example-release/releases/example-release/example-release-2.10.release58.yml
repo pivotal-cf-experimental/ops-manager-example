@@ -1,6 +1,6 @@
 name: example-release
-version: 2.9.release57
-commit_hash: c84c7bf
+version: 2.10.release58
+commit_hash: 39c671f
 uncommitted_changes: true
 jobs:
 - name: anemic_service_broker
