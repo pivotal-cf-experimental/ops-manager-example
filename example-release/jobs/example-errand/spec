@@ -181,6 +181,8 @@ properties:
     description: 'UAA Client name for Bosh Metrics Client'
   director_provided_accessors.bosh_metrics_forwarder_client_secret:
     description: 'UAA Client secret for Bosh Metrics Client'
+  director_provided_accessors.metrics_server_enabled:
+    description: 'UAA Client secret for Bosh Metrics Client'
 
   product.deployment_name:
     description: 'deployment name for the product'

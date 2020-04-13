@@ -132,6 +132,7 @@ echo 'Director Provided Accessors'
      'director_provided_accessors.tld',
      'director_provided_accessors.bosh_metrics_forwarder_client_name',
      'director_provided_accessors.bosh_metrics_forwarder_client_secret',
+     'director_provided_accessors.metrics_server_enabled',
    ].each do |property| %>
   echo <%= Shellwords.escape("#{property}=#{p(property)}") %>
 <% end %>

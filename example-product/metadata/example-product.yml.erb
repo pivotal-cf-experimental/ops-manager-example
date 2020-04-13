@@ -734,6 +734,7 @@ job_types:
             guid: (( $director.guid ))
             bosh_metrics_forwarder_client_name: (( $director.bosh_metrics_forwarder_client_name ))
             bosh_metrics_forwarder_client_secret: (( $director.bosh_metrics_forwarder_client_secret ))
+            metrics_server_enabled: (( $director.metrics_server_enabled ))
           product:
             deployment_name: (( ..<%= product_name %>.deployment_name ))
             network_name: (( ..<%= product_name %>.network_name ))
