@@ -3,7 +3,7 @@
 name: <%= product_name %>
 product_version: <%= version.inspect %>
 minimum_version_for_upgrade: "0"
-metadata_version: "2.8"
+metadata_version: "2.8.1"
 label: 'Ops Manager: Example Product<%= suffix ? " #{suffix}" : nil%>'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
@@ -734,6 +734,8 @@ job_types:
             guid: (( $director.guid ))
             bosh_metrics_forwarder_client_name: (( $director.bosh_metrics_forwarder_client_name ))
             bosh_metrics_forwarder_client_secret: (( $director.bosh_metrics_forwarder_client_secret ))
+            metrics_server_enabled: (( $director.metrics_server_enabled ))
+            system_metrics_runtime_enabled: (( $director.system_metrics_runtime_enabled ))
           product:
             deployment_name: (( ..<%= product_name %>.deployment_name ))
             network_name: (( ..<%= product_name %>.network_name ))
