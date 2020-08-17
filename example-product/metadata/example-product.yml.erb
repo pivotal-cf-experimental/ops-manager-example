@@ -176,6 +176,45 @@ form_types:
     label: 'Collection example'
     description: 'A collection example form'
     property_inputs:
+
+      - reference: .properties.example_collection_with_name
+        label: 'Plans'
+        description: 'The plans'
+        property_inputs:
+          - reference: name
+            label: 'Name of the plan'
+            description: 'plan_1'
+          - reference: description
+            label: 'Description of the Plan'
+            description: 'ex The best plan'
+      
+      - reference: .properties.example_collection_with_key
+        label: 'Keys'
+        description: 'Collection of keys'
+        property_inputs:
+          - reference: key
+            label: 'Key field'
+            description: 'KEY01'
+          - reference: description
+            label: 'Description of the Key'
+            description: 'ex The best key'
+            
+      - reference: .properties.example_collection_of_regexes
+        label: 'Regexes'
+        description: 'Collection of regexes'
+        property_inputs:
+          - reference: regex
+            label: 'The regex'
+            description: '(\d+)'
+
+      - reference: .properties.example_collection_of_secrets
+        label: 'Secrets collection'
+        description: 'Collection of secrets'
+        property_inputs:
+          - reference: secret
+            label: 'A secret'
+            description: 'enter a secret here'
+
       - reference: .properties.example_collection
         label: 'Albums collection'
         description: 'The albums'
@@ -439,6 +478,54 @@ property_blueprints:
           - name: consumes_section
             manifest: |
               from: 'beverage_link_web_server_job'
+
+  - name: example_collection_with_name
+    type: collection
+    configurable: true
+    optional: true
+    property_blueprints:
+      - name: name
+        type: string
+        configurable: true
+        freeze_on_deploy: true
+      - name: description
+        type: string
+        configurable: true
+        optional: true
+        freeze_on_deploy: false
+  - name: example_collection_with_key
+    type: collection
+    configurable: true
+    optional: true
+    property_blueprints:
+      - name: key
+        type: string
+        configurable: true
+        freeze_on_deploy: true
+      - name: description
+        type: string
+        configurable: true
+        optional: true
+        freeze_on_deploy: false
+  - name: example_collection_of_regexes
+    type: collection
+    configurable: true
+    optional: true
+    property_blueprints:
+      - name: regex
+        type: string
+        configurable: true
+        freeze_on_deploy: false
+  - name: example_collection_of_secrets
+    type: collection
+    configurable: true
+    optional: true
+    property_blueprints:
+      - name: secret
+        type: secret
+        configurable: true
+        freeze_on_deploy: false
+
   - name: example_collection
     type: collection
     configurable: true
@@ -710,6 +797,10 @@ job_types:
             example_vm_type_dropdown_value: (( .web_server.example_vm_type_dropdown.value ))
             example_disk_type_dropdown_value: (( .web_server.example_disk_type_dropdown.value ))
             record_collection: (( .properties.example_collection.value ))
+            plan_collection: (( .properties.example_collection_with_name.value ))
+            key_collection: (( .properties.example_collection_with_key.value ))
+            regex_collection: (( .properties.example_collection_of_regexes.value ))
+            secrets_collection: (( .properties.example_collection_of_secrets.value ))
             selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
             selector_specific_option: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
             selector_value: (( .properties.example_selector.value ))
@@ -1106,6 +1197,10 @@ job_types:
         example_vm_type_dropdown_value: (( example_vm_type_dropdown.value ))
         example_disk_type_dropdown_value: (( example_disk_type_dropdown.value ))
         record_collection: (( property_with_nil_value.value || .properties.example_collection.value ))
+        plan_collection: (( property_with_nil_value.value || .properties.example_collection_with_name.value ))
+        key_collection: (( property_with_nil_value.value || .properties.example_collection_with_key.value ))
+        regex_collection: (( property_with_nil_value.value || .properties.example_collection_of_regexes.value ))
+        secrets_collection: (( property_with_nil_value.value || .properties.example_collection_of_secrets.value ))
         certificate_collection_manifest_snippet: (( .properties.example_cert_collection.parsed_manifest(hello_ert_team) ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
         selector_specific_option: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
