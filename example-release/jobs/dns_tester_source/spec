@@ -1,0 +1,13 @@
+---
+name: dns_tester_source 
+templates:
+  ctl.erb: bin/ctl
+
+packages: []
+
+consumes:
+  - name: dest_dns_job
+    type: dns_job
+    optional: true
+
+properties: {}

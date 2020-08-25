@@ -873,6 +873,8 @@ job_types:
         release: bpm
       - name: example_colocated_errand
         release: example-release
+      - name: dns_tester_source
+        release: example-release
     release: example-release
     static_ip: 1
     dynamic_ip: 0
@@ -1257,6 +1259,8 @@ job_types:
     resource_label: No Operation
     templates:
       - name: no_op
+        release: example-release
+      - name: dns_tester_dest
         release: example-release
     static_ip: 0
     dynamic_ip: 1
