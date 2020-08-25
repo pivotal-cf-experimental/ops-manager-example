@@ -1,0 +1,69 @@
+#!/bin/bash
+set -e
+
+RUN_DIR=/var/vcap/sys/run/dns_tester_source
+PIDFILE=${RUN_DIR}/pidfile
+LAST_LINK_LENGTH_FILE=/var/vcap/store/dns_tester_link_length
+LOG_FILE=/var/vcap/sys/log/dns_tester_source/dns_tester.log
+LINK_LENGTH=<%= link('dest_dns_job').instances.length %>
+HEALTHY_DNS_ADDR="<%= link('dest_dns_job').address(status: 'healthy', initial_health_check: "synchronous") %>"
+
+
+case $1 in
+  start)
+    mkdir -p $RUN_DIR
+
+    echo "========= STARTING UP ========" >> $LOG_FILE
+    date >> $LOG_FILE
+    echo "Total number of expected destination nodes: $LINK_LENGTH" >> $LOG_FILE
+
+    if [ -f $LAST_LINK_LENGTH_FILE ]; then
+      LAST_LINK_LENGTH=$(cat $LAST_LINK_LENGTH_FILE) 
+      echo "Found $LAST_LINK_LENGTH destination nodes deployed last time from $LAST_LINK_LENGTH_FILE" >> $LOG_FILE
+    else
+      echo "No previous link length file ($LAST_LINK_LENGTH_FILE), must be first deploy. Starting safely." >> $LOG_FILE
+      echo $LINK_LENGTH > $LAST_LINK_LENGTH_FILE
+      echo '1' > $PIDFILE
+      exit 0
+    fi 
+
+    echo $LINK_LENGTH > $LAST_LINK_LENGTH_FILE
+
+    if [ "$LAST_LINK_LENGTH" -eq "0" ]; then
+      echo "No previously deployed destination nodes to test. Starting safely." >> $LOG_FILE
+      echo '1' > $PIDFILE
+      exit 0
+    fi
+
+    if [ "$LINK_LENGTH" -eq "0" ]; then
+      echo "No destination nodes for this future deploy, assuming you want the test disabled. Starting safely." >> $LOG_FILE
+      echo '1' > $PIDFILE
+      exit 0
+    fi
+
+    echo "Resolving $HEALTHY_DNS_ADDR in order to see how many healthy nodes exist" >> $LOG_FILE
+    NUMBER_OF_HEALTHY_NODES=$(host $HEALTHY_DNS_ADDR | wc -l)
+    echo "  Found $NUMBER_OF_HEALTHY_NODES entries" >> $LOG_FILE
+
+    if [ "$NUMBER_OF_HEALTHY_NODES" -lt "$LAST_LINK_LENGTH" ]; then
+      echo "No healthy destination nodes (or fewer than expected), even though they've been deployed previously. Either those VMs are misbehaving, or BOSH DNS is not able to determine healthiness. Failing to start!" >> $LOG_FILE
+      rm -f $PIDFILE
+      exit 0
+    fi
+
+    echo "Deployed nodes and healthy nodes are equal. Starting safely." >> $LOG_FILE
+    echo '1' > $PIDFILE
+
+    ;;
+
+  stop)
+    echo "========= STOPPING ========" >> $LOG_FILE
+    date >> $LOG_FILE
+    rm -f $PIDFILE
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}"
+  ;;
+
+esac
