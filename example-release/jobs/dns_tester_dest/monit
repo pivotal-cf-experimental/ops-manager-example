@@ -1,0 +1,5 @@
+check process dns_tester_dest
+  with pidfile /var/vcap/sys/run/dns_tester_dest/pidfile
+  start program "/var/vcap/jobs/dns_tester_dest/bin/ctl start"
+  stop program "/var/vcap/jobs/dns_tester_dest/bin/ctl stop"
+  group vcap
