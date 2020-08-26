@@ -1,6 +1,8 @@
 builds:
   06096853-11b9-44aa-85fe-56468ab4c525:
     version: 2.7.release52
+  a5f2f9f8-ed65-4ab8-5f29-1ce576aeca96:
+    version: 2.7.release54
   dcbe43c6-ad77-46f3-5d2f-3d5c1bdf4bcb:
     version: 2.7.release53
 format-version: "2"
