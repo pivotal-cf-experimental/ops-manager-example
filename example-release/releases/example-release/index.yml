@@ -1,6 +1,8 @@
 builds:
   89b99003-0bc5-4aeb-6dd8-24c8059330e9:
     version: 2.10.release59
+  b1991d2b-0037-435d-7074-d9f9366f7429:
+    version: 2.10.release60
   bef68a6e-bb0f-4338-76fe-2f599eb13222:
     version: 2.10.release58
 format-version: "2"
