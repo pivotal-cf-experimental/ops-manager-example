@@ -1,14 +1,19 @@
 #!/usr/bin/env ruby
 require 'erb'
 
+
 version = ARGV.fetch(0)
+puts "generate-migrations: #{version}"
+previous_version = ARGV.fetch(1, nil)
 match_data = /(?<major_version>\d+)\.(?<minor_version>\d+)[.\-]/.match(version)
 minor_version = match_data[:minor_version]
 major_version = match_data[:major_version]
 major_and_minor_version = "#{major_version}_#{minor_version}"
 
 # The following variable is utilized by the erb template, so don't remove it unless you've removed it there as well.
-previous_major_and_minor_version = if minor_version == '0' # first major release!
+previous_major_and_minor_version = if previous_version && !previous_version.empty?
+                                     previous_version.gsub('.', '_')
+                                   elsif minor_version == '0' # first major release!
                                      '1_12'
                                    else
                                      "#{major_version}_#{minor_version.to_i - 1}"

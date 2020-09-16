@@ -30,6 +30,7 @@ FILE_EXTENSION="${DEFAULT_FILE_EXTENSION}"
 STEMCELL_OS="${DEFAULT_STEMCELL_OS}"
 STEMCELL_VERSION="${DEFAULT_STEMCELL_VERSION}"
 TILE_VERSION="${DEFAULT_TILE_VERSION}"
+PREVIOUS_TILE_VERSION=""
 VERBOSE="${DEFAULT_VERBOSE}"
 
 log() {
@@ -117,6 +118,10 @@ parse_inputs() {
       ;;
       --tile-version=*)
       TILE_VERSION="${i#*=}"
+      shift
+      ;;
+      --previous-tile-version=*)
+      PREVIOUS_TILE_VERSION="${i#*=}"
       shift
       ;;
       --file-extension=*)
@@ -215,7 +220,7 @@ copy_runtime_config_only_release() {
 build_example_product_migrations() {
   log "building ${PRODUCT_NAME} migrations..."
   git clean -Xf "${SCRIPT_DIR}/example-product/migrations" > /dev/null
-  ${SCRIPT_DIR}/example-product/generate-migrations "${TILE_VERSION}" > /dev/null
+  ${SCRIPT_DIR}/example-product/generate-migrations "${TILE_VERSION}" "${PREVIOUS_TILE_VERSION}" > /dev/null
   cp -r ${SCRIPT_DIR}/example-product/migrations/* "$(get_tmp_migrations_path)"
 }
 
