@@ -4,4 +4,6 @@ builds:
     version: 2.5.release43
   242f9708-c815-4fbd-9de1-c3a98efaec86:
     version: 2.5.release44
+  f4d011ca-0c47-4726-9836-534feb3e0c4c:
+    version: 2.5.release45
 format-version: '2'
