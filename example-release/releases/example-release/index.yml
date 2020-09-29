@@ -16,4 +16,6 @@ builds:
     version: 2.6.release50
   7bd655da-5868-4f54-87f0-b39184370a4f:
     version: 2.6.release51
+  4a0080af-2e9b-4ab8-a87f-80858229f663:
+    version: 2.6.release52
 format-version: '2'
