@@ -42,10 +42,10 @@ releases:
 install_time_verifiers:
 - name: Verifiers::HttpSuccessVerifier
   properties:
-    host: www.vmware.com
-    port: 443
-    path: /
-    scheme: https
+    host: localhost
+    port: 8080
+    path: /uaa/login
+    scheme: http
 
 variables:
   - name: credhub-password
