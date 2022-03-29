@@ -9,6 +9,8 @@ release_file_name = ARGV.fetch(2)
 product_name = ARGV.fetch(3)
 suffix = ARGV.fetch(4) == "" ? nil : ARGV.fetch(4)
 stemcell_os = ARGV.fetch(5) == "" ? "ubuntu-trusty" : ARGV.fetch(5)
+bpm_version = ARGV.fetch(6)
+os_conf_version = ARGV.fetch(7)
 
 match_data = /(?<major_version>\d+)\.(?<minor_version>\d+)[.\-]/.match(version)
 minor_version = match_data[:minor_version]
