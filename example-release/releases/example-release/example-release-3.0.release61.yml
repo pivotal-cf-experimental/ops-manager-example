@@ -1,12 +1,22 @@
 name: example-release
-version: 2.10.release59
-commit_hash: cf4c12c
-uncommitted_changes: false
+version: 3.0.release61
+commit_hash: "96251e8"
+uncommitted_changes: true
 jobs:
 - name: anemic_service_broker
   version: e724d16eec73a629c2aaf1653f1595a179ed99743bee8e63c379f7b91c88e509
   fingerprint: e724d16eec73a629c2aaf1653f1595a179ed99743bee8e63c379f7b91c88e509
   sha1: sha256:bbd7edc9b0a292f43f0c2081a94652f51448ed0e36290cdef385844776527053
+  packages: []
+- name: dns_tester_dest
+  version: 0eccdea60636300de36208e2184c61838f7e19f905d1bd2c08b0e84f3029987c
+  fingerprint: 0eccdea60636300de36208e2184c61838f7e19f905d1bd2c08b0e84f3029987c
+  sha1: sha256:6c8406c3ef9d1b2e3bccb0e05fd1fa504b9716517839d2b32bc6d53eba2e8dcc
+  packages: []
+- name: dns_tester_source
+  version: 92a42f4ae117c303b77d9959b2417116df3d9878d93db9eccb6929ef385fd005
+  fingerprint: 92a42f4ae117c303b77d9959b2417116df3d9878d93db9eccb6929ef385fd005
+  sha1: sha256:c3a773c5e05edac93584979619fa89e4b66dc0f03245ab3664b89dfc1d70a17a
   packages: []
 - name: example-errand
   version: 9f8ebcd60238d894ce746893cdad0c96dfb28459baa8f5aeb8307149a63cd17f
