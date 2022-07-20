@@ -171,7 +171,7 @@ form_types:
         description: 'Select which stemcell you want to use'
       - reference: .web_server.example_stemcell_selector_with_default
         label: Example stemcell selector with a default
-        description: 'Select which stemcell you want to use (defaults to xenial)'
+        description: 'Select which stemcell you want to use (defaults to <%= stemcell_os.inspect %>)'
   - name: example_collections_form
     label: 'Collection example'
     description: 'A collection example form'
@@ -1110,7 +1110,7 @@ job_types:
     - type: stemcell_selector
       name: example_stemcell_selector_with_default
       configurable: true
-      default: 'ubuntu-xenial'
+      default: <%= stemcell_os.inspect %>
     manifest: |
       credhub:
         concatenated_password: prefix-((( credhub-password )))-suffix
