@@ -1,9 +1,16 @@
----
 nginx/nginx-1.6.2.tar.gz:
+  size: 804164
   object_id: 32aadc8b-a09f-4dae-8623-496915751b99
   sha: 1a5458bc15acf90eea16353a1dd17285cf97ec35
-  size: 804164
+nginx/nginx-1.23.1.tar.gz:
+  size: 1104352
+  object_id: a6e4d4bf-6dd8-4222-4b61-b5407daa3884
+  sha: sha256:5eee1bd1c23e3b9477a45532f1f36ae6178b43d571a9607e6953cef26d5df1e2
 nginx/pcre-8.36.tar.gz:
+  size: 2009464
   object_id: 8b68269e-a06e-404d-80b5-95a4665166ed
   sha: fb537757756818133d8157ec878bc11f5a93ef4d
-  size: 2009464
+nginx/pcre-8.45.tar.gz:
+  size: 2096552
+  object_id: 77b7e492-493c-461e-542e-624f9e5cfb1a
+  sha: sha256:4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09

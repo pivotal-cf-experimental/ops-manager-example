@@ -1,16 +1,16 @@
 set -e -x
 
 echo "Extracting pcre..."
-tar xzvf nginx/pcre-8.36.tar.gz
+tar xzvf nginx/pcre-8.45.tar.gz
 
 echo "Extracting nginx..."
-tar xzvf nginx/nginx-1.6.2.tar.gz
+tar xzvf nginx/nginx-1.23.1.tar.gz
 
 echo "Building nginx..."
-pushd nginx-1.6.2
+pushd nginx-1.23.1
   ./configure \
     --prefix=${BOSH_INSTALL_TARGET} \
-    --with-pcre=../pcre-8.36
+    --with-pcre=../pcre-8.45
 
   make
   make install
