@@ -21,16 +21,18 @@ previous_major_and_minor_version = if previous_version && !previous_version.empt
                                      "#{major_version}_#{minor_version.to_i - 1}"
                                    end
 
+stemcell_os = ARGV.fetch(2, 'ubuntu-jammy')
+
 # If we have 99+ minor versions, this will fail as the filename generated below
 #  must be in the format YYYMMDDHHMM_*.js
 minor_version.prepend('0') if minor_version.length == 1
 major_version.prepend('0') if major_version.length == 1
 
-Dir.glob(File.join(__dir__, 'migration_templates', '*.erb')).each do |template_file_path|
+Dir.glob(File.join(__dir__, 'migration_templates', '*.erb')).each_with_index do |template_file_path, i|
   filled_template = ERB.new(File.read(template_file_path)).result
   # Include the current major/minor version number in the migration name to ensure that it will not be
   # named the same or have the same timestamp as in the previous minor version of the example tile.
-  timestamp = "20170506#{major_version}#{minor_version}"
+  timestamp = "20170506#{major_version}#{minor_version.to_i + 10 + i}"
   output_filename = timestamp + '_' + File.basename(template_file_path, '.js.erb') + major_and_minor_version + '.js'
   output_full_path = File.join(__dir__, 'migrations', 'v1', output_filename)
 

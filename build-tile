@@ -237,7 +237,7 @@ copy_runtime_config_only_release() {
 build_example_product_migrations() {
   log "building ${PRODUCT_NAME} migrations..."
   git clean -Xf "${SCRIPT_DIR}/example-product/migrations" > /dev/null
-  ${SCRIPT_DIR}/example-product/generate-migrations "${TILE_VERSION}" "${PREVIOUS_TILE_VERSION}" > /dev/null
+  ${SCRIPT_DIR}/example-product/generate-migrations "${TILE_VERSION}" "${PREVIOUS_TILE_VERSION}" "${STEMCELL_OS}" > /dev/null
   cp -r ${SCRIPT_DIR}/example-product/migrations/* "$(get_tmp_migrations_path)"
 }
 

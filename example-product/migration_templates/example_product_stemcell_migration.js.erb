@@ -1,0 +1,6 @@
+exports.migrate = function (input) {
+    // To view JavaScript console logs in the Rails debug log, be sure to make them single value and to only pass them
+    // strings.  JSON.stringify is an easy way to dump a structure.
+    input.properties['.web_server.example_stemcell_selector_with_default'].value = "<%= stemcell_os %>";
+    return input;
+};
