@@ -63,6 +63,16 @@ variables:
     options:
       common_name: example.common
       is_ca: true
+  - name: /example-product/generated-ca
+    type: certificate
+    options:
+      common_name: generated-ca
+      is_ca: true
+  - name: generated-leaf-cert
+    type: certificate
+    options:
+      common_name: generated-leaf-cert
+      ca: /example-product/generated-ca
 
 post_deploy_errands:
   - name: example-errand
@@ -187,7 +197,7 @@ form_types:
           - reference: description
             label: 'Description of the Plan'
             description: 'ex The best plan'
-      
+
       - reference: .properties.example_collection_with_key
         label: 'Keys'
         description: 'Collection of keys'
@@ -198,7 +208,7 @@ form_types:
           - reference: description
             label: 'Description of the Key'
             description: 'ex The best key'
-            
+
       - reference: .properties.example_collection_of_regexes
         label: 'Regexes'
         description: 'Collection of regexes'
@@ -751,6 +761,10 @@ job_types:
               present: (( .web_server.generated_secret.value_present? ))
               value: (( .web_server.generated_secret.value ))
             uuid: (( .web_server.generated_uuid.value ))
+            generated_leaf_cert:
+              ca: ((( generated-leaf-cert.ca )))
+              certificate: ((( generated-leaf-cert.certificate )))
+              private_key: ((( generated-leaf-cert.private_key )))
             for_migration_to_credhub:
               rsa_cert_credentials:
                 public_key_pem: (( .web_server.generated_rsa_cert_credentials_to_migrate_to_credhub_<%= major_and_minor_version %>.public_key_pem ))
