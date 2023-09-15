@@ -3,7 +3,7 @@
 name: <%= product_name %>
 product_version: <%= version.inspect %>
 minimum_version_for_upgrade: "0"
-metadata_version: "2.10"
+metadata_version: "2.10.3"
 label: 'Ops Manager: Example Product<%= suffix ? " #{suffix}" : nil%>'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
@@ -187,7 +187,7 @@ form_types:
           - reference: description
             label: 'Description of the Plan'
             description: 'ex The best plan'
-      
+
       - reference: .properties.example_collection_with_key
         label: 'Keys'
         description: 'Collection of keys'
@@ -198,7 +198,7 @@ form_types:
           - reference: description
             label: 'Description of the Key'
             description: 'ex The best key'
-            
+
       - reference: .properties.example_collection_of_regexes
         label: 'Regexes'
         description: 'Collection of regexes'
@@ -587,6 +587,13 @@ property_blueprints:
         artist: Ops Manatee
         explicit: true
         genre: edm
+    named_manifests:
+      - name: albums
+        manifest: |
+          album: (( current_record.album.value ))
+          artist: (( current_record.artist.value ))
+          genre: (( current_record.genre.value ))
+          dollar_context_example: (( $ops_manager.iaas_type ))
   - name: example_cert_collection
     type: collection
     configurable: true
@@ -1205,6 +1212,7 @@ job_types:
         key_collection: (( property_with_nil_value.value || .properties.example_collection_with_key.value ))
         regex_collection: (( property_with_nil_value.value || .properties.example_collection_of_regexes.value ))
         secrets_collection: (( property_with_nil_value.value || .properties.example_collection_of_secrets.value ))
+        album_manifest_snippet: (( .properties.example_collection.parsed_manifest(albums) ))
         certificate_collection_manifest_snippet: (( .properties.example_cert_collection.parsed_manifest(hello_ert_team) ))
         selector: (( .properties.example_selector.selected_option.parsed_manifest(my_snippet) ))
         selector_specific_option: (( .properties.example_selector.filet_mignon_option.secret_sauce.value ))
