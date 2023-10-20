@@ -19,6 +19,7 @@ end
 def main
   aws_access_key_id = ENV.fetch('AWS_ACCESS_KEY_ID')
   aws_secret_access_key = ENV.fetch('AWS_SECRET_ACCESS_KEY')
+  aws_role_arn = ENV.fetch('AWS_ROLE_ARN')
 
   private_yml_template = File.expand_path('config/private.yml.erb', __dir__)
   private_yml_path = File.expand_path('config/private.yml', __dir__)
