@@ -3,4 +3,6 @@ builds:
     version: 3.0.release62
   9c08f592-c25e-4bce-71ab-9a032548102d:
     version: 3.0.release61
+  e0626efb-4f7f-40c0-7f91-d7f361de0861:
+    version: 3.0.release64
 format-version: "2"
