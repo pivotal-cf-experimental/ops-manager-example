@@ -209,5 +209,14 @@
         <dd><pre><%= p(property) %></pre></dd>
     <% end %>
     </dl>
+
+    <h2>Compatibility Checks</h2>
+    <dl>
+      <dt>Allow use of Object#present? ?</dt>
+      <dd>
+        <%= p('configured.integer').present? ? 'available' : '' %><br /><br />
+        We were unintentionally allowing the use of `Object#present?` provided by ActiveSupport because the Director included other gems that indirectly required ActiveSupport. When we updated to ActiveSupport 7.1.0, this broke and caused template rendering to fail for the Healthwatch tile.
+      </dd>
+    </dl>
   </body>
 </html>

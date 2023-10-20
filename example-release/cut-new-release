@@ -3,21 +3,6 @@
 require 'rubygems'
 require 'erb'
 
-def credhub_login
-  if system('! lpass status --quiet')
-    puts "Run 'lpass login YOUR_EMAIL' first"
-    exit 1
-  end
-
-  credhub_url = `lpass show --url "Shared-Ops Manager Secure/ops-manager-credhub"`.strip
-  credhub_username = `lpass show --username "Shared-Ops Manager Secure/ops-manager-credhub"`.strip
-  credhub_password = `lpass show --password "Shared-Ops Manager Secure/ops-manager-credhub"`.strip
-
-  `credhub logout`
-
-  system("credhub login -u #{credhub_username} -p #{credhub_password} -s #{credhub_url} --skip-tls-validation")
-end
-
 def example_product_version
   ARGV[0] || fail("Must provide the OM version. For example, on the releases/1.9 branch run '#{$0} 1.9'")
 end
@@ -32,10 +17,9 @@ def next_release_build
 end
 
 def main
-  credhub_login
-
-  aws_access_key_id = `credhub get -n "/example-product/aws-blobstore" -k "username"`.strip
-  aws_secret_access_key = `credhub get -n "/example-product/aws-blobstore" -k "password"`.strip
+  aws_access_key_id = ENV.fetch('AWS_ACCESS_KEY_ID')
+  aws_secret_access_key = ENV.fetch('AWS_SECRET_ACCESS_KEY')
+  aws_role_arn = ENV.fetch('AWS_ROLE_ARN')
 
   private_yml_template = File.expand_path('config/private.yml.erb', __dir__)
   private_yml_path = File.expand_path('config/private.yml', __dir__)
