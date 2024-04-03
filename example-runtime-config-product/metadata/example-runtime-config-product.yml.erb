@@ -40,6 +40,15 @@ form_types:
       - reference: .properties.network_address_value
         label: Network Address Value
         description: "Network ADDRESS!"
+      - reference: .properties.network_address_list_value
+        label: Network Address List Value
+        description: "Network ADDRESS LIST!"
+      - reference: .properties.port_value
+        label: Port Value
+        description: "Port!"
+      - reference: .properties.integer_value
+        label: Integer Value
+        description: "integer!!"
       <%# - reference: .properties.sleep_value
         label: Sleep Value
         description: 'Time to sleep between echoes'
@@ -92,6 +101,22 @@ property_blueprints:
     configurable: true
     optional: false
     default: 'hostname.example.com'
+  - name: network_address_list_value
+    type: network_address_list
+    configurable: true
+    optional: false
+    default: 'localhost,8.8.8.8'
+  - name: port_value
+    type: port
+    configurable: true
+    optional: false
+    default: 514
+  - name: integer_value
+    type: integer
+    configurable: true
+    optional: false
+    default: 49
+
   <%# - name: sleep_value
     type: integer
     configurable: true
@@ -125,6 +150,10 @@ runtime_configs:
                   ip_ranges_value_parsed: (( .properties.ip_ranges_value.parsed_ip_ranges ))
                   ldap_url_value: (( .properties.ldap_url_value.value ))
                   network_address_value: (( .properties.network_address_value.value ))
+                  network_address_list_value: (( .properties.network_address_list_value.value ))
+                  network_address_list_parsed_value: (( .properties.network_address_list_value.parsed_network_addresses ))
+                  port_value: (( .properties.port_value.value ))
+                  integer_value: (( .properties.integer_value.value ))
                   <%# sleep_value: (( .properties.sleep_value.value ))
                   exit_value: (( .properties.exit_value.value )) %>
           include:
