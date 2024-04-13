@@ -49,6 +49,30 @@ form_types:
       - reference: .properties.integer_value
         label: Integer Value
         description: "integer!!"
+      <%# - reference: .properties.minmax_constrained_integer_value
+        label: "Constrained from 8 to 32"
+        description: "minmax constrained!"
+      - reference: .properties.mod_five_constrained_integer_value 
+        label: "Constrained to mod 5"
+        description: "modulo constrained!"
+      - reference: .properties.power_two_constrained_integer_value
+        label: "Constrained to powers of two"
+        description: "power two constrained!"
+      - reference: .properties.zero_or_min_constrained_integer_value
+        label: "Constrained to min of 10 or zero"
+        description: "zero or min constrained!"
+      - reference: .properties.only_increase_constrained_integer_value 
+        label: "Constrained to only increase"
+        description: "may only increase constrained!" %>
+      - reference: .properties.dropdown_select_value
+        label: Dropdown Select
+        description: "Dropdown Select!!"
+      - reference: .properties.secret_value
+        label: Secret Value
+        description: "Secret!!!"
+      - reference: .properties.secret_constrained_value
+        label: Secret Value, len 5, alphanumeric
+        description: "Secret!!!, len 5, alphanumeric"
       <%# - reference: .properties.sleep_value
         label: Sleep Value
         description: 'Time to sleep between echoes'
@@ -80,7 +104,7 @@ property_blueprints:
     configurable: true
     optional: false
     default: 'ABCD'
-    constraints: [ must_match_regex: '[A-Z]*' ]
+    constraints: [ must_match_regex: '^[A-Z]+$' ]
   - name: ip_address_value
     type: ip_address
     configurable: true
@@ -116,6 +140,62 @@ property_blueprints:
     configurable: true
     optional: false
     default: 49
+  <%# - name: minmax_constrained_integer_value
+    type: integer
+    configurable: true
+    optional: false
+    default: 30
+    constraints: { min: 8, max: 32 }
+  - name: mod_five_constrained_integer_value
+    type: integer
+    configurable: true
+    optional: false
+    default: 30
+    constraints: { modulo: 5 }
+  - name: power_two_constrained_integer_value
+    type: integer
+    configurable: true
+    optional: false
+    default: 16
+    constraints: { power_of_two: true }
+  - name: zero_or_min_constrained_integer_value
+    type: integer
+    configurable: true
+    optional: false
+    default: 30
+    constraints: { zero_or_min: 10 }
+  - name: only_increase_constrained_integer_value
+    type: integer
+    configurable: true
+    optional: false
+    default: 30
+    constraints: { may_only_increase: true } %>
+  <%# - name: example_salted_credentials_value
+    type: salted_credentials
+  - name: example_salted_credentials_with_default_value
+    type: salted_credentials
+    default: 
+      identity: vcap %>
+  - name: secret_value
+    type: secret
+    configurable: true
+  - name: secret_constrained_value
+    type: secret
+    configurable: true
+    constraints:
+    - must_match_regex: '^[a-zA-Z]{5,}$'
+      error_message: 'This password must be at least 5 alphabetic characters '
+  - name: dropdown_select_value
+    type: dropdown_select
+    configurable: true
+    default: kiwi
+    options:
+    - name: kiwi
+      label: 'Kiwi'
+    - name: lime
+      label: 'Lime'
+    - name: tomato
+      label: 'Tomato'
 
   <%# - name: sleep_value
     type: integer
@@ -154,6 +234,22 @@ runtime_configs:
                   network_address_list_parsed_value: (( .properties.network_address_list_value.parsed_network_addresses ))
                   port_value: (( .properties.port_value.value ))
                   integer_value: (( .properties.integer_value.value ))
+                  <%# minmax_constrained_integer_value: (( .properties.minmax_constrained_integer_value.value ))
+                  mod_five_constrained_integer_value: (( .properties.mod_five_constrained_integer_value.value ))
+                  power_two_constrained_integer_value: (( .properties.power_two_constrained_integer_value.value ))
+                  zero_or_min_constrained_integer_value: (( .properties.zero_or_min_constrained_integer_value.value ))
+                  only_increase_constrained_integer_value: (( .properties.only_increase_constrained_integer_value.value )) %>
+                  <%# salted_credentials_value_identity: (( .properties.example_salted_credentials_value.identity ))
+                  salted_credentials_value_password: (( .properties.example_salted_credentials_value.password ))
+                  salted_credentials_value_salt: (( .properties.example_salted_credentials_value.salt ))
+                  salted_credentials_value_hashed_password: (( .properties.example_salted_credentials_value.sha512_hashed_password ))
+                  salted_credentials_with_default_value_identity: (( .properties.example_salted_credentials_with_default_value.identity ))
+                  salted_credentials_with_default_value_password: (( .properties.example_salted_credentials_with_default_value.password ))
+                  salted_credentials_with_default_value_salt: (( .properties.example_salted_credentials_with_default_value.salt ))
+                  salted_credentials_with_default_value_hashed_password: (( .properties.example_salted_credentials_with_default_value.sha512_hashed_password )) %>
+                  secret_value: (( .properties.secret_value.value ))
+                  secret_constrained_value: (( .properties.secret_constrained_value.value ))
+                  dropdown_select_value: (( .properties.dropdown_select_value.value ))
                   <%# sleep_value: (( .properties.sleep_value.value ))
                   exit_value: (( .properties.exit_value.value )) %>
           include:
