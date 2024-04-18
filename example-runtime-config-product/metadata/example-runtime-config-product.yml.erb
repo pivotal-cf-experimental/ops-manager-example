@@ -196,6 +196,9 @@ property_blueprints:
       label: 'Lime'
     - name: tomato
       label: 'Tomato'
+  - name: uuid_value
+    type: uuid
+    configurable: false
 
   <%# - name: sleep_value
     type: integer
@@ -250,6 +253,7 @@ runtime_configs:
                   <%# secret_value: (( .properties.secret_value.value ))
                   secret_constrained_value: (( .properties.secret_constrained_value.value )) %>
                   dropdown_select_value: (( .properties.dropdown_select_value.value ))
+                  uuid_value: (( .properties.uuid_value.value ))
                   <%# sleep_value: (( .properties.sleep_value.value ))
                   exit_value: (( .properties.exit_value.value )) %>
           include:
