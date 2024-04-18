@@ -73,6 +73,9 @@ form_types:
       - reference: .properties.secret_constrained_value
         label: Secret Value, len 5, alphanumeric
         description: "Secret!!!, len 5, alphanumeric" %>
+      - reference: .properties.wildcard_domain_value
+        label: Wildcard Domain
+        description: "Wildcard Domain!!!"
       <%# - reference: .properties.sleep_value
         label: Sleep Value
         description: 'Time to sleep between echoes'
@@ -199,6 +202,9 @@ property_blueprints:
   - name: uuid_value
     type: uuid
     configurable: false
+  - name: wildcard_domain_value
+    type: wildcard_domain
+    configurable: true
 
   <%# - name: sleep_value
     type: integer
@@ -254,6 +260,8 @@ runtime_configs:
                   secret_constrained_value: (( .properties.secret_constrained_value.value )) %>
                   dropdown_select_value: (( .properties.dropdown_select_value.value ))
                   uuid_value: (( .properties.uuid_value.value ))
+                  wildcard_domain_value: (( .properties.wildcard_domain_value.value ))
+                  wildcard_domain_wildcard_value: (( .properties.wildcard_domain_value.to_wildcard ))
                   <%# sleep_value: (( .properties.sleep_value.value ))
                   exit_value: (( .properties.exit_value.value )) %>
           include:
