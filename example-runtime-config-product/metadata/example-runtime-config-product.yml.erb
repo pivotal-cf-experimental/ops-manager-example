@@ -67,12 +67,12 @@ form_types:
       - reference: .properties.dropdown_select_value
         label: Dropdown Select
         description: "Dropdown Select!!"
-      - reference: .properties.secret_value
+      <%# - reference: .properties.secret_value
         label: Secret Value
         description: "Secret!!!"
       - reference: .properties.secret_constrained_value
         label: Secret Value, len 5, alphanumeric
-        description: "Secret!!!, len 5, alphanumeric"
+        description: "Secret!!!, len 5, alphanumeric" %>
       <%# - reference: .properties.sleep_value
         label: Sleep Value
         description: 'Time to sleep between echoes'
@@ -176,7 +176,7 @@ property_blueprints:
     type: salted_credentials
     default: 
       identity: vcap %>
-  - name: secret_value
+  <%# - name: secret_value
     type: secret
     configurable: true
   - name: secret_constrained_value
@@ -184,7 +184,7 @@ property_blueprints:
     configurable: true
     constraints:
     - must_match_regex: '^[a-zA-Z]{5,}$'
-      error_message: 'This password must be at least 5 alphabetic characters '
+      error_message: 'This password must be at least 5 alphabetic characters ' %>
   - name: dropdown_select_value
     type: dropdown_select
     configurable: true
@@ -247,8 +247,8 @@ runtime_configs:
                   salted_credentials_with_default_value_password: (( .properties.example_salted_credentials_with_default_value.password ))
                   salted_credentials_with_default_value_salt: (( .properties.example_salted_credentials_with_default_value.salt ))
                   salted_credentials_with_default_value_hashed_password: (( .properties.example_salted_credentials_with_default_value.sha512_hashed_password )) %>
-                  secret_value: (( .properties.secret_value.value ))
-                  secret_constrained_value: (( .properties.secret_constrained_value.value ))
+                  <%# secret_value: (( .properties.secret_value.value ))
+                  secret_constrained_value: (( .properties.secret_constrained_value.value )) %>
                   dropdown_select_value: (( .properties.dropdown_select_value.value ))
                   <%# sleep_value: (( .properties.sleep_value.value ))
                   exit_value: (( .properties.exit_value.value )) %>
