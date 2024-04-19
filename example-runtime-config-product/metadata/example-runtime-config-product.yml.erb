@@ -76,6 +76,12 @@ form_types:
       - reference: .properties.wildcard_domain_value
         label: Wildcard Domain
         description: "Wildcard Domain!!!"
+      <%# - reference: .properties.rsa_cert_credentials_configurable_value
+        label: RSA certificate
+        description: "RSA CERTIFICATE!!!" %>
+      - reference: .properties.smtp_authentication_value
+        label: SMTP Authentication Type
+        description: "SMTP Auth Type!!!"
       <%# - reference: .properties.sleep_value
         label: Sleep Value
         description: 'Time to sleep between echoes'
@@ -205,7 +211,23 @@ property_blueprints:
   - name: wildcard_domain_value
     type: wildcard_domain
     configurable: true
-
+    optional: false
+    default: "example.com"
+  <%# - name: rsa_cert_credentials_value
+    type: rsa_cert_credentials
+    optional: false
+    configurable: false
+    default:
+      domains: [ 'example.com', '*.example.com' ]
+  - name: rsa_cert_credentials_configurable_value
+    type: rsa_cert_credentials
+    optional: true
+    configurable: true %>
+  - name: smtp_authentication_value
+    type: smtp_authentication
+    configurable: true
+    optional: false
+    default: "bogus default"
   <%# - name: sleep_value
     type: integer
     configurable: true
@@ -262,6 +284,9 @@ runtime_configs:
                   uuid_value: (( .properties.uuid_value.value ))
                   wildcard_domain_value: (( .properties.wildcard_domain_value.value ))
                   wildcard_domain_wildcard_value: (( .properties.wildcard_domain_value.to_wildcard ))
+                  <%# rsa_cert_credentials_value: (( .properties.rsa_cert_credentials_value.cert_pem ))
+                  rsa_cert_credentials_configurable_value: (( .properties.rsa_cert_credentials_configurable_value.cert_pem )) %>
+                  smtp_authentication_value: (( .properties.smtp_authentication_value.value ))
                   <%# sleep_value: (( .properties.sleep_value.value ))
                   exit_value: (( .properties.exit_value.value )) %>
           include:
