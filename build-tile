@@ -13,7 +13,6 @@ readonly DEFAULT_TILE_TYPE="${TILE_TYPE_EXAMPLE_PRODUCT}"
 readonly DEFAULT_OUTPUT_DIR="/tmp"
 readonly DEFAULT_TILE_VERSION="1.0-build.0"
 readonly DEFAULT_FILE_EXTENSION="pivotal"
-readonly DEFAULT_INSTALLATION_PATH="/Users/pivotal/workspace/installation"
 readonly DEFAULT_VERBOSE=""
 readonly DEFAULT_WITH_OS_CONF_COMPILED_RELEASE=false
 readonly DEFAULT_WITH_BPM_COMPILED_RELEASE=false
@@ -23,13 +22,17 @@ DEFAULT_STEMCELL_VERSION="170.16"
 TMP_DIR="$(mktemp -d)"
 CACHE_DIR="/tmp/build-tile"
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
+PARENT_DIR="$(dirname "$SCRIPT_DIR")"
 OUTPUT_DIR="${DEFAULT_OUTPUT_DIR}"
+
+default_ops_manager_repo_path="${PARENT_DIR}/$(ls "${PARENT_DIR}" | grep -E '^(installation|ops-manager)$' | head -n1)"
+: "${OPS_MANAGER_REPO_PATH:=$default_ops_manager_repo_path}"
 
 SUFFIX=""
 PRODUCT_NAME=""
 COMPILED_RELEASE_BUCKET="ops-manager-compiled-releases"
-BPM_VERSION=$(bosh interpolate ../installation/web/config/auto-versions.yml --path /bpm_release/version)
-OS_CONF_VERSION=$(bosh interpolate ../installation/web/config/auto-versions.yml --path /os_conf_release/version)
+BPM_VERSION=$(bosh interpolate "${OPS_MANAGER_REPO_PATH}/web/config/auto-versions.yml" --path /bpm_release/version)
+OS_CONF_VERSION=$(bosh interpolate "${OPS_MANAGER_REPO_PATH}/web/config/auto-versions.yml" --path /os_conf_release/version)
 TILE_TYPE="${DEFAULT_TILE_TYPE}"
 FILE_EXTENSION="${DEFAULT_FILE_EXTENSION}"
 STEMCELL_OS="${DEFAULT_STEMCELL_OS}"
@@ -80,9 +83,9 @@ get_tile_destination_path() {
 
 set_default_stemcell_os() {
   local os
-  os=$(ruby -r "yaml" -e "puts YAML.load_file('${DEFAULT_INSTALLATION_PATH}/web/config/auto-versions.yml')['opsman_stemcell']['os'] rescue ''")
+  os=$(ruby -r "yaml" -e "puts YAML.load_file('${OPS_MANAGER_REPO_PATH}/web/config/auto-versions.yml')['opsman_stemcell']['os'] rescue ''")
   if [[ -z $os ]]; then
-    log "Could not find a default stemcell OS at ${DEFAULT_INSTALLATION_PATH}. Using default ${DEFAULT_STEMCELL_OS}"
+    log "Could not find a default stemcell OS at ${OPS_MANAGER_REPO_PATH}. Try setting OPS_MANAGER_REPO_PATH. Using default ${DEFAULT_STEMCELL_OS}"
   else
     DEFAULT_STEMCELL_OS="${os}"
     STEMCELL_OS=$DEFAULT_STEMCELL_OS
@@ -91,9 +94,9 @@ set_default_stemcell_os() {
 
 set_default_stemcell_version() {
   local version
-  version=$(ruby -r "yaml" -e "puts YAML.load_file('${DEFAULT_INSTALLATION_PATH}/web/config/auto-versions.yml')['opsman_stemcell']['version'] rescue ''")
+  version=$(ruby -r "yaml" -e "puts YAML.load_file('${OPS_MANAGER_REPO_PATH}/web/config/auto-versions.yml')['opsman_stemcell']['version'] rescue ''")
   if [[ -z $version ]]; then
-    log "Could not find a default stemcell version at ${DEFAULT_INSTALLATION_PATH}. Using default ${DEFAULT_STEMCELL_VERSION}"
+    log "Could not find a default stemcell version at ${OPS_MANAGER_REPO_PATH}. Try setting OPS_MANAGER_REPO_PATH. Using default ${DEFAULT_STEMCELL_VERSION}"
   else
     DEFAULT_STEMCELL_VERSION="${version}"
     STEMCELL_VERSION=$DEFAULT_STEMCELL_VERSION
