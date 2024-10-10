@@ -3,7 +3,7 @@
 name: <%= product_name %>
 product_version: <%= version.inspect %>
 minimum_version_for_upgrade: "0"
-metadata_version: "3.0.1"
+metadata_version: "3.0.5"
 label: 'Ops Manager: Example Product<%= suffix ? " #{suffix}" : nil%>'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
@@ -31,7 +31,7 @@ requires_product_versions:
 releases:
   - name: example-release
     file: <%= release_file_name.inspect %>
-    version: <%= release_file_name.match(/^example-release-(.*)\.tgz$/)[1].inspect %>
+    version: 3.0.release64+dev.1
   - name: os-conf
     file: os-conf
     version: <%= os_conf_version %>
@@ -642,6 +642,7 @@ property_blueprints:
             manifest: |
               chosen_stemcell_os: (( .properties.windows_selector.enable_option.windows_stemcell.os ))
               chosen_stemcell_version: (( .properties.windows_selector.enable_option.windows_stemcell.version ))
+              chosen_stemcell_name: (( .properties.windows_selector.enable_option.windows_stemcell.name ))
   - type: selector
     name: example_runtime_config_selector
     configurable: true
@@ -852,6 +853,7 @@ job_types:
             example-broker-product-present: (( ..example-broker-product.present? ))
           self:
             stemcell_version: (( $self.stemcell_version ))
+            stemcell_name: (( $self.stemcell_name ))
     errand: true
     resource_label: an errand to log properties
     run_post_deploy_errand_default: on
@@ -1271,9 +1273,11 @@ job_types:
         network_name: (( .network_name ))
       self:
         stemcell_version: (( $self.stemcell_version ))
+        stemcell_name: (( $self.stemcell_name ))
       stemcell_selector:
         os: (( .web_server.example_stemcell_selector.os ))
         version: (( .web_server.example_stemcell_selector.version ))
+        name: (( .web_server.example_stemcell_selector.name ))
         assigned: (( .web_server.example_stemcell_selector.assigned? ))
         value: (( .web_server.example_stemcell_selector.value ))
         value_present: (( .web_server.example_stemcell_selector.value_present? ))

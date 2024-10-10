@@ -217,6 +217,8 @@ properties:
     description: 'Assigned stemcell OS'
   stemcell_selector.version:
     description: 'Assigned stemcell version'
+  stemcell_selector.name:
+    description: 'Assigned stemcell name'
   stemcell_selector.assigned:
     description: 'Boolean. Whether or not additional stemcell is assigned'
   stemcell_selector.value:
@@ -226,3 +228,5 @@ properties:
 
   self.stemcell_version:
     description: 'stemcell assigned to product'
+  self.stemcell_name:
+    description: 'stemcell name of the stemcell assigned to product'

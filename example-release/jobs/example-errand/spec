@@ -191,3 +191,5 @@ properties:
 
   self.stemcell_version:
     description: 'stemcell assigned to product'
+  self.stemcell_name:
+    description: 'stemcell name of the stemcell assigned to product'

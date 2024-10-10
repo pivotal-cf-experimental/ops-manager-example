@@ -16,8 +16,8 @@ readonly DEFAULT_FILE_EXTENSION="pivotal"
 readonly DEFAULT_VERBOSE=""
 readonly DEFAULT_WITH_OS_CONF_COMPILED_RELEASE=false
 readonly DEFAULT_WITH_BPM_COMPILED_RELEASE=false
-DEFAULT_STEMCELL_OS="ubuntu-xenial"
-DEFAULT_STEMCELL_VERSION="170.16"
+DEFAULT_STEMCELL_OS="ubuntu-jammy"
+DEFAULT_STEMCELL_VERSION="1.572"
 
 TMP_DIR="$(mktemp -d)"
 CACHE_DIR="/tmp/build-tile"
@@ -222,8 +222,9 @@ build_product_metadata() {
 }
 
 build_example_product_release() {
-  log "building example product release..."
-  ${SCRIPT_DIR}/example-release/build-release-tarball "$(get_tmp_releases_path)" > /dev/null
+#  log "building example product release..."
+#  ${SCRIPT_DIR}/example-release/build-release-tarball "$(get_tmp_releases_path)" > /dev/null
+  cp ${SCRIPT_DIR}/releases/example-release-3.0.release64+dev.1.tgz "$(get_tmp_releases_path)"
 }
 
 build_service_broker_migrations() {
