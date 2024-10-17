@@ -18,4 +18,4 @@ major_version = match_data[:major_version]
 major_and_minor_version = "#{major_version}_#{minor_version}"
 
 metadata_template = File.join(__dir__, product_name, 'metadata', "#{product_name}.yml.erb")
-puts ERB.new(File.read(metadata_template), nil, '-').result
+puts ERB.new(File.read(metadata_template), trim_mode:'-').result
