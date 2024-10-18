@@ -6,8 +6,8 @@ readonly TILE_TYPE_EXAMPLE_PRODUCT="example-product"
 readonly TILE_TYPE_RUNTIME_CONFIG_ONLY="runtime-config-only"
 readonly TILE_TYPE_SERVICE_BROKER="service-broker"
 readonly TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT="windows"
-readonly ALLOWED_TILE_TYPES="$TILE_TYPE_EXAMPLE_PRODUCT $TILE_TYPE_SERVICE_BROKER $TILE_TYPE_RUNTIME_CONFIG_ONLY $TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT"
-readonly TILE_TYPES_REQUIRING_STEMCELL="$TILE_TYPE_EXAMPLE_PRODUCT $TILE_TYPE_SERVICE_BROKER $TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT"
+readonly ALLOWED_TILE_TYPES="${TILE_TYPE_EXAMPLE_PRODUCT} ${TILE_TYPE_SERVICE_BROKER} ${TILE_TYPE_RUNTIME_CONFIG_ONLY} ${TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT}"
+readonly TILE_TYPES_REQUIRING_STEMCELL="${TILE_TYPE_EXAMPLE_PRODUCT} ${TILE_TYPE_SERVICE_BROKER} ${TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT}"
 
 readonly DEFAULT_TILE_TYPE="${TILE_TYPE_EXAMPLE_PRODUCT}"
 readonly DEFAULT_OUTPUT_DIR="/tmp"
@@ -26,7 +26,7 @@ PARENT_DIR="$(dirname "$SCRIPT_DIR")"
 OUTPUT_DIR="${DEFAULT_OUTPUT_DIR}"
 
 default_ops_manager_repo_path="${PARENT_DIR}/$(ls "${PARENT_DIR}" | grep -E '^(installation|ops-manager)$' | head -n1)"
-: "${OPS_MANAGER_REPO_PATH:=$default_ops_manager_repo_path}"
+: "${OPS_MANAGER_REPO_PATH:=${default_ops_manager_repo_path}}"
 
 SUFFIX=""
 PRODUCT_NAME=""
@@ -44,7 +44,7 @@ WITH_OS_CONF_COMPILED_RELEASE=${DEFAULT_WITH_OS_CONF_COMPILED_RELEASE}
 WITH_BPM_COMPILED_RELEASE=${DEFAULT_WITH_BPM_COMPILED_RELEASE}
 
 log() {
-  if [[ ! -z ${VERBOSE} ]]; then
+  if [[ -n ${VERBOSE} ]]; then
     echo "$1"
   fi
 }
@@ -55,7 +55,7 @@ setup_tmp_workspace() {
 }
 
 get_tmp_releases(){
-  basename $(get_tmp_releases_path)/*.tgz
+  basename "$(get_tmp_releases_path)"/*.tgz
 }
 
 get_tmp_metadata_path() {
@@ -74,7 +74,7 @@ get_tile_destination_path() {
   local suffix
 
   suffix=""
-  if [ ! -z "${SUFFIX}" ]; then
+  if [ -n "${SUFFIX}" ]; then
     suffix="-${SUFFIX}"
   fi
 
@@ -84,7 +84,7 @@ get_tile_destination_path() {
 set_default_stemcell_os() {
   local os
   os=$(ruby -r "yaml" -e "puts YAML.load_file('${OPS_MANAGER_REPO_PATH}/web/config/auto-versions.yml')['opsman_stemcell']['os'] rescue ''")
-  if [[ -z $os ]]; then
+  if [[ -z ${os} ]]; then
     log "Could not find a default stemcell OS at ${OPS_MANAGER_REPO_PATH}. Try setting OPS_MANAGER_REPO_PATH. Using default ${DEFAULT_STEMCELL_OS}"
   else
     DEFAULT_STEMCELL_OS="${os}"
@@ -184,7 +184,7 @@ validate_inputs() {
     error="true"
   fi
 
-  if [ ! -z "${error}" ]; then
+  if [ -n "${error}" ]; then
     echo
     print_help
     exit 1
@@ -192,9 +192,9 @@ validate_inputs() {
 }
 
 check_metadata_syntax() {
-  log "checking metadata syntax..."
+  log "checking metadata syntax in '$(get_tmp_metadata_path)'..."
   if ! ruby -r yaml -e "YAML.load_file('$(get_tmp_metadata_path)')" >&2; then
-    printf "\n\e[0;1;31mError: invalid YAML syntax in metadata at $(get_tmp_metadata_path)\e[0m\n" >&2
+    printf "\n\e[0;1;31mError: invalid YAML syntax in metadata at %s\e[0m\n" "$(get_tmp_metadata_path)" >&2
     exit 1;
   fi
 }
@@ -209,7 +209,7 @@ package_pivotal_file() {
 build_product_metadata() {
   log "building ${PRODUCT_NAME} metadata..."
 
-  ${SCRIPT_DIR}/generate-metadata \
+  "${SCRIPT_DIR}/generate-metadata" \
     "${TILE_VERSION}" \
     "${STEMCELL_VERSION}" \
     "$(get_tmp_releases)" \
@@ -223,31 +223,31 @@ build_product_metadata() {
 
 build_example_product_release() {
   log "building example product release..."
-  ${SCRIPT_DIR}/example-release/build-release-tarball "$(get_tmp_releases_path)" > /dev/null
+  "${SCRIPT_DIR}/example-release/build-release-tarball" "$(get_tmp_releases_path)" > /dev/null
 }
 
 build_service_broker_migrations() {
   log "building ${PRODUCT_NAME} migrations..."
   git clean -Xf "${SCRIPT_DIR}/example-broker-product/migrations" > /dev/null
-  cp -r ${SCRIPT_DIR}/example-broker-product/migrations/* "$(get_tmp_migrations_path)"
+  cp -r "${SCRIPT_DIR}"/example-broker-product/migrations/* "$(get_tmp_migrations_path)"
 }
 
 copy_runtime_config_only_release() {
   log "copying dummy release(s) to temporary dir..."
-  cp ${SCRIPT_DIR}/example-runtime-config-product/releases/*.tgz "$(get_tmp_releases_path)"
+  cp "${SCRIPT_DIR}"/example-runtime-config-product/releases/*.tgz "$(get_tmp_releases_path)"
 }
 
 build_example_product_migrations() {
   log "building ${PRODUCT_NAME} migrations..."
   git clean -Xf "${SCRIPT_DIR}/example-product/migrations" > /dev/null
-  ${SCRIPT_DIR}/example-product/generate-migrations "${TILE_VERSION}" "${PREVIOUS_TILE_VERSION}" "${STEMCELL_OS}" > /dev/null
-  cp -r ${SCRIPT_DIR}/example-product/migrations/* "$(get_tmp_migrations_path)"
+  "${SCRIPT_DIR}/example-product/generate-migrations" "${TILE_VERSION}" "${PREVIOUS_TILE_VERSION}" "${STEMCELL_OS}" > /dev/null
+  cp -r "${SCRIPT_DIR}"/example-product/migrations/* "$(get_tmp_migrations_path)"
 }
 
 build_example_runtime_product_migrations() {
   log "building ${PRODUCT_NAME} migrations..."
   git clean -Xf "${SCRIPT_DIR}/example-runtime-config-product/migrations" > /dev/null
-  cp -r ${SCRIPT_DIR}/example-runtime-config-product/migrations/* "$(get_tmp_migrations_path)"
+  cp -r "${SCRIPT_DIR}"/example-runtime-config-product/migrations/* "$(get_tmp_migrations_path)"
 }
 
 fetch_example_broker_product_dependency_releases() {
@@ -331,11 +331,11 @@ HERE
 }
 
 print_success() {
-  printf "\e[0;1;32mFinished:\e[0m $(get_tile_destination_path)\n" >&2
+  printf "\e[0;1;32mFinished:\e[0m %s\n" "$(get_tile_destination_path)" >&2
 }
 
 main() {
-  cd $SCRIPT_DIR
+  cd "${SCRIPT_DIR}"
 
   set_default_stemcell_os
   set_default_stemcell_version
@@ -344,7 +344,7 @@ main() {
   validate_inputs
   setup_tmp_workspace
 
-  if [ $TILE_TYPE = "$TILE_TYPE_SERVICE_BROKER" ]; then
+  if [ "${TILE_TYPE}" = "${TILE_TYPE_SERVICE_BROKER}" ]; then
     PRODUCT_NAME="example-broker-product"
 
     fetch_example_broker_product_dependency_releases
@@ -357,7 +357,7 @@ main() {
     exit 0
   fi
 
-  if [ $TILE_TYPE = "$TILE_TYPE_RUNTIME_CONFIG_ONLY" ]; then
+  if [ "${TILE_TYPE}" = "${TILE_TYPE_RUNTIME_CONFIG_ONLY}" ]; then
     PRODUCT_NAME="example-runtime-config-product"
 
     copy_runtime_config_only_release
@@ -369,7 +369,7 @@ main() {
     exit 0
   fi
 
-  if [ $TILE_TYPE = "$TILE_TYPE_EXAMPLE_PRODUCT" ]; then
+  if [ "${TILE_TYPE}" = "${TILE_TYPE_EXAMPLE_PRODUCT}" ]; then
     PRODUCT_NAME="example-product"
 
     build_example_product_release
@@ -382,7 +382,7 @@ main() {
     exit 0
   fi
 
-  if [ $TILE_TYPE = "$TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT" ]; then
+  if [ "${TILE_TYPE}" = "${TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT}" ]; then
     PRODUCT_NAME="example-windows-product"
 
     fetch_windows_example_product_dependency_releases
@@ -394,5 +394,6 @@ main() {
   fi
 }
 
+# shellcheck disable=SC2064
 trap "rm -rf ${TMP_DIR}" EXIT
 main $@
