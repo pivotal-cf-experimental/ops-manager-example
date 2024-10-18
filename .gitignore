@@ -1,3 +1,4 @@
 *.pivotal
 .idea
 
+Gemfile.lock
