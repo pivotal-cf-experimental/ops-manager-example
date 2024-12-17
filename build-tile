@@ -275,6 +275,7 @@ fetch_bosh_compiled_release() {
   release_version="$2"
 
   if [ ! -f "${CACHE_DIR}/${release_name}-${release_version}" ]; then
+      echo "aws s3api get-object '${COMPILED_RELEASE_BUCKET}/${release_name}-${release_version}-${STEMCELL_OS}-${STEMCELL_VERSION}.tgz'"
       aws --no-sign-request s3api get-object --bucket ${COMPILED_RELEASE_BUCKET} --key "${release_name}-${release_version}-${STEMCELL_OS}-${STEMCELL_VERSION}.tgz" "${CACHE_DIR}/${release_name}-${release_version}" > aws_download_result.txt
   fi
 
