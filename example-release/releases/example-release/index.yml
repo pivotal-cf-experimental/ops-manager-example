@@ -1,8 +1,4 @@
 builds:
-  91a24002-e3af-41b2-4d9c-2f3fdb96a2b6:
-    version: 3.0.release62
-  9c08f592-c25e-4bce-71ab-9a032548102d:
-    version: 3.0.release61
-  e0626efb-4f7f-40c0-7f91-d7f361de0861:
-    version: 3.0.release64
+  be36eaac-490b-4c33-64a7-a24688e9a071:
+    version: 3.1.release65
 format-version: "2"
