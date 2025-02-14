@@ -326,7 +326,7 @@ Example Commands:
   Example Product    $ ./build-tile
   Service Broker     $ ./build-tile --type=service-broker
   Runtime Config     $ ./build-tile --type=runtime-config-only
-  Windows            $ ./build-tile --type=windows --stemcell-os=windows2016 --stemcell-version=1709.17
+  Windows            $ ./build-tile --type=windows --stemcell-os=windows2019 --stemcell-version=<LATEST_STEMCELL_VERSION>
 
 HERE
 }
