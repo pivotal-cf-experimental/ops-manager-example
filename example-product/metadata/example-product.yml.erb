@@ -20,8 +20,9 @@ stemcell_criteria:
   # default: true
   enable_patch_security_updates: true
 additional_stemcells_criteria:
-  - os: windows2016
-    version: 1709.19
+  - os: windows2019
+    version: 2019.83
+    enable_patch_security_updates: true
 
 requires_product_versions:
   - name: example-broker-product
@@ -314,7 +315,7 @@ form_types:
           label: 'Do not utilize it'
       - reference: .properties.windows_selector
         label: 'Use windows stemcell'
-        description: 'If selected, the windows2016 stemcell will be required'
+        description: 'If selected, the windows2019 stemcell will be required'
         selector_property_inputs:
         - reference: .properties.windows_selector.enable_option
           label: 'Yes'
@@ -636,7 +637,7 @@ property_blueprints:
           - name: windows_stemcell
             type: stemcell_selector
             configurable: false
-            default: 'windows2016'
+            default: 'windows2019'
         named_manifests:
           - name: windows_snippet
             manifest: |
