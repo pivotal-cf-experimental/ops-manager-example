@@ -93,6 +93,13 @@ pre_delete_errands:
     impact_warning: 'Pre Delete warning'
 
 form_types:
+  - name: license-key-form
+    label: License keys
+    description: Add a license
+    property_inputs:
+      - reference: .properties.license_key
+        label: License key
+        description: Hey it's a license key!
   - name: example-form
     label: Configurable Properties
     description: All the properties that you can configure!
@@ -378,6 +385,10 @@ form_types:
         description: Optional comma-separated list of static IPs that will be assigned to the web server
 
 property_blueprints:
+  - name: license_key
+    type: tanzu_license_key
+    configurable: true
+    required: true
   - name: super_secret
     type: secret
     configurable: true
@@ -1243,6 +1254,7 @@ job_types:
         simple_credentials:
           identity: (( property_with_nil_value.value || configured_simple_credentials.identity ))
           password: (( false || configured_simple_credentials.password ))
+        license_key: (( .properties.license_key.value ))
       ops_manager_provided_accessors:
         name: (( name ))
         ram: (( ram ))

@@ -183,6 +183,8 @@ properties:
     description: 'Identity'
   configured.simple_credentials.password:
     description: 'Password'
+  configured.license_key:
+    description: 'License key'
 
   ops_manager_provided_accessors.name:
     description: 'job name'
