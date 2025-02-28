@@ -17,17 +17,15 @@ def next_release_build
 end
 
 def main
-  aws_access_key_id = ENV.fetch('AWS_ACCESS_KEY_ID')
-  aws_secret_access_key = ENV.fetch('AWS_SECRET_ACCESS_KEY')
-  aws_role_arn = ENV.fetch('AWS_ROLE_ARN')
-
-  private_yml_template = File.expand_path('config/private.yml.erb', __dir__)
+  private_yml_data = ENV.fetch('PRIVATE_YML_DATA')
   private_yml_path = File.expand_path('config/private.yml', __dir__)
-  private_yml = ERB.new(File.read(private_yml_template), trim_mode: '-').result(binding)
-  File.write(private_yml_path, private_yml)
-
-  puts "Cutting final release #{next_release_build.inspect}"
-  exec("cd #{__dir__}; bosh create-release --final --version #{next_release_build} --force")
+  begin
+    File.write(private_yml_path, private_yml_data)
+    puts "Cutting final release #{next_release_build.inspect}"
+    exec("cd #{__dir__}; bosh create-release --final --version #{next_release_build} --force")
+  ensure
+    File.delete(private_yml_path) if File.exist?(private_yml_path)
+    end
 end
 
 main
