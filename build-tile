@@ -3,10 +3,11 @@
 set -eu
 
 readonly TILE_TYPE_EXAMPLE_PRODUCT="example-product"
+readonly TILE_TYPE_EXAMPLE_LICENSED_PRODUCT="example-licensed-product"
 readonly TILE_TYPE_RUNTIME_CONFIG_ONLY="runtime-config-only"
 readonly TILE_TYPE_SERVICE_BROKER="service-broker"
 readonly TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT="windows"
-readonly ALLOWED_TILE_TYPES="${TILE_TYPE_EXAMPLE_PRODUCT} ${TILE_TYPE_SERVICE_BROKER} ${TILE_TYPE_RUNTIME_CONFIG_ONLY} ${TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT}"
+readonly ALLOWED_TILE_TYPES="${TILE_TYPE_EXAMPLE_PRODUCT} ${TILE_TYPE_SERVICE_BROKER} ${TILE_TYPE_RUNTIME_CONFIG_ONLY} ${TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT} ${TILE_TYPE_EXAMPLE_LICENSED_PRODUCT}"
 readonly TILE_TYPES_REQUIRING_STEMCELL="${TILE_TYPE_EXAMPLE_PRODUCT} ${TILE_TYPE_SERVICE_BROKER} ${TILE_TYPE_WINDOWS_EXAMPLE_PRODUCT}"
 
 readonly DEFAULT_TILE_TYPE="${TILE_TYPE_EXAMPLE_PRODUCT}"
@@ -323,10 +324,11 @@ Help Options (do not pass a value):
   -v, --verbose        Print some extra logging messages
 
 Example Commands:
-  Example Product    $ ./build-tile
-  Service Broker     $ ./build-tile --type=service-broker
-  Runtime Config     $ ./build-tile --type=runtime-config-only
-  Windows            $ ./build-tile --type=windows --stemcell-os=windows2019 --stemcell-version=<LATEST_STEMCELL_VERSION>
+  Example Product             $ ./build-tile
+  Service Broker              $ ./build-tile --type=service-broker
+  Runtime Config              $ ./build-tile --type=runtime-config-only
+  Windows                     $ ./build-tile --type=windows --stemcell-os=windows2019 --stemcell-version=<LATEST_STEMCELL_VERSION>
+  Example Licensed Product    $ ./build-tile --type=example-licensed-product
 
 HERE
 }
@@ -393,6 +395,17 @@ main() {
     print_success
     exit 0
   fi
+
+  if [ "${TILE_TYPE}" = "${TILE_TYPE_EXAMPLE_LICENSED_PRODUCT}" ]; then
+      PRODUCT_NAME="example-licensed-product"
+
+      copy_runtime_config_only_release
+      build_product_metadata
+      check_metadata_syntax
+      package_pivotal_file
+      print_success
+      exit 0
+    fi
 }
 
 # shellcheck disable=SC2064
