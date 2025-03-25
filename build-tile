@@ -275,8 +275,15 @@ fetch_bosh_compiled_release() {
   release_version="$2"
 
   if [ ! -f "${CACHE_DIR}/${release_name}-${release_version}" ]; then
-      echo "aws s3api get-object '${COMPILED_RELEASE_BUCKET}/${release_name}-${release_version}-${STEMCELL_OS}-${STEMCELL_VERSION}.tgz'"
-      aws --no-sign-request s3api get-object --bucket ${COMPILED_RELEASE_BUCKET} --key "${release_name}-${release_version}-${STEMCELL_OS}-${STEMCELL_VERSION}.tgz" "${CACHE_DIR}/${release_name}-${release_version}" > aws_download_result.txt
+      if [[ -z "${BROADCOM_ARTIFACTORY_API_KEY}" ]]; then
+        echo "BROADCOM_ARTIFACTORY_API_KEY must be set and must be on Full Tunnel VPN"
+        exit 1
+      fi
+
+      dest="${CACHE_DIR}/${release_name}-${release_version}"
+      from="https://usw1.packages.broadcom.com/tas-ecosystem-generic-prod-local/compiled-releases/${release_name}/${release_name}-${release_version}-${STEMCELL_OS}-${STEMCELL_VERSION}.tgz"
+      echo "wget --header="X-JFrog-Art-Api: ${BROADCOM_ARTIFACTORY_API_KEY}" --progress=dot:mega -O ${dest} ${from}"
+      wget --header="X-JFrog-Art-Api: ${BROADCOM_ARTIFACTORY_API_KEY}" --progress=dot:mega -O ${dest} ${from}
   fi
 
   cp "${CACHE_DIR}/${release_name}-${release_version}" "$(get_tmp_releases_path)/${release_name}"
