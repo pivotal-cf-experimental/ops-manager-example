@@ -31,7 +31,6 @@ default_ops_manager_repo_path="${PARENT_DIR}/$(ls "${PARENT_DIR}" | grep -E '^(i
 
 SUFFIX=""
 PRODUCT_NAME=""
-COMPILED_RELEASE_BUCKET="ops-manager-compiled-releases"
 BPM_VERSION=$(bosh interpolate "${OPS_MANAGER_REPO_PATH}/web/config/auto-versions.yml" --path /bpm_release/version)
 OS_CONF_VERSION=$(bosh interpolate "${OPS_MANAGER_REPO_PATH}/web/config/auto-versions.yml" --path /os_conf_release/version)
 TILE_TYPE="${DEFAULT_TILE_TYPE}"
