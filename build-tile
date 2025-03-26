@@ -282,7 +282,7 @@ fetch_bosh_compiled_release() {
 
       dest="${CACHE_DIR}/${release_name}-${release_version}"
       from="https://usw1.packages.broadcom.com/tas-ecosystem-generic-prod-local/compiled-releases/${release_name}/${release_name}-${release_version}-${STEMCELL_OS}-${STEMCELL_VERSION}.tgz"
-      echo "wget --header="X-JFrog-Art-Api: ${BROADCOM_ARTIFACTORY_API_KEY}" --progress=dot:mega -O ${dest} ${from}"
+      echo "wget --header="X-JFrog-Art-Api: BROADCOM_ARTIFACTORY_API_KEY" --progress=dot:mega -O ${dest} ${from}"
       wget --header="X-JFrog-Art-Api: ${BROADCOM_ARTIFACTORY_API_KEY}" --progress=dot:mega -O ${dest} ${from}
   fi
 
