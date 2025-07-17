@@ -273,6 +273,7 @@ fetch_bosh_compiled_release() {
   local release_version
   release_name="$1"
   release_version="$2"
+  release_url="$3"
 
   if [ ! -f "${CACHE_DIR}/${release_name}-${release_version}" ]; then
       if [[ -z "${BROADCOM_ARTIFACTORY_API_KEY}" ]]; then
@@ -281,7 +282,7 @@ fetch_bosh_compiled_release() {
       fi
 
       dest="${CACHE_DIR}/${release_name}-${release_version}"
-      from="https://usw1.packages.broadcom.com/tas-ecosystem-generic-prod-local/compiled-releases/${release_name}/${release_name}-${release_version}-${STEMCELL_OS}-${STEMCELL_VERSION}.tgz"
+      from="${release_url}"
       echo "wget --header="X-JFrog-Art-Api: BROADCOM_ARTIFACTORY_API_KEY" --progress=dot:mega -O ${dest} ${from}"
       wget --header="X-JFrog-Art-Api: ${BROADCOM_ARTIFACTORY_API_KEY}" --progress=dot:mega -O ${dest} ${from}
   fi
@@ -292,13 +293,15 @@ fetch_bosh_compiled_release() {
 fetch_example_product_dependency_releases() {
   log "fetching ${PRODUCT_NAME} dependency releases..."
   if ${WITH_OS_CONF_COMPILED_RELEASE} ; then
-    fetch_bosh_compiled_release "os-conf" "${OS_CONF_VERSION}"
+    os_conf_url="$(bosh interpolate "${OPS_MANAGER_REPO_PATH}/web/config/auto-versions.yml" --path /os_conf_release/url)"
+    fetch_bosh_compiled_release "os-conf" "${OS_CONF_VERSION}" "${os_conf_url}"
   else
     fetch_bosh_release "os-conf" "${OS_CONF_VERSION}"
   fi
 
   if ${WITH_BPM_COMPILED_RELEASE} ; then
-      fetch_bosh_compiled_release "bpm" "${BPM_VERSION}"
+    bpm_url="$(bosh interpolate "${OPS_MANAGER_REPO_PATH}/web/config/auto-versions.yml" --path /bpm_release/url)"
+      fetch_bosh_compiled_release "bpm" "${BPM_VERSION}" "${bpm_url}"
   else
       fetch_bosh_release "bpm" "${BPM_VERSION}"
   fi
