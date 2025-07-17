@@ -275,19 +275,19 @@ fetch_bosh_compiled_release() {
   release_version="$2"
   release_url="$3"
 
-  if [ ! -f "${CACHE_DIR}/${release_name}-${release_version}" ]; then
+  if [ ! -f "${CACHE_DIR}/${release_name}-${release_version}-compiled" ]; then
       if [[ -z "${BROADCOM_ARTIFACTORY_API_KEY}" ]]; then
         echo "BROADCOM_ARTIFACTORY_API_KEY must be set and must be on Full Tunnel VPN"
         exit 1
       fi
 
-      dest="${CACHE_DIR}/${release_name}-${release_version}"
+      dest="${CACHE_DIR}/${release_name}-${release_version}-compiled"
       from="${release_url}"
       echo "wget --header="X-JFrog-Art-Api: BROADCOM_ARTIFACTORY_API_KEY" --progress=dot:mega -O ${dest} ${from}"
       wget --header="X-JFrog-Art-Api: ${BROADCOM_ARTIFACTORY_API_KEY}" --progress=dot:mega -O ${dest} ${from}
   fi
 
-  cp "${CACHE_DIR}/${release_name}-${release_version}" "$(get_tmp_releases_path)/${release_name}"
+  cp "${CACHE_DIR}/${release_name}-${release_version}-compiled" "$(get_tmp_releases_path)/${release_name}"
 }
 
 fetch_example_product_dependency_releases() {
