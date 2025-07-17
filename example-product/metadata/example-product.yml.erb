@@ -34,10 +34,10 @@ releases:
     file: <%= release_file_name.inspect %>
     version: <%= release_file_name.match(/^example-release-(.*)\.tgz$/)[1].inspect %>
   - name: os-conf
-    file: os-conf
+    file: os-conf-<%= os_conf_version %>-<%= stemcell_os %>-<%= stemcell_version %>.tgz
     version: <%= os_conf_version %>
   - name: bpm
-    file: bpm
+    file: bpm-<%= bpm_version %>-<%= stemcell_os %>-<%= stemcell_version %>.tgz
     version: <%= bpm_version %>
 
 install_time_verifiers:

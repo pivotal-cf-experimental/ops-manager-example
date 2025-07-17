@@ -54,8 +54,8 @@ setup_tmp_workspace() {
   mkdir -p "${TMP_DIR}/"{metadata,migrations,migrations/v1,releases}
 }
 
-get_tmp_releases(){
-  basename "$(get_tmp_releases_path)"/*.tgz
+get_example_release_file_name(){
+  basename "$(get_tmp_releases_path)"/example-release*.tgz
 }
 
 get_tmp_metadata_path() {
@@ -212,7 +212,7 @@ build_product_metadata() {
   "${SCRIPT_DIR}/generate-metadata" \
     "${TILE_VERSION}" \
     "${STEMCELL_VERSION}" \
-    "$(get_tmp_releases)" \
+    "$(get_example_release_file_name)" \
     "${PRODUCT_NAME}" \
     "${SUFFIX}" \
     "${STEMCELL_OS}" \
@@ -265,7 +265,7 @@ fetch_bosh_release() {
     curl -fLo "${CACHE_DIR}/${release_name}-${release_version}" "https://bosh.io/d/github.com/cloudfoundry/${release_name}-release?v=${release_version}"
   fi
 
-  cp "${CACHE_DIR}/${release_name}-${release_version}" "$(get_tmp_releases_path)/${release_name}"
+  cp "${CACHE_DIR}/${release_name}-${release_version}" "$(get_tmp_releases_path)/${release_name}-${release_version}-${STEMCELL_OS}-${STEMCELL_VERSION}.tgz"
 }
 
 fetch_bosh_compiled_release() {
@@ -287,7 +287,7 @@ fetch_bosh_compiled_release() {
       wget --header="X-JFrog-Art-Api: ${BROADCOM_ARTIFACTORY_API_KEY}" --progress=dot:mega -O ${dest} ${from}
   fi
 
-  cp "${CACHE_DIR}/${release_name}-${release_version}-compiled" "$(get_tmp_releases_path)/${release_name}"
+  cp "${CACHE_DIR}/${release_name}-${release_version}-compiled" "$(get_tmp_releases_path)/${release_name}-${release_version}-${STEMCELL_OS}-${STEMCELL_VERSION}.tgz"
 }
 
 fetch_example_product_dependency_releases() {
