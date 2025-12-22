@@ -378,6 +378,32 @@ form_types:
         description: Optional comma-separated list of static IPs that will be assigned to the web server
 
 property_blueprints:
+  - name: generated_property
+    type: generated_credentials
+    optional: true
+    configurable: true
+    credentials_template: |
+      om_secret: (( .properties.super_secret.value ))
+      a_variable: ((( credhub_password )))
+      kubeconfig:
+        apiVersion: v1
+        kind: Config
+        clusters:
+          - name: my-server
+            cluster:
+              server: https://1.1.1.1
+              certificate-authority-data: (( $ops_manager.ca_certificate ))
+        users:
+          - name: some-guy
+            user:
+              token: some-token
+        contexts:
+          - name: dev-context
+            context:
+              cluster: my-server
+              user: some-guy
+              namespace: default
+
   - name: super_secret
     type: secret
     configurable: true
