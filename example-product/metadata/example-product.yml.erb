@@ -1,3 +1,9 @@
+<%#
+# @AI-Generated
+# Modified with AI assistance using Cursor with Claude Sonnet 4.5
+# Description:
+#   2026-01-20: Added properties for nested selectors and collections
+%>
 <% product_name = "example-product #{suffix}".parameterize -%>
 ---
 name: <%= product_name %>
@@ -376,6 +382,134 @@ form_types:
       - reference: .web_server.static_ips
         label: Web Server IPs
         description: Optional comma-separated list of static IPs that will be assigned to the web server
+  - name: nested_properties_form
+    label: 'Nested Properties Example'
+    description: 'Demonstrates various nested property configurations'
+    markdown: |
+      ## Nested Properties Demo
+
+      This form demonstrates:
+      - Selectors within selectors
+      - Collections within collections
+      - Selectors within collections
+      - Collections within selectors
+      - Multi-level nesting
+    property_inputs:
+      # Selector with nested selector
+      - reference: .properties.nested_selector_example
+        label: 'Deployment Environment'
+        description: 'Choose your deployment environment with nested configuration options'
+        selector_property_inputs:
+          - reference: .properties.nested_selector_example.production_option
+            label: 'Production'
+            property_inputs:
+              - reference: .properties.nested_selector_example.production_option.region
+                label: 'Region'
+              - reference: .properties.nested_selector_example.production_option.high_availability
+                label: 'Enable High Availability'
+              # Nested selector under selector
+              - reference: .properties.nested_selector_example.production_option.database_type
+                label: 'Database Type'
+                selector_property_inputs:
+                  - reference: .properties.nested_selector_example.production_option.database_type.mysql_option
+                    label: 'MySQL'
+                    property_inputs:
+                      - reference: .properties.nested_selector_example.production_option.database_type.mysql_option.mysql_version
+                        label: 'MySQL Version'
+                      - reference: .properties.nested_selector_example.production_option.database_type.mysql_option.mysql_max_connections
+                        label: 'Max Connections'
+                  - reference: .properties.nested_selector_example.production_option.database_type.postgres_option
+                    label: 'PostgreSQL'
+                    property_inputs:
+                      - reference: .properties.nested_selector_example.production_option.database_type.postgres_option.postgres_version
+                        label: 'PostgreSQL Version'
+                      - reference: .properties.nested_selector_example.production_option.database_type.postgres_option.postgres_max_connections
+                        label: 'Max Connections'
+              # Collection under selector
+              - reference: .properties.nested_selector_example.production_option.allowed_ips
+                label: 'Allowed IP Ranges'
+                description: 'Configure IP ranges allowed to access production'
+                property_inputs:
+                  - reference: ip_range
+                    label: 'IP Range'
+                  - reference: description
+                    label: 'Description'
+          - reference: .properties.nested_selector_example.development_option
+            label: 'Development'
+            property_inputs:
+              - reference: .properties.nested_selector_example.development_option.debug_mode
+                label: 'Enable Debug Mode'
+      # Collection with nested collection
+      - reference: .properties.nested_collection_example
+        label: 'Organizations'
+        description: 'Configure organizations with nested teams'
+        property_inputs:
+          - reference: org_name
+            label: 'Organization Name'
+          - reference: org_admin_email
+            label: 'Admin Email'
+          # Nested collection under collection
+          - reference: teams
+            label: 'Teams'
+            description: 'Teams within this organization'
+            property_inputs:
+              - reference: team_name
+                label: 'Team Name'
+              - reference: team_lead
+                label: 'Team Lead'
+              # Third level: collection within collection within collection
+              - reference: members
+                label: 'Team Members'
+                property_inputs:
+                  - reference: member_name
+                    label: 'Member Name'
+                  - reference: member_role
+                    label: 'Role'
+          # Selector under collection
+          - reference: billing_type
+            label: 'Billing Type'
+            description: 'Choose billing configuration for this organization'
+            selector_property_inputs:
+              - reference: .properties.nested_collection_example.billing_type.monthly_option
+                label: 'Monthly'
+                property_inputs:
+                  - reference: monthly_rate
+                    label: 'Monthly Rate'
+              - reference: .properties.nested_collection_example.billing_type.usage_option
+                label: 'Usage Based'
+                property_inputs:
+                  - reference: rate_per_unit
+                    label: 'Rate Per Unit'
+                  - reference: unit_type
+                    label: 'Unit Type'
+      # Multi-level deep nesting example
+      - reference: .properties.deep_nesting_example
+        label: 'Data Center Configuration'
+        description: 'Multi-level nested configuration example'
+        selector_property_inputs:
+          - reference: .properties.deep_nesting_example.cloud_option
+            label: 'Cloud Provider'
+            property_inputs:
+              - reference: .properties.deep_nesting_example.cloud_option.provider_name
+                label: 'Provider Name'
+              - reference: .properties.deep_nesting_example.cloud_option.regions
+                label: 'Regions'
+                description: 'Configure cloud regions'
+                property_inputs:
+                  - reference: region_name
+                    label: 'Region Name'
+                  - reference: availability_zones
+                    label: 'Availability Zones'
+                    property_inputs:
+                      - reference: az_name
+                        label: 'AZ Name'
+                      - reference: az_subnet
+                        label: 'Subnet CIDR'
+          - reference: .properties.deep_nesting_example.onprem_option
+            label: 'On-Premises'
+            property_inputs:
+              - reference: .properties.deep_nesting_example.onprem_option.datacenter_name
+                label: 'Datacenter Name'
 
 property_blueprints:
   - name: generated_property
@@ -460,6 +594,20 @@ property_blueprints:
             - name: cpu
               configurable: true
               default: 1
+          - name: crust
+            type: selector
+            configurable: true
+            default: Thin
+            option_templates:
+            - name: thick_option
+              select_value: Thick
+              property_blueprints:
+              - name: stuffed
+                type: boolean
+                configurable: true
+                default: false
+            - name: thin_option
+              select_value: thin
       - name: filet_mignon_option
         select_value: Filet Mignon
         named_manifests:
@@ -740,6 +888,263 @@ property_blueprints:
         manifest: |
           director_username: (( $director.username ))
           director_password: (( $director.password ))
+
+  # Nested selector example - selector within selector
+  - name: nested_selector_example
+    type: selector
+    configurable: true
+    default: 'Production'
+    option_templates:
+      - name: production_option
+        select_value: 'Production'
+        property_blueprints:
+          - name: region
+            type: string
+            configurable: true
+            default: 'us-east-1'
+          - name: high_availability
+            type: boolean
+            configurable: true
+            default: true
+          # Nested selector under selector option
+          - name: database_type
+            type: selector
+            configurable: true
+            default: 'MySQL'
+            option_templates:
+              - name: mysql_option
+                select_value: 'MySQL'
+                property_blueprints:
+                  - name: mysql_version
+                    type: dropdown_select
+                    configurable: true
+                    default: '8.0'
+                    options:
+                      - name: '5.7'
+                        label: 'MySQL 5.7'
+                      - name: '8.0'
+                        label: 'MySQL 8.0'
+                      - name: '8.4'
+                        label: 'MySQL 8.4'
+                  - name: mysql_max_connections
+                    type: integer
+                    configurable: true
+                    default: 100
+                named_manifests:
+                  - name: db_config
+                    manifest: |
+                      type: mysql
+                      version: (( .properties.nested_selector_example.production_option.database_type.mysql_option.mysql_version.value ))
+                      max_connections: (( .properties.nested_selector_example.production_option.database_type.mysql_option.mysql_max_connections.value ))
+              - name: postgres_option
+                select_value: 'PostgreSQL'
+                property_blueprints:
+                  - name: postgres_version
+                    type: dropdown_select
+                    configurable: true
+                    default: '15'
+                    options:
+                      - name: '14'
+                        label: 'PostgreSQL 14'
+                      - name: '15'
+                        label: 'PostgreSQL 15'
+                      - name: '16'
+                        label: 'PostgreSQL 16'
+                  - name: postgres_max_connections
+                    type: integer
+                    configurable: true
+                    default: 200
+                named_manifests:
+                  - name: db_config
+                    manifest: |
+                      type: postgres
+                      version: (( .properties.nested_selector_example.production_option.database_type.postgres_option.postgres_version.value ))
+                      max_connections: (( .properties.nested_selector_example.production_option.database_type.postgres_option.postgres_max_connections.value ))
+          # Collection under selector option
+          - name: allowed_ips
+            type: collection
+            configurable: true
+            optional: true
+            property_blueprints:
+              - name: ip_range
+                type: string
+                configurable: true
+              - name: description
+                type: string
+                configurable: true
+                optional: true
+        named_manifests:
+          - name: environment_config
+            manifest: |
+              environment: production
+              region: (( .properties.nested_selector_example.production_option.region.value ))
+              ha_enabled: (( .properties.nested_selector_example.production_option.high_availability.value ))
+              database: (( .properties.nested_selector_example.production_option.database_type.selected_option.parsed_manifest(db_config) ))
+              allowed_ips: (( .properties.nested_selector_example.production_option.allowed_ips.value ))
+      - name: development_option
+        select_value: 'Development'
+        property_blueprints:
+          - name: debug_mode
+            type: boolean
+            configurable: true
+            default: true
+        named_manifests:
+          - name: environment_config
+            manifest: |
+              environment: development
+              debug_mode: (( .properties.nested_selector_example.development_option.debug_mode.value ))
+
+  # Nested collection example - collection within collection
+  - name: nested_collection_example
+    type: collection
+    configurable: true
+    optional: true
+    property_blueprints:
+      - name: org_name
+        type: string
+        configurable: true
+        freeze_on_deploy: true
+      - name: org_admin_email
+        type: email
+        configurable: true
+      # Nested collection under collection
+      - name: teams
+        type: collection
+        configurable: true
+        optional: true
+        property_blueprints:
+          - name: team_name
+            type: string
+            configurable: true
+            freeze_on_deploy: true
+          - name: team_lead
+            type: string
+            configurable: true
+            optional: true
+          # Third level nesting: collection within collection within collection
+          - name: members
+            type: collection
+            configurable: true
+            optional: true
+            property_blueprints:
+              - name: member_name
+                type: string
+                configurable: true
+              - name: member_role
+                type: dropdown_select
+                configurable: true
+                default: 'developer'
+                options:
+                  - name: 'developer'
+                    label: 'Developer'
+                  - name: 'qa'
+                    label: 'QA Engineer'
+                  - name: 'devops'
+                    label: 'DevOps Engineer'
+                  - name: 'manager'
+                    label: 'Manager'
+      # Selector under collection
+      - name: billing_type
+        type: selector
+        configurable: true
+        default: 'Monthly'
+        option_templates:
+          - name: monthly_option
+            select_value: 'Monthly'
+            property_blueprints:
+              - name: monthly_rate
+                type: integer
+                configurable: true
+                default: 1000
+          - name: usage_option
+            select_value: 'Usage Based'
+            property_blueprints:
+              - name: rate_per_unit
+                type: integer
+                configurable: true
+                default: 10
+              - name: unit_type
+                type: dropdown_select
+                configurable: true
+                default: 'compute_hours'
+                options:
+                  - name: 'compute_hours'
+                    label: 'Compute Hours'
+                  - name: 'storage_gb'
+                    label: 'Storage (GB)'
+                  - name: 'api_calls'
+                    label: 'API Calls'
+    named_manifests:
+      - name: org_manifest
+        manifest: |
+          name: (( current_record.org_name.value ))
+          admin_email: (( current_record.org_admin_email.value ))
+          teams: (( current_record.teams.value ))
+          billing: (( current_record.billing_type.value ))
+
+  # Deep nesting example - multiple levels of nesting
+  - name: deep_nesting_example
+    type: selector
+    configurable: true
+    default: 'Cloud Provider'
+    option_templates:
+      - name: cloud_option
+        select_value: 'Cloud Provider'
+        property_blueprints:
+          - name: provider_name
+            type: dropdown_select
+            configurable: true
+            default: 'aws'
+            options:
+              - name: 'aws'
+                label: 'Amazon Web Services'
+              - name: 'gcp'
+                label: 'Google Cloud Platform'
+              - name: 'azure'
+                label: 'Microsoft Azure'
+          # Collection under selector with nested collection
+          - name: regions
+            type: collection
+            configurable: true
+            optional: true
+            property_blueprints:
+              - name: region_name
+                type: string
+                configurable: true
+                freeze_on_deploy: true
+              # Nested collection under collection under selector
+              - name: availability_zones
+                type: collection
+                configurable: true
+                optional: true
+                property_blueprints:
+                  - name: az_name
+                    type: string
+                    configurable: true
+                    freeze_on_deploy: true
+                  - name: az_subnet
+                    type: string
+                    configurable: true
+                    constraints:
+                      - must_match_regex: '^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2}$'
+                        error_message: 'Must be a valid CIDR notation (e.g., 10.0.0.0/24)'
+        named_manifests:
+          - name: datacenter_config
+            manifest: |
+              type: cloud
+              provider: (( .properties.deep_nesting_example.cloud_option.provider_name.value ))
+              regions: (( .properties.deep_nesting_example.cloud_option.regions.value ))
+      - name: onprem_option
+        select_value: 'On-Premises'
+        property_blueprints:
+          - name: datacenter_name
+            type: string
+            configurable: true
+        named_manifests:
+          - name: datacenter_config
+            manifest: |
+              type: onprem
+              datacenter: (( .properties.deep_nesting_example.onprem_option.datacenter_name.value ))
 
 job_types:
   - name: example-errand
