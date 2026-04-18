@@ -42,6 +42,9 @@ form_types:
       - reference: .anemic_service_broker.az_multi_chooser
         label: Example AZ multi chooser
         description: 'AZ zones'
+      - reference: .anemic_service_broker.az_single_chooser
+        label: Example AZ single chooser
+        description: 'AZ zone'
 
 job_types:
   - name: anemic_service_broker
@@ -99,11 +102,15 @@ job_types:
     - name: az_multi_chooser
       type: service_network_az_multi_select
       configurable: true
+    - name: az_single_chooser
+      type: service_network_az_single_select
+      configurable: true
     manifest: |
       configured:
         example_vm_type_dropdown_value: (( example_vm_type_dropdown.value ))
         example_disk_type_dropdown_value: (( example_disk_type_dropdown.value ))
         az_multi_chooser_value: (( az_multi_chooser.value ))
+        az_single_chooser_value: (( az_single_chooser.value ))
       director_provided_accessors:
         hostname: (( $director.hostname ))
         ca_public_key: (( $director.ca_public_key ))

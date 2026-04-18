@@ -7,7 +7,7 @@ metadata_version: "3.1"
 label: 'Ops Manager: Example Product<%= suffix ? " #{suffix}" : nil%>'
 description: An example product to demonstrate Ops Manager product-author features
 rank: 1
-service_broker: false # Default value
+service_broker: false
 opsmanager_syslog: true
 stemcell_criteria:
   os: <%= stemcell_os.inspect %>
@@ -251,10 +251,6 @@ form_types:
             label: 'Music VM Type'
           - reference: disk_type
             label: 'Music Disk Type'
-          - reference: example_service_network_az_single_select
-            label: 'Country of Origin (Service Network Single AZ Select) Note: Only applicable when service_broker is turned on'
-          - reference: example_service_network_az_multi_select
-            label: 'CF-Pop Service Network Multi AZ picker? Note: Only applicable when service_broker is turned on'
   - name: example_certificate_collections_form
     label: 'Certificate Collection example'
     description: 'A certificate collection example form'
@@ -583,14 +579,6 @@ property_blueprints:
             label: 'Country'
           - name: edm
             label: 'Beep Boop PSH'
-      - name: example_service_network_az_single_select # Only used if service_broker is turned on
-        type: service_network_az_single_select
-        configurable: true
-        optional: true
-      - name: example_service_network_az_multi_select # Only used if service_broker is turned on
-        type: service_network_az_multi_select
-        configurable: true
-        optional: true
     default:
       - album: Christmas Carols
         artist: Ops Manatee
