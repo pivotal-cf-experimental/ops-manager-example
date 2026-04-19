@@ -864,8 +864,8 @@ job_types:
             metrics_server_enabled: (( $director.metrics_server_enabled ))
             system_metrics_runtime_enabled: (( $director.system_metrics_runtime_enabled ))
           product:
-            deployment_name: (( ..<%= product_name %>.deployment_name ))
-            network_name: (( ..<%= product_name %>.network_name ))
+            deployment_name: "(( ..example-broker-product.present? ? ..example-broker-product.deployment_name : 'broker-not-installed' ))"
+            network_name: "(( ..example-broker-product.present? ? ..example-broker-product.network_name : 'broker-not-installed' ))"
             example-broker-product-present: (( ..example-broker-product.present? ))
           self:
             stemcell_version: (( $self.stemcell_version ))
