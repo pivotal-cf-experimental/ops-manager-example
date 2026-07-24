@@ -1,5 +1,10 @@
 # Ops Manager
 
+# Archival notice
+
+This repo has been deprecated. For more information about tile development, please visit the [Tile Developer Guide](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tile-developer-guide/3-3/tile-dev-tanzu/index.html)
+
+
 # Pre-requisite
 
 Tooling in this repo depends on the [BOSH CLI v2+](https://bosh.io/docs/cli-v2-install/).
